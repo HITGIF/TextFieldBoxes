@@ -11,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        app:hasFocus="true"
-        app:hint="Hello World" />
+        app:text="@string/app_name"
+        app:hint="Hello World"
+        app:hasFocus="true" />
 
     <EditText
         android:layout_marginTop="20dp"

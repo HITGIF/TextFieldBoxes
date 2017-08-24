@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TextFieldBoxes">
+        <attr name="hint" format="string"/>
+        <attr name="text" format="string"/>
         <attr name="image" format="reference"/>
         <attr name="hasFocus" format="boolean"/>
-        <attr name="hint" format="string"/>
     </declare-styleable>
 </resources>

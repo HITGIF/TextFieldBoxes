@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.v4.view.ViewCompat;
 import android.text.Editable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * Attr
      */
+    protected String text = "";
     protected String hint = "";
     protected int imageDrawableId = -1;
     protected boolean hasFocus = false;
@@ -82,7 +84,7 @@ public class TextFieldBoxes extends FrameLayout {
             @Override
             public void onClick(View v) {
                 if (!activated) {
-                    activate();
+                    activate(true);
                     inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
                 }
             }
@@ -96,6 +98,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
+        setText(text);
         setHasFocus(hasFocus);
     }
 
@@ -103,9 +106,10 @@ public class TextFieldBoxes extends FrameLayout {
 
         try {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.TextFieldBoxes);
+            text = styledAttrs.getString(R.styleable.TextFieldBoxes_text);
+            hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
             imageDrawableId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_image, -1);
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
-            hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -115,7 +119,6 @@ public class TextFieldBoxes extends FrameLayout {
 
     protected void deactivate() {
 
-        activated = false;
         if (editText.getText().toString().equals("")) {
 
             ViewCompat.animate(label)
@@ -132,23 +135,62 @@ public class TextFieldBoxes extends FrameLayout {
                 editText.clearFocus();
             }
         }
+        activated = false;
     }
 
-    protected void activate() {
+    protected void activate(boolean animated) {
 
-        activated = true;
+        Log.d("[][][", activated ? "y" : "t");
+
         editText.setVisibility(View.VISIBLE);
         editText.requestFocus();
 
-        ViewCompat.animate(editText)
-                .alpha(1f)
-                .setDuration(ANIMATION_DURATION);
+        if (animated) {
 
-        ViewCompat.animate(label)
-                .scaleX(0.75f)
-                .scaleY(0.75f)
-                .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
-                .setDuration(ANIMATION_DURATION);
+            if (editText.getText().toString().equals("")) {
+
+                editText.setAlpha(0f);
+                label.setScaleX(1f);
+                label.setScaleY(1f);
+                label.setTranslationY(0);
+            }
+
+            ViewCompat.animate(editText)
+                    .alpha(1f)
+                    .setDuration(ANIMATION_DURATION);
+
+            ViewCompat.animate(label)
+                    .scaleX(0.75f)
+                    .scaleY(0.75f)
+                    .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
+                    .setDuration(ANIMATION_DURATION);
+        } else {
+
+            editText.setAlpha(1f);
+            label.setScaleX(0.75f);
+            label.setScaleY(0.75f);
+            label.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+        }
+        activated = true;
+    }
+
+    public void setText(String _text) {
+
+        if (text != null && !_text.equals("")) {
+            this.text = _text;
+            editText.setText(text);
+            activate(false);
+        }
+    }
+
+    public void setHint(String _hint) {
+
+        this.hint = _hint;
+        label.setText(hint);
+    }
+
+    public void setImage(int _imageID) {
+//        this.hint = hint;
     }
 
     public void setHasFocus(boolean hasFocus) {
@@ -156,7 +198,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.hasFocus = hasFocus;
 
         if (hasFocus) {
-            activate();
+            activate(false);
             label.setTextColor(Utils.fetchAccentColor(getContext()));
             card.setBackgroundResource(R.drawable.bg_focus);
 
@@ -165,16 +207,6 @@ public class TextFieldBoxes extends FrameLayout {
             label.setTextColor(labelColor);
             card.setBackgroundResource(R.drawable.bg_unfocus);
         }
-    }
-
-    public void setImage(int imageID) {
-//        this.hint = hint;
-    }
-
-    public void setHint(String hint) {
-
-        this.hint = hint;
-        label.setText(hint);
     }
 
     public String getHint() {
