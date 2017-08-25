@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 public class Utils {
 
     /**
-     * get the current theme accent color
+     * get the current theme primary color
      */
     public static int fetchPrimaryColor(Context context) {
 

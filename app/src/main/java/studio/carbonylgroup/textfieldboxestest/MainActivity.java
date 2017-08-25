@@ -19,14 +19,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                ((TextFieldBoxes)findViewById(R.id.tfb1)).setEnabled(!findViewById(R.id.tfb1).isEnabled());
-                ((TextFieldBoxes)findViewById(R.id.tfb4)).setEnabled(!findViewById(R.id.tfb4).isEnabled());
+                findViewById(R.id.tfb1).setEnabled(!findViewById(R.id.tfb1).isEnabled());
+                findViewById(R.id.tfb4).setEnabled(!findViewById(R.id.tfb4).isEnabled());
             }
         });
         findViewById(R.id.error2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("LARGE \n ERROR MESSAGE");
+                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error Message");
             }
         });
         findViewById(R.id.error3).setOnClickListener(new View.OnClickListener() {

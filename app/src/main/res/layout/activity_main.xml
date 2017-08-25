@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:errorColor="@color/colorAccent"
             app:hasFocus="false"
             app:helperText="helpp"
             app:enabled="true"
@@ -41,7 +40,6 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                app:errorColor="@color/colorAccent"
                 app:hasFocus="false"
                 app:hint="Price"
                 app:singleLine="true"
@@ -53,7 +51,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
-                app:errorColor="@color/colorAccent"
                 app:hasFocus="true"
                 app:hint="Location (optional)"
                 app:singleLine="true"
@@ -67,7 +64,6 @@
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            app:errorColor="@color/colorAccent"
             app:hasFocus="false"
             app:hint="Description"
             app:maxCharacters="140"
@@ -82,19 +78,19 @@
                 android:id="@+id/error1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ERROR1" />
+                android:text="DISABLE" />
 
             <Button
                 android:id="@+id/error2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ERROR2" />
+                android:text="ERROR" />
 
             <Button
                 android:id="@+id/error3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ERROR3" />
+                android:text="ERROR2" />
 
         </LinearLayout>
 
