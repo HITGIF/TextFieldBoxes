@@ -10,9 +10,15 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 
-
+/**
+ * Text Field Boxes
+ * Created by CarbonylGroup on 2017/08/25
+ */
 public class Utils {
 
+    /**
+     * get the current theme accent color
+     */
     public static int fetchAccentColor(Context context) {
 
         TypedValue typedValue = new TypedValue();
@@ -22,6 +28,9 @@ public class Utils {
         return color;
     }
 
+    /**
+     * set EditText cursor color
+     */
     public static void setCursorDrawableColor(EditText editText, int color) {
 
         try {

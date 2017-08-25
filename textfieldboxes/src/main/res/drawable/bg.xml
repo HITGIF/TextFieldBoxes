@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/bg_bottom_line">
         <shape android:shape="rectangle">
-            <solid android:color="#767676" />
+            <solid android:color="@color/default_text" />
             <padding
                 android:bottom="2dp" />
             <corners android:radius="4dp"/>

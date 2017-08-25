@@ -12,6 +12,5 @@
         <attr name="errorColor" format="color" />
         <attr name="accentColor" format="color" />
         <attr name="hasFocus" format="boolean" />
-        <!--<attr name="image" format="reference" />-->
     </declare-styleable>
 </resources>

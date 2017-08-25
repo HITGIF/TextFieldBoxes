@@ -1,57 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="20dp">
-
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:id="@+id/tfb1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        app:accentColor="@color/colorPrimary"
-        app:errorColor="@color/colorAccent"
-        app:hasFocus="true"
-        app:helperText="helper is here"
-        app:helperTextColor="@color/colorPrimaryDark"
-        app:hint="Hello World"
-        app:maxCharacters="10"
-        app:maxLines="5"
-        app:minCharacters="5"
-        app:singleLine="false"
-        app:text="Text fields" />
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
 
-        <Button
-            android:id="@+id/error1"
-            android:layout_width="wrap_content"
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/tfb1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ERROR1" />
+            android:layout_gravity="center_horizontal"
+            app:accentColor="@color/colorPrimary"
+            app:errorColor="@color/colorAccent"
+            app:hasFocus="false"
+            app:helperText="helpp"
+            app:hint="Title"
+            app:maxCharacters="20"
+            app:singleLine="true"
+            app:text="Vintage 50's Dress" />
 
-        <Button
-            android:id="@+id/error2"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ERROR2" />
+            android:layout_marginTop="15dp">
 
-        <Button
-            android:id="@+id/error3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ERROR3" />
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/tfb2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="1"
+                app:accentColor="@color/colorPrimary"
+                app:errorColor="@color/colorAccent"
+                app:hasFocus="false"
+                app:hint="Price"
+                app:singleLine="true"
+                app:text="$ 110.00" />
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/tfb3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                app:accentColor="@color/colorPrimary"
+                app:errorColor="@color/colorAccent"
+                app:hasFocus="true"
+                app:hint="Location (optional)"
+                app:singleLine="true"
+                app:text="4" />
+
+        </LinearLayout>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/tfb4"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            app:accentColor="@color/colorPrimary"
+            app:errorColor="@color/colorAccent"
+            app:hasFocus="false"
+            app:hint="Description"
+            app:maxCharacters="140"
+            app:singleLine="false"
+            app:text="
+Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/error1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ERROR1" />
+
+            <Button
+                android:id="@+id/error2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ERROR2" />
+
+            <Button
+                android:id="@+id/error3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ERROR3" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:inputType="none" />
-
-</LinearLayout>
+</android.support.v4.widget.NestedScrollView>
