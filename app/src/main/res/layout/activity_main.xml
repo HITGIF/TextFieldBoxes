@@ -16,11 +16,12 @@
         app:errorColor="@color/colorAccent"
         app:hasFocus="true"
         app:helperText="helper is here"
+        app:helperTextColor="@color/colorPrimaryDark"
         app:hint="Hello World"
         app:maxCharacters="10"
         app:maxLines="5"
         app:minCharacters="5"
-        app:singleLine="true"
+        app:singleLine="false"
         app:text="Text fields" />
 
     <LinearLayout

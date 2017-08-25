@@ -56,8 +56,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected int helperTextColor = DEFAULT_TEXT_COLOR;
     protected int errorColor = DEFAULT_ERROR_COLOR;
     protected int accentColor = Utils.fetchAccentColor(getContext());
-    protected int imageDrawableId = -1;
     protected boolean hasFocus = false;
+//    protected int imageDrawableId = -1;
 
     public TextFieldBoxes(Context context) {
 
@@ -166,8 +166,8 @@ public class TextFieldBoxes extends FrameLayout {
             helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
             errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             accentColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_accentColor, Utils.fetchAccentColor(getContext()));
-            imageDrawableId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_image, -1);
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
+//            imageDrawableId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_image, -1);
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -308,28 +308,16 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
-    public Editable getText() {
-        return editText.getText();
-    }
-
     public void setHint(String _hint) {
 
         this.hint = _hint;
         label.setText(hint);
     }
 
-    public String getHint() {
-        return this.hint;
-    }
-
     public void setSingleLine(boolean _singleLine) {
 
         this.singleLine = _singleLine;
         editText.setSingleLine(singleLine);
-    }
-
-    public boolean getSingleLine() {
-        return this.singleLine;
     }
 
     public void setMaxLines(int _maxLine) {
@@ -344,20 +332,12 @@ public class TextFieldBoxes extends FrameLayout {
         editText.setMaxLines(maxLines);
     }
 
-    public int getMaxLines() {
-        return this.maxLines;
-    }
-
     public void setMaxCharacters(int _maxCharacters) {
         this.maxCharacters = _maxCharacters;
     }
 
     public void removeMaxCharacters() {
         this.maxCharacters = -1;
-    }
-
-    public int getMaxCharacters() {
-        return this.maxCharacters;
     }
 
     public void setMinCharacters(int _minCharacters) {
@@ -368,24 +348,12 @@ public class TextFieldBoxes extends FrameLayout {
         this.minCharacters = 0;
     }
 
-    public int getMinCharacters() {
-        return this.minCharacters;
-    }
-
     public void setHelperText(String _text) {
 
         if (!_text.equals("")) {
             this.helperText = _text;
             helper.setText(helperText);
         }
-    }
-
-    public String getHelperText() {
-        return this.helperText;
-    }
-
-    public String getCounterText() {
-        return counter.getText().toString();
     }
 
     public void setHelperTextColor(int _color) {
@@ -396,19 +364,11 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
-    public int getHelperTextColor() {
-        return this.helperTextColor;
-    }
-
     public void setErrorColor(int _color) {
 
         if (_color != -1) {
             this.errorColor = _color;
         }
-    }
-
-    public int getErrorColor() {
-        return this.errorColor;
     }
 
     public void setAccentColor(int _color) {
@@ -419,18 +379,6 @@ public class TextFieldBoxes extends FrameLayout {
                 setBGColor(accentColor);
             }
         }
-    }
-
-    public int getAccentColor() {
-        return this.accentColor;
-    }
-
-    public void setImage(int _imageID) {
-        this.imageDrawableId = _imageID;
-    }
-
-    public int getImage() {
-        return this.imageDrawableId;
     }
 
     public void setHasFocus(boolean hasFocus) {
@@ -447,7 +395,59 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
-    public boolean isActivated() {
-        return activated;
+    public Editable getText() {
+        return editText.getText();
     }
+
+    public String getHint() {
+        return this.hint;
+    }
+
+    public boolean getSingleLine() {
+        return this.singleLine;
+    }
+
+    public int getMaxLines() {
+        return this.maxLines;
+    }
+
+    public int getMaxCharacters() {
+        return this.maxCharacters;
+    }
+
+    public int getMinCharacters() {
+        return this.minCharacters;
+    }
+
+    public String getHelperText() {
+        return this.helperText;
+    }
+
+    public String getCounterText() {
+        return counter.getText().toString();
+    }
+
+    public int getHelperTextColor() {
+        return this.helperTextColor;
+    }
+
+    public int getErrorColor() {
+        return this.errorColor;
+    }
+
+    public int getAccentColor() {
+        return this.accentColor;
+    }
+
+    public boolean getHasFocus() {
+        return this.hasFocus;
+    }
+    
+//    public void setImage(int _imageID) {
+//        this.imageDrawableId = _imageID;
+//    }
+//
+//    public int getImage() {
+//        return this.imageDrawableId;
+//    }
 }
