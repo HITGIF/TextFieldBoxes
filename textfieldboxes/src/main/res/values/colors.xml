@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="default_text">#808080</color>
-    <color name="default_error">#FFDD2C00</color>
-    <color name="per06black">#e0e0e0</color>
-    <color name="per10white">#363636</color>
+    <color name="A400red">#ff1744</color>
+    <color name="per54black">#757575</color>
+    <color name="per42black">#949494</color>
+    <color name="per10black">#e6e6e6</color>
+    <color name="per06black">#f0f0f0</color>
+    <color name="per87black">#212121</color>
 </resources>

@@ -19,10 +19,10 @@ public class Utils {
     /**
      * get the current theme accent color
      */
-    public static int fetchAccentColor(Context context) {
+    public static int fetchPrimaryColor(Context context) {
 
         TypedValue typedValue = new TypedValue();
-        TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorAccent});
+        TypedArray a = context.obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimary});
         int color = a.getColor(0, 0);
         a.recycle();
         return color;

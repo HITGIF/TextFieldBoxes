@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:scrollbarStyle="outsideOverlay"
+    tools:context=".MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,10 +19,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            app:accentColor="@color/colorPrimary"
             app:errorColor="@color/colorAccent"
             app:hasFocus="false"
             app:helperText="helpp"
+            app:enabled="true"
             app:hint="Title"
             app:maxCharacters="20"
             app:singleLine="true"
@@ -38,7 +41,6 @@
                 android:layout_marginEnd="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
-                app:accentColor="@color/colorPrimary"
                 app:errorColor="@color/colorAccent"
                 app:hasFocus="false"
                 app:hint="Price"
@@ -51,7 +53,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
-                app:accentColor="@color/colorPrimary"
                 app:errorColor="@color/colorAccent"
                 app:hasFocus="true"
                 app:hint="Location (optional)"
@@ -66,14 +67,12 @@
             android:layout_height="150dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="15dp"
-            app:accentColor="@color/colorPrimary"
             app:errorColor="@color/colorAccent"
             app:hasFocus="false"
             app:hint="Description"
             app:maxCharacters="140"
             app:singleLine="false"
-            app:text="
-Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
+            app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,4 +100,4 @@ Unique and rare dress from 1952. Made out of washed cotton with front pockets. S
 
     </LinearLayout>
 
-</android.support.v4.widget.NestedScrollView>
+</ScrollView>

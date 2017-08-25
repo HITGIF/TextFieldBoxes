@@ -2,7 +2,6 @@ package studio.carbonylgroup.textfieldboxestest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
@@ -16,23 +15,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-//        Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb1)).getText().toString());
-//        Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb2)).getText().toString());
-//        Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb3)).getText().toString());
-//        Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb4)).getText().toString());
-//
-//        Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb1)).getText().toString());
         findViewById(R.id.error1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Log.d("[][][", ((TextFieldBoxes)findViewById(R.id.tfb1)).getText());
+                ((TextFieldBoxes)findViewById(R.id.tfb1)).setEnabled(!findViewById(R.id.tfb1).isEnabled());
+                ((TextFieldBoxes)findViewById(R.id.tfb4)).setEnabled(!findViewById(R.id.tfb4).isEnabled());
             }
         });
         findViewById(R.id.error2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("LARGE \n ERROR MESSAGEE");
+                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("LARGE \n ERROR MESSAGE");
             }
         });
         findViewById(R.id.error3).setOnClickListener(new View.OnClickListener() {

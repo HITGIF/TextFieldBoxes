@@ -25,21 +25,29 @@ import android.widget.TextView;
  */
 public class TextFieldBoxes extends FrameLayout {
 
-    public final int DEFAULT_TEXT_COLOR = getContext().getResources().getColor(R.color.default_text);
-    public final int DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.default_error);
+    public final int DEFAULT_TEXT_COLOR = getContext().getResources().getColor(R.color.per54black);
+    public final int DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
+    public final int DEFAULT_DISABLED_TEXT_COLOR = getContext().getResources().getColor(R.color.per42black);
+    public final int DEFAULT_DISABLED_BG_COLOR = getContext().getResources().getColor(R.color.per10black);
+    public final int DEFAULT_ENABLED_BG_COLOR = getContext().getResources().getColor(R.color.per06black);
 
     /**
-     * the text of the EditText
+     * whether the text field is enabled. True by default.
+     */
+    protected boolean enabled;
+
+    /**
+     * the text for the EditText
      */
     protected String text;
 
     /**
-     * the text of the hint Label
+     * the text for the hint Label
      */
     protected String hint;
 
     /**
-     * the text of the helper Label
+     * the text for the helper Label
      */
     protected String helperText;
 
@@ -75,9 +83,9 @@ public class TextFieldBoxes extends FrameLayout {
     protected int errorColor;
 
     /**
-     * the color for the underline and the hint label. Current theme accent color by default.
+     * the color for the underline and the hint label. Current theme primary color by default.
      */
-    protected int accentColor;
+    protected int primaryColor;
 
     /**
      * whether the EditText is having the focus. False by default.
@@ -143,7 +151,7 @@ public class TextFieldBoxes extends FrameLayout {
         card.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                activate(true);
+                if (!isActivated()) activate(true);
                 setHasFocus(true);
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
             }
@@ -174,6 +182,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
+        setEnabled(enabled);
         setText(text);
         setHint(hint);
         setSingleLine(singleLine);
@@ -183,7 +192,7 @@ public class TextFieldBoxes extends FrameLayout {
         setHelperText(helperText);
         setHelperTextColor(helperTextColor);
         setErrorColor(errorColor);
-        setAccentColor(accentColor);
+        setPrimaryColor(primaryColor);
         setHasFocus(hasFocus);
         updateCounterText();
     }
@@ -201,8 +210,9 @@ public class TextFieldBoxes extends FrameLayout {
             helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
             helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
             errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
-            accentColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_accentColor, Utils.fetchAccentColor(getContext()));
+            primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
+            enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -245,7 +255,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (animated) {
 
-            if (editText.getText().toString().equals("")) {
+            if (editText.getText().toString().equals("") && !isActivated()) {
 
                 editText.setAlpha(0f);
                 label.setScaleX(1f);
@@ -333,16 +343,45 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set highlight color to accent color if having focus,
+     * set highlight color to primary color if having focus,
      * otherwise set to DEFAULT_TEXT_COLOR
      * set counter Label text color to DEFAULT_TEXT_COLOR
      */
     protected void removeCounterError() {
 
         this.onError = false;
-        if (this.hasFocus) setHighlightColor(this.accentColor);
+        if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
         counter.setTextColor(this.DEFAULT_TEXT_COLOR);
+    }
+
+    public void setEnabled(boolean _enabled) {
+
+        this.enabled = _enabled;
+        if (enabled) {
+            editText.setEnabled(true);
+            editText.setFocusableInTouchMode(true);
+            editText.setFocusable(true);
+            helper.setVisibility(View.VISIBLE);
+            counter.setVisibility(View.VISIBLE);
+            card.setEnabled(true);
+            setHighlightColor(DEFAULT_TEXT_COLOR);
+            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(DEFAULT_ENABLED_BG_COLOR);
+            updateCounterText();
+
+        } else {
+            removeError();
+            setHasFocus(false);
+            editText.setEnabled(false);
+            editText.setFocusableInTouchMode(false);
+            editText.setFocusable(false);
+            label.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
+            helper.setVisibility(View.INVISIBLE);
+            counter.setVisibility(View.INVISIBLE);
+            card.setEnabled(false);
+            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(DEFAULT_DISABLED_BG_COLOR);
+            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_bottom_line)).setColor(DEFAULT_DISABLED_BG_COLOR);
+        }
     }
 
     /**
@@ -353,21 +392,25 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void setError(String _errorText) {
 
-        onError = true;
-        setHighlightColor(errorColor);
-        helper.setTextColor(this.errorColor);
-        helper.setText(_errorText);
+        if (enabled) {
+            onError = true;
+            setHighlightColor(errorColor);
+            helper.setTextColor(this.errorColor);
+            helper.setText(_errorText);
+        }
     }
 
     /**
-     * set highlight to accent color if having focus,
+     * set highlight to primary color if having focus,
      * otherwise set to DEFAULT_TEXT_COLOR
      * set helper Label text color to DEFAULT_TEXT_COLOR
+     * <p>
+     * NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
      */
     public void removeError() {
 
         onError = false;
-        if (this.hasFocus) setHighlightColor(this.accentColor);
+        if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
         helper.setTextColor(this.helperTextColor);
         helper.setText(helperText);
@@ -463,31 +506,39 @@ public class TextFieldBoxes extends FrameLayout {
         this.errorColor = _color;
     }
 
-    public void setAccentColor(int _color) {
+    public void setPrimaryColor(int _color) {
 
-        this.accentColor = _color;
-        if (hasFocus) setHighlightColor(accentColor);
+        this.primaryColor = _color;
+        if (hasFocus) setHighlightColor(primaryColor);
     }
 
     /**
      * set if the EditText is having focus
      *
-     * @param hasFocus gain focus if true, lose if false
+     * @param _hasFocus gain focus if true, lose if false
      */
-    public void setHasFocus(boolean hasFocus) {
+    public void setHasFocus(boolean _hasFocus) {
 
-        this.hasFocus = hasFocus;
-        if (hasFocus) {
+        this.hasFocus = _hasFocus;
+        if (_hasFocus) {
             activate(false);
             editText.requestFocus();
             /* if there's an error, keep the error color */
-            if (!onError) setHighlightColor(accentColor);
+            if (!onError && enabled) setHighlightColor(primaryColor);
 
         } else {
             deactivate();
             /* if there's an error, keep the error color */
-            if (!onError) setHighlightColor(DEFAULT_TEXT_COLOR);
+            if (!onError && enabled) setHighlightColor(DEFAULT_TEXT_COLOR);
         }
+    }
+
+    public boolean isActivated() {
+        return this.activated;
+    }
+
+    public boolean isEnabled() {
+        return this.enabled;
     }
 
     public String getText() {
@@ -530,8 +581,8 @@ public class TextFieldBoxes extends FrameLayout {
         return this.errorColor;
     }
 
-    public int getAccentColor() {
-        return this.accentColor;
+    public int getPrimaryColor() {
+        return this.primaryColor;
     }
 
     public boolean getHasFocus() {

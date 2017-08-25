@@ -2,13 +2,13 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/bg_bottom_line">
         <shape android:shape="rectangle">
-            <solid android:color="@color/default_text" />
+            <solid android:color="@color/per54black" />
             <padding
                 android:bottom="2dp" />
             <corners android:radius="4dp"/>
         </shape>
     </item>
-    <item>
+    <item android:id="@+id/bg_cover">
         <shape android:shape="rectangle">
             <solid android:color="@color/per06black" />
             <corners android:bottomRightRadius="2dp"
