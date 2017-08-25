@@ -12,17 +12,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        app:accentColor="@android:color/holo_blue_dark"
-        app:errorColor="@android:color/holo_red_light"
+        app:accentColor="@color/colorPrimary"
+        app:errorColor="@color/colorAccent"
         app:hasFocus="true"
-        app:helperText="helperrrr"
-        app:helperTextColor="@android:color/holo_blue_dark"
+        app:helperText="helper is here"
         app:hint="Hello World"
         app:maxCharacters="10"
         app:maxLines="5"
         app:minCharacters="5"
         app:singleLine="true"
-        app:text="TFBT\nkkk\nn" />
+        app:text="Text fields" />
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -14,24 +14,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ((TextFieldBoxes) findViewById(R.id.tfb1)).removeMinCharacters();
-
         findViewById(R.id.error1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Small Error");
+                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error Message");
             }
         });
         findViewById(R.id.error2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("LARGE \n ERROR");
+                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("LARGE \n ERROR MESSAGE");
             }
         });
         findViewById(R.id.error3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR TONS OF ERROR ");
+                ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS TONS OF ERRORS ");
             }
         });
     }

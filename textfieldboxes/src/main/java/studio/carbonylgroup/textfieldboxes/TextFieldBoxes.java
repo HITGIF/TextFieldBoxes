@@ -239,27 +239,28 @@ public class TextFieldBoxes extends FrameLayout {
 
     protected void updateCounterText() {
 
-        String length = Integer.toString(getText().toString().length()) + " / ";
+        int length = getText().toString().replaceAll(" ", "").length();
+        String lengthStr = Integer.toString(length) + " / ";
 
         if (this.maxCharacters != -1) {
             if (this.minCharacters != 0) {
                 /* MAX & MIN */
-                counter.setText(length + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
-                if (getText().length() < this.minCharacters || getText().length() > maxCharacters) {
+                counter.setText(lengthStr + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
+                if (length < this.minCharacters || length > maxCharacters) {
                     setCounterError();
                 } else removeCounterError();
             } else {
                 /* MAX ONLY */
-                counter.setText(length + Integer.toString(this.maxCharacters));
-                if (getText().length() > maxCharacters) {
+                counter.setText(lengthStr + Integer.toString(this.maxCharacters));
+                if (length > maxCharacters) {
                     setCounterError();
                 } else removeCounterError();
             }
         } else {
             if (this.minCharacters != 0) {
                 /* MIN ONLY */
-                counter.setText(length + Integer.toString(this.minCharacters) + "+");
-                if (getText().length() < minCharacters) {
+                counter.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
+                if (length < minCharacters) {
                     setCounterError();
                 } else removeCounterError();
             } else {
@@ -270,12 +271,14 @@ public class TextFieldBoxes extends FrameLayout {
 
     protected void setCounterError() {
 
+        onError = true;
         setBGColor(errorColor);
         counter.setTextColor(this.errorColor);
     }
 
     protected void removeCounterError() {
 
+        onError = false;
         setBGColor(accentColor);
         counter.setTextColor(this.DEFAULT_TEXT_COLOR);
     }
