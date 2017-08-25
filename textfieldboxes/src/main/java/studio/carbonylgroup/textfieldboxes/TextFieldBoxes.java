@@ -1,12 +1,18 @@
 package studio.carbonylgroup.textfieldboxes;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +22,8 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
+
 
 public class TextFieldBoxes extends FrameLayout {
 
@@ -23,18 +31,31 @@ public class TextFieldBoxes extends FrameLayout {
     public TextView label;
     public EditText editText;
     public ViewGroup editTextLayout;
+    public AppCompatTextView helper;
+    public AppCompatTextView counter;
     protected InputMethodManager inputMethodManager;
 
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
     protected boolean activated = false;
+    protected boolean onError = false;
     protected int ANIMATION_DURATION = 100;
+    protected int DEFAULT_TEXT_COLOR = getContext().getResources().getColor(R.color.default_text);
+    protected int DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.default_error);
 
     /**
      * Attr
      */
     protected String text = "";
     protected String hint = "";
+    protected String helperText = "";
+    protected boolean singleLine = false;
+    protected int maxLines = Integer.MAX_VALUE;
+    protected int maxCharacters = -1;
+    protected int minCharacters = 0;
+    protected int helperTextColor = DEFAULT_TEXT_COLOR;
+    protected int errorColor = DEFAULT_ERROR_COLOR;
+    protected int accentColor = Utils.fetchAccentColor(getContext());
     protected int imageDrawableId = -1;
     protected boolean hasFocus = false;
 
@@ -68,17 +89,18 @@ public class TextFieldBoxes extends FrameLayout {
         super.onFinishInflate();
         addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
 
-        card = findViewById(R.id.mtf_card);
+        card = findViewById(R.id.text_field_boxes_card);
         editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
         editText = findViewById(R.id.text_field_boxes_editText);
         editText.setBackgroundColor(Color.TRANSPARENT);
         editText.setAlpha(0f);
         label = findViewById(R.id.text_field_boxes_label);
-        label.setText(hint);
         label.setPivotX(0f);
         label.setPivotY(0f);
         labelColor = label.getCurrentTextColor();
         labelTopMargin = RelativeLayout.LayoutParams.class.cast(label.getLayoutParams()).topMargin;
+        helper = findViewById(R.id.text_field_boxes_helper);
+        counter = findViewById(R.id.text_field_boxes_counter);
 
         card.setOnClickListener(new OnClickListener() {
             @Override
@@ -98,8 +120,36 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                removeError();
+                updateCounterText();
+            }
+        });
+
         setText(text);
+        setHint(hint);
+        setSingleLine(singleLine);
+        setMaxLines(maxLines);
+        setMaxCharacters(maxCharacters);
+        setMinCharacters(minCharacters);
+        setHelperText(helperText);
+        setHelperTextColor(helperTextColor);
+        setErrorColor(errorColor);
+        setAccentColor(accentColor);
         setHasFocus(hasFocus);
+        updateCounterText();
     }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
@@ -108,6 +158,14 @@ public class TextFieldBoxes extends FrameLayout {
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.TextFieldBoxes);
             text = styledAttrs.getString(R.styleable.TextFieldBoxes_text);
             hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
+            singleLine = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_singleLine, false);
+            maxLines = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxLines, Integer.MAX_VALUE);
+            maxCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxCharacters, -1);
+            minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
+            helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
+            helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
+            errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
+            accentColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_accentColor, Utils.fetchAccentColor(getContext()));
             imageDrawableId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_image, -1);
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             styledAttrs.recycle();
@@ -139,8 +197,6 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     protected void activate(boolean animated) {
-
-        Log.d("[][][", activated ? "y" : "t");
 
         editText.setVisibility(View.VISIBLE);
         editText.requestFocus();
@@ -174,6 +230,72 @@ public class TextFieldBoxes extends FrameLayout {
         activated = true;
     }
 
+    protected void setBGColor(int colorID) {
+
+        label.setTextColor(colorID);
+        Utils.setCursorDrawableColor(editText, colorID);
+        ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_bottom_line)).setColor(colorID);
+    }
+
+    protected void updateCounterText() {
+
+        String length = Integer.toString(getText().toString().length()) + " / ";
+
+        if (this.maxCharacters != -1) {
+            if (this.minCharacters != 0) {
+                /* MAX & MIN */
+                counter.setText(length + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
+                if (getText().length() < this.minCharacters || getText().length() > maxCharacters) {
+                    setCounterError();
+                } else removeCounterError();
+            } else {
+                /* MAX ONLY */
+                counter.setText(length + Integer.toString(this.maxCharacters));
+                if (getText().length() > maxCharacters) {
+                    setCounterError();
+                } else removeCounterError();
+            }
+        } else {
+            if (this.minCharacters != 0) {
+                /* MIN ONLY */
+                counter.setText(length + Integer.toString(this.minCharacters) + "+");
+                if (getText().length() < minCharacters) {
+                    setCounterError();
+                } else removeCounterError();
+            } else {
+                counter.setText("");
+            }
+        }
+    }
+
+    protected void setCounterError() {
+
+        setBGColor(errorColor);
+        counter.setTextColor(this.errorColor);
+    }
+
+    protected void removeCounterError() {
+
+        setBGColor(accentColor);
+        counter.setTextColor(this.DEFAULT_TEXT_COLOR);
+    }
+
+    public void setError(String _errorText) {
+
+        onError = true;
+        setBGColor(errorColor);
+        helper.setTextColor(this.errorColor);
+        helper.setText(_errorText);
+    }
+
+    public void removeError() {
+
+        onError = false;
+        setBGColor(errorColor);
+        helper.setTextColor(this.helperTextColor);
+        helper.setText(helperText);
+    }
+
     public void setText(String _text) {
 
         if (text != null && !_text.equals("")) {
@@ -183,14 +305,129 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
+    public Editable getText() {
+        return editText.getText();
+    }
+
     public void setHint(String _hint) {
 
         this.hint = _hint;
         label.setText(hint);
     }
 
+    public String getHint() {
+        return this.hint;
+    }
+
+    public void setSingleLine(boolean _singleLine) {
+
+        this.singleLine = _singleLine;
+        editText.setSingleLine(singleLine);
+    }
+
+    public boolean getSingleLine() {
+        return this.singleLine;
+    }
+
+    public void setMaxLines(int _maxLine) {
+
+        this.maxLines = _maxLine;
+        editText.setMaxLines(maxLines);
+    }
+
+    public void removeMaxLines() {
+
+        this.maxLines = Integer.MAX_VALUE;
+        editText.setMaxLines(maxLines);
+    }
+
+    public int getMaxLines() {
+        return this.maxLines;
+    }
+
+    public void setMaxCharacters(int _maxCharacters) {
+        this.maxCharacters = _maxCharacters;
+    }
+
+    public void removeMaxCharacters() {
+        this.maxCharacters = -1;
+    }
+
+    public int getMaxCharacters() {
+        return this.maxCharacters;
+    }
+
+    public void setMinCharacters(int _minCharacters) {
+        this.minCharacters = _minCharacters;
+    }
+
+    public void removeMinCharacters() {
+        this.minCharacters = 0;
+    }
+
+    public int getMinCharacters() {
+        return this.minCharacters;
+    }
+
+    public void setHelperText(String _text) {
+
+        if (!_text.equals("")) {
+            this.helperText = _text;
+            helper.setText(helperText);
+        }
+    }
+
+    public String getHelperText() {
+        return this.helperText;
+    }
+
+    public String getCounterText() {
+        return counter.getText().toString();
+    }
+
+    public void setHelperTextColor(int _color) {
+
+        if (_color != -1) {
+            this.helperTextColor = _color;
+            helper.setTextColor(this.helperTextColor);
+        }
+    }
+
+    public int getHelperTextColor() {
+        return this.helperTextColor;
+    }
+
+    public void setErrorColor(int _color) {
+
+        if (_color != -1) {
+            this.errorColor = _color;
+        }
+    }
+
+    public int getErrorColor() {
+        return this.errorColor;
+    }
+
+    public void setAccentColor(int _color) {
+
+        if (_color != -1) {
+            this.accentColor = _color;
+            if (hasFocus) {
+                setBGColor(accentColor);
+            }
+        }
+    }
+
+    public int getAccentColor() {
+        return this.accentColor;
+    }
+
     public void setImage(int _imageID) {
-//        this.hint = hint;
+        this.imageDrawableId = _imageID;
+    }
+
+    public int getImage() {
+        return this.imageDrawableId;
     }
 
     public void setHasFocus(boolean hasFocus) {
@@ -199,22 +436,12 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (hasFocus) {
             activate(false);
-            label.setTextColor(Utils.fetchAccentColor(getContext()));
-            card.setBackgroundResource(R.drawable.bg_focus);
+            if (!onError) setBGColor(accentColor);
 
         } else {
             deactivate();
-            label.setTextColor(labelColor);
-            card.setBackgroundResource(R.drawable.bg_unfocus);
+            if (!onError) setBGColor(getResources().getColor(R.color.bg_deactivate));
         }
-    }
-
-    public String getHint() {
-        return hint;
-    }
-
-    public Editable getText() {
-        return editText.getText();
     }
 
     public boolean isActivated() {

@@ -1,46 +1,87 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mtf_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/bg_unfocus"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <RelativeLayout
+        android:id="@+id/text_field_boxes_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground">
 
-        <TextView
-            android:id="@+id/text_field_boxes_label"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"
-            android:textSize="16sp"
-            tools:text="Password" />
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
 
-        <FrameLayout
-            android:id="@+id/text_field_boxes_editTextLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="8dp"
-            android:layout_marginTop="32dp">
-
-            <EditText
-                android:id="@+id/text_field_boxes_editText"
+            <TextView
+                android:id="@+id/text_field_boxes_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"
-                android:padding="0dp"
-                android:textSize="16sp" />
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:textSize="16sp"
+                tools:text="Password" />
 
-        </FrameLayout>
+            <FrameLayout
+                android:id="@+id/text_field_boxes_editTextLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="32dp">
+
+                <EditText
+                    android:id="@+id/text_field_boxes_editText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:padding="0dp"
+                    android:text="@string/app_name"
+                    android:textSize="16sp" />
+
+            </FrameLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/text_field_boxes_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_field_boxes_helper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toLeftOf="@+id/text_field_boxes_counter"
+            android:layout_toStartOf="@+id/text_field_boxes_counter"
+            android:text="helper"
+            android:textSize="12sp" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/text_field_boxes_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="0/10"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</LinearLayout>
 

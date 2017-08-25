@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="TextFieldBoxes">
-        <attr name="hint" format="string"/>
-        <attr name="text" format="string"/>
-        <attr name="image" format="reference"/>
-        <attr name="hasFocus" format="boolean"/>
+        <attr name="hint" format="string" />
+        <attr name="text" format="string" />
+        <attr name="singleLine" format="boolean" />
+        <attr name="maxLines" format="integer" />
+        <attr name="maxCharacters" format="integer" />
+        <attr name="minCharacters" format="integer" />
+        <attr name="helperText" format="string" />
+        <attr name="helperTextColor" format="color" />
+        <attr name="errorColor" format="color" />
+        <attr name="accentColor" format="color" />
+        <attr name="image" format="reference" />
+        <attr name="hasFocus" format="boolean" />
     </declare-styleable>
 </resources>
