@@ -20,7 +20,9 @@ app:helperTextColor: the color of helper text.
 
 app:hint: the text that is shown above the textbox.
 
-app:maxCharacters: the number of maximum characters allowed in the text field.
+app:maxCharacters: max characters count limit. 0 means no limit. 0 by default.
+
+app:minCharacters: min characters count limit. 0 means no limit. 0 by default.
 
 app:maxLines: the number of maximum lines allowed in the text field.
 
