@@ -15,7 +15,6 @@ A new Material Design text field that comes in a box.
 In order to use it, you need to include it in your project.
 
 ### Gradle:
-Add it in your root build.gradle at the end of repositories:
 ```groovy
 allprojects {
     repositories {
@@ -24,7 +23,6 @@ allprojects {
     }
 }
 ```
-Add the dependency:
 ```groovy
 dependencies {
     compile 'com.github.HITGIF:TextFieldBoxes:-SNAPSHOT'
@@ -40,7 +38,6 @@ dependencies {
     </repository>
 </repositories>
 ```
-Add the dependency:
 ```xml
 <dependency>
   <groupId>com.github.HITGIF</groupId>
@@ -50,21 +47,18 @@ Add the dependency:
 ```
 
 ### SBT:
-Add it in your build.sbt at the end of resolvers:
 ```scala
 resolvers += "jitpack" at "https://jitpack.io"
 ```
-Add the dependency:
 ```scala
 libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
 ```
 
+
 ### Leiningen:
-Add it in your project.clj at the end of repositories:
 ```scala
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
-Add the dependency:
 ```scala
 :dependencies [[com.github.hitgif/textfieldboxes "-SNAPSHOT"]]	
 ```
