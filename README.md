@@ -40,9 +40,9 @@ dependencies {
 ```
 ```xml
 <dependency>
-  <groupId>com.github.HITGIF</groupId>
-  <artifactId>TextFieldBoxes</artifactId>
-  <version>-SNAPSHOT</version>
+    <groupId>com.github.HITGIF</groupId>
+    <artifactId>TextFieldBoxes</artifactId>
+    <version>-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -64,31 +64,53 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
 ```
 
 ​
-## Documentation
-### Attributes
+## Usage
+
+#### 1. Basic
+
+Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
+
 ```xml
-app:accentColor     the color for the underline and the hint label. Current theme accent color by default.
-
-app:errorColor      the color that is used to indicate error (e.g. exceeding max characters, setError()).
-
-app:hasFocus        whether the EditText is having the focus. False by default.
-
-app:helperText      the text that is shown below the textbox.
-
-app:helperTextColor the color of helper text.
-
-app:hint            the text that is shown above the textbox.
-
-app:maxCharacters   max characters count limit. 0 means no limit. 0 by default.
-
-app:minCharacters   min characters count limit. 0 means no limit. 0 by default.
-
-app:maxLines        the number of maximum lines allowed in the text field.
-
-app:singleLine      whether the EditText is single-lined. False by default.
-
-app:text            the text of the EditText.
+...
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    android:id="@+id/text_field_boxes"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Basic" />
+...
 ```
+
+![](/images/hint.png)![](/images/input.png)![](/images/basic_disabled.png)
+
+
+
+​
+## Documentation
+### All Attributes
+
+`app:enabled` Whether the text field is enabled. `True` by default.
+
+`app:text` EditText text.
+
+`app:hint` Hint text at the top.
+
+`app:helperText` Helper text at the bottom.
+
+`app:singleLine` Whether the EditText is single-lined. `False` by default.
+
+`app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+
+`app:maxCharacters` Max characters count limit. `0` means no limit. `0` by default.
+
+`app:minCharacters` Min characters count limit. `0` means no limit. `0` by default.
+
+`app:helperTextColor` Helper text color.
+
+`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`).
+
+`app:primaryColor` The color for the underline and the hint label. Current theme `Primary Color` by default.
+
+`app:hasFocus`Whether the EditText is having the focus. `False` by default.
 
 ​
 ## License
