@@ -80,8 +80,23 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 ...
 ```
 
-![](/images/hint.png)![](/images/input.png)![](/images/basic_disabled.png)
+![](/images/hint.png)![](/images/input.png)
 
+#### 2. Disable
+
+`app:enabled="false"` in xml or `setEnable(false)` in Java.
+
+![](/images/basic_disabled.png)
+
+#### 3. Helper Text and Error Text
+
+helper text: `app:helperText="Helper is here"` in xml or `setHelperText("Helper is here")` in Java.
+
+![](/images/helper.png)
+
+error text: `setError("Error message")` in Java.
+
+![](/images/error.png)
 
 
 ​
