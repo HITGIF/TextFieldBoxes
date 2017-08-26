@@ -3,7 +3,7 @@
 
 A new Material Design text field that comes in a box.
 
-![](/images/tfb1.gif)
+![Animation](/images/tfb1.gif)
 
 ​
 ## Requirements
