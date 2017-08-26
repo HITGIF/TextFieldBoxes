@@ -66,26 +66,29 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
 ​
 ## Documentation
 ### Attributes
-app:accentColor: the color for the underline and the hint label. Current theme accent color by default.
-app:errorColor: the color that is used to indicate error (e.g. exceeding max characters, setError()).
+```xml
+app:accentColor     the color for the underline and the hint label. Current theme accent color by default.
 
-app:hasFocus: whether the EditText is having the focus. False by default.
+app:errorColor      the color that is used to indicate error (e.g. exceeding max characters, setError()).
 
-app:helperText: the text that is shown below the textbox.
+app:hasFocus        whether the EditText is having the focus. False by default.
 
-app:helperTextColor: the color of helper text.
+app:helperText      the text that is shown below the textbox.
 
-app:hint: the text that is shown above the textbox.
+app:helperTextColor the color of helper text.
 
-app:maxCharacters: max characters count limit. 0 means no limit. 0 by default.
+app:hint            the text that is shown above the textbox.
 
-app:minCharacters: min characters count limit. 0 means no limit. 0 by default.
+app:maxCharacters   max characters count limit. 0 means no limit. 0 by default.
 
-app:maxLines: the number of maximum lines allowed in the text field.
+app:minCharacters   min characters count limit. 0 means no limit. 0 by default.
 
-app:singleLine: whether the EditText is single-lined. False by default.
+app:maxLines        the number of maximum lines allowed in the text field.
 
-app:text: the text of the EditText.
+app:singleLine      whether the EditText is single-lined. False by default.
+
+app:text            the text of the EditText.
+```
 
 ​
 ## License
