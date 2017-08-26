@@ -14,7 +14,7 @@ A new Material Design text field that comes in a box.
 ## Installation
 In order to use it, you need to include it in your project.
 
-### Gradle:
+#### Gradle:
 ```groovy
 allprojects {
     repositories {
@@ -29,7 +29,7 @@ dependencies {
 }
 ```
 
-### Maven:
+#### Maven:
 ```xml
 <repositories>
     <repository>
@@ -46,7 +46,7 @@ dependencies {
 </dependency>
 ```
 
-### SBT:
+#### SBT:
 ```scala
 resolvers += "jitpack" at "https://jitpack.io"
 ```
@@ -55,7 +55,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
 ```
 
 
-### Leiningen:
+#### Leiningen:
 ```scala
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
@@ -76,7 +76,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
     android:id="@+id/text_field_boxes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Basic" />
+    android:hint="Hint" />
 ...
 ```
 
@@ -88,13 +88,21 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 
 ![](/images/basic_disabled.png)
 
-#### 3. Helper Text and Error Text
+#### 3. SingleLine
+
+Use `app:singleLine="true"` in xml or `setSingleLine(true)` in Java to set the EditText to be single-lined, that scrolls horizontally.
+
+![Animation](/images/singleline.gif)
+
+#### 4. Helper Text and Error Text
 
 helper text: `app:helperText="Helper is here"` in xml or `setHelperText("Helper is here")` in Java.
 
 ![](/images/helper.png)
 
 error text: `setError("Error message")` in Java.
+
+*NOTE: Error will be removed when the text changes (input or delete).*
 
 ![](/images/error.png)
 
