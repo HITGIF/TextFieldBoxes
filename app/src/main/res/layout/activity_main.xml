@@ -16,83 +16,96 @@
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:id="@+id/tfb1"
-            android:layout_width="match_parent"
+            android:layout_marginTop="100dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             app:hasFocus="false"
-            app:helperText="helpp"
+            app:helperText="Helper is here"
             app:enabled="true"
-            app:hint="Title"
-            app:maxCharacters="20"
-            app:singleLine="true"
-            app:text="Vintage 50's Dress" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp">
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:id="@+id/tfb2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                app:hasFocus="false"
-                app:hint="Price"
-                app:singleLine="true"
-                app:text="$ 110.00" />
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:id="@+id/tfb3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_weight="2"
-                app:hasFocus="true"
-                app:hint="Location (optional)"
-                app:singleLine="true"
-                app:text="4" />
-
-        </LinearLayout>
+            app:hint="Hint"
+            app:maxCharacters="10"
+            app:singleLine="true" />
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/tfb4"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:id="@+id/tfb2"
+            android:layout_width="250dp"
+            android:layout_margin="100dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
             app:hasFocus="false"
-            app:hint="Description"
-            app:maxCharacters="140"
-            app:singleLine="false"
-            app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
+            app:helperText="Helper is here"
+            app:enabled="true"
+            app:hint="Hint"
+            app:maxCharacters="10"
+            app:singleLine="true" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="15dp">-->
 
-            <Button
-                android:id="@+id/error1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="DISABLE" />
+            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+                <!--android:id="@+id/tfb2"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_marginEnd="20dp"-->
+                <!--android:layout_marginRight="20dp"-->
+                <!--android:layout_weight="1"-->
+                <!--app:hasFocus="false"-->
+                <!--app:hint="Price"-->
+                <!--app:singleLine="true"-->
+                <!--app:text="$ 110.00" />-->
 
-            <Button
-                android:id="@+id/error2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ERROR" />
+            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+                <!--android:id="@+id/tfb3"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center_horizontal"-->
+                <!--android:layout_weight="2"-->
+                <!--app:hasFocus="true"-->
+                <!--app:hint="Location (optional)"-->
+                <!--app:singleLine="true"-->
+                <!--app:text="4" />-->
 
-            <Button
-                android:id="@+id/error3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="ERROR2" />
+        <!--</LinearLayout>-->
 
-        </LinearLayout>
+        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+            <!--android:id="@+id/tfb4"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="150dp"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--app:hasFocus="false"-->
+            <!--app:hint="Description"-->
+            <!--app:maxCharacters="140"-->
+            <!--app:singleLine="false"-->
+            <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<Button-->
+                <!--android:id="@+id/error1"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="DISABLE" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/error2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ERROR" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/error3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="ERROR2" />-->
+
+        <!--</LinearLayout>-->
 
     </LinearLayout>
 

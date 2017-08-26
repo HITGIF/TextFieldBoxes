@@ -300,12 +300,12 @@ public class TextFieldBoxes extends FrameLayout {
      * if exceeds limit, setCounterError()
      * otherwise removeCounterError()
      * <p>
-     * NOTE: SPACE WILL NOT COUNT
+     * NOTE: SPACE AND LINE FEED WILL NOT COUNT
      */
     protected void updateCounterText() {
 
-        /* Don't Count Space */
-        int length = getText().replaceAll(" ", "").length();
+        /* Don't Count Space & Line Feed */
+        int length = getText().replaceAll(" ", "").replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
 
         if (this.maxCharacters > 0) {
@@ -539,6 +539,10 @@ public class TextFieldBoxes extends FrameLayout {
 
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    public EditText getEditText() {
+        return this.editText;
     }
 
     public String getText() {
