@@ -19,8 +19,9 @@
             android:layout_marginTop="100dp"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:enabled="false"
-            app:text="Text fields (Disabled)"
+            app:enabled="true"
+            app:helperText="Helper is here"
+            app:text="Text fields"
             app:hint="Hint" />
 
         <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->

@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+//        ((TextFieldBoxes) findViewById(R.id.tfb1)).setHelperText();
         ((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().setOnKeyListener(new View.OnKeyListener() {
             @Override
             public boolean onKey(View v, int actionId, KeyEvent event) {
