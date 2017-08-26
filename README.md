@@ -2,6 +2,11 @@
 
 It is a new Material Design text field that comes in a box.
 
+## Requirements
+
+- Android 4.0.3 IceCreamSandwich (API lv 15) or greater
+- Your favorite IDE
+
 ## Usage
 
 In order to use it, you need to include it in your project.
@@ -9,7 +14,6 @@ In order to use it, you need to include it in your project.
 ## Documentation
 ### Attributes
 app:accentColor: the color for the underline and the hint label. Current theme accent color by default.
-
 app:errorColor: the color that is used to indicate error (e.g. exceeding max characters, setError()).
 
 app:hasFocus: whether the EditText is having the focus. False by default.
