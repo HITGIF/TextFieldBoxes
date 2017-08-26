@@ -26,6 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support:design:26.0.1'
-    testCompile 'junit:junit:4.12'
+//    compile 'com.github.HITGIF:TextFieldBoxes:-SNAPSHOT'
     compile project(':textfieldboxes')
+    testCompile 'junit:junit:4.12'
 }

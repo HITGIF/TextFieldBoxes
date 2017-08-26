@@ -37,17 +37,17 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean enabled;
 
     /**
-     * the text for the EditText
+     * editText text.
      */
     protected String text;
 
     /**
-     * the text for the hint Label
+     * hint text at the top.
      */
     protected String hint;
 
     /**
-     * the text for the helper Label
+     * helper text at the bottom.
      */
     protected String helperText;
 
@@ -72,12 +72,12 @@ public class TextFieldBoxes extends FrameLayout {
     protected int minCharacters;
 
     /**
-     * the color for the helper Label. DEFAULT_TEXT_COLOR by default.
+     * the text color for the helper Label. DEFAULT_TEXT_COLOR by default.
      */
     protected int helperTextColor;
 
     /**
-     * the color for when something is wrong (e.g. exceeding max characters, setError()).
+     * the text color for when something is wrong (e.g. exceeding max characters, setError()).
      * DEFAULT_ERROR_COLOR by default.
      */
     protected int errorColor;
