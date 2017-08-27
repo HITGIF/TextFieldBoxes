@@ -451,11 +451,11 @@ public class TextFieldBoxes extends FrameLayout {
      * set the max line number limit, can be removed by calling removeMaxLines()
      * can scroll vertically if exceeds
      *
-     * @param _maxLine max line number limit
+     * @param _maxLines max line number limit
      */
-    public void setMaxLines(int _maxLine) {
+    public void setMaxLines(int _maxLines) {
 
-        this.maxLines = _maxLine;
+        this.maxLines = _maxLines;
         editText.setMaxLines(maxLines);
     }
 

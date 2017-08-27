@@ -19,15 +19,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error message");
-        ((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int actionId, KeyEvent event) {
-                if (actionId == 66)
-                    if (!((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().getText().toString().equals("Text fields"))
-                        ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error message");
-                return false;
-            }
-        });
+//        ((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int actionId, KeyEvent event) {
+//                if (actionId == 66)
+//                    if (!((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().getText().toString().equals("Text fields"))
+//                        ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error message");
+//                return false;
+//            }
+//        });
 
 //        findViewById(R.id.error1).setOnClickListener(new View.OnClickListener() {
 //            @Override
