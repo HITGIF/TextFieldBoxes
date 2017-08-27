@@ -82,30 +82,115 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 
 ![](/images/hint.png)![](/images/input.png)
 
-#### 2. Disable
+#### 2. Enable / Disable
 
-`app:enabled="false"` in xml or `setEnable(false)` in Java.
+`app:enabled` in xml or `setEnabled(boolean _enabled)` in Java.
+
+```xml
+app:enabled="false"
+```
 
 ![](/images/basic_disabled.png)
 
 #### 3. SingleLine
 
-Use `app:singleLine="true"` in xml or `setSingleLine(true)` in Java to set the EditText to be single-lined, that scrolls horizontally.
+Use `app:singleLine` in xml or `setSingleLine(boolean _singleLine)` in Java to set whether the EditText is single-lined, that scrolls horizontally.
+
+```xml
+app:singleLine="true"
+```
 
 ![Animation](/images/singleline.gif)
 
 #### 4. Helper Text and Error Text
 
-helper text: `app:helperText="Helper is here"` in xml or `setHelperText("Helper is here")` in Java.
+helper text: `app:helperText` in xml or `setHelperText(String _helperText)` in Java.
+
+```xml
+app:helperText="Helper is here"
+```
 
 ![](/images/helper.png)
 
-error text: `setError("Error message")` in Java.
+error text: `setError(String _errorText)` in Java.
 
 *NOTE: Error will be removed when the text changes (input or delete).*
 
+```java
+setError("Error message");
+```
+
 ![](/images/error.png)
 
+#### 5. Maxlines
+
+Use `app:maxLines` in xml or `setMaxLines(Int _maxlines)` to set the number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+
+```xml
+app:maxLines="3"
+```
+
+![](/images/maxlines.gif)
+
+#### 6. Max & Min Characters
+
+Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The bottom line will turn red when exceeding max or min characters limit. 0, as default, means no max or min characters. 
+
+```xml
+app:maxCharacters="10"
+app:minCharacters="5"
+```
+
+![](/images/maxMinChar.gif)
+
+```xml
+app:maxCharacters="5"
+```
+
+![](/images/maxChar.gif)
+
+#### 7. Custom Colors
+
+*Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default. 
+
+*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+) by default. 
+
+*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+) by default. 
+
+```xml
+app:primaryColor="#1B5E20"      <!--Green-->
+app:errorColor="#ddaa00"        <!--Yellow-->
+app:helperTextColor="#795548"   <!--Brown-->
+```
+
+![](/images/customColor1.png) ![](/images/customColor2.png)
+
+#### 8. Customize EditText
+
+If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener`)
+
+```java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+    if (editable.toString().equals("wrong"))
+        textFieldBoxes.setError("It's wrong");
+    }
+});
+```
+
+![](/images/edittext.gif)
 
 ​
 ## Documentation
@@ -131,7 +216,7 @@ error text: `setError("Error message")` in Java.
 
 `app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`).
 
-`app:primaryColor` The color for the underline and the hint label. Current theme `Primary Color` by default.
+`app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
 
 `app:hasFocus`Whether the EditText is having the focus. `False` by default.
 
