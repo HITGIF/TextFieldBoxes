@@ -15,93 +15,88 @@
         android:padding="20dp">
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/tfb1"
-            android:layout_marginTop="100dp"
+            android:id="@+id/text_field_boxes"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:primaryColor="#1B5E20"
-            app:errorColor="#ddaa00"
+            android:layout_marginTop="100dp"
             app:hasFocus="true"
-            app:helperTextColor="#795548"
-            app:maxCharacters="5"
-            app:helperText="Helper is here"
-            app:text="Text fields"
+            app:hint="Hint"
             app:singleLine="false"
-            app:hint="Hint" />
+            app:text="" />
 
         <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:hint="Your Hint"-->
-            <!--app:helperText="Your Helper"-->
-            <!--app:maxCharacters="10"-->
-            <!--/>-->
+        <!--android:id="@+id/text_field_boxes"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:hint="Your Hint"-->
+        <!--app:helperText="Your Helper"-->
+        <!--app:maxCharacters="10"-->
+        <!--/>-->
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="15dp">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="15dp">-->
 
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/tfb2"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginEnd="20dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:layout_weight="1"-->
-                <!--app:hasFocus="false"-->
-                <!--app:hint="Price"-->
-                <!--app:singleLine="true"-->
-                <!--app:text="$ 110.00" />-->
+        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+        <!--android:id="@+id/tfb2"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginEnd="20dp"-->
+        <!--android:layout_marginRight="20dp"-->
+        <!--android:layout_weight="1"-->
+        <!--app:hasFocus="false"-->
+        <!--app:hint="Price"-->
+        <!--app:singleLine="true"-->
+        <!--app:text="$ 110.00" />-->
 
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/tfb3"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_weight="2"-->
-                <!--app:hasFocus="true"-->
-                <!--app:hint="Location (optional)"-->
-                <!--app:singleLine="true"-->
-                <!--app:text="4" />-->
+        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+        <!--android:id="@+id/tfb3"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_weight="2"-->
+        <!--app:hasFocus="true"-->
+        <!--app:hint="Location (optional)"-->
+        <!--app:singleLine="true"-->
+        <!--app:text="4" />-->
 
         <!--</LinearLayout>-->
 
         <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/tfb4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="150dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--app:hasFocus="false"-->
-            <!--app:hint="Description"-->
-            <!--app:maxCharacters="140"-->
-            <!--app:singleLine="false"-->
-            <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
+        <!--android:id="@+id/tfb4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="150dp"-->
+        <!--android:layout_gravity="center_horizontal"-->
+        <!--android:layout_marginTop="15dp"-->
+        <!--app:hasFocus="false"-->
+        <!--app:hint="Description"-->
+        <!--app:maxCharacters="140"-->
+        <!--app:singleLine="false"-->
+        <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
 
         <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
 
-            <!--<Button-->
-                <!--android:id="@+id/error1"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="DISABLE" />-->
+        <!--<Button-->
+        <!--android:id="@+id/error1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="DISABLE" />-->
 
-            <!--<Button-->
-                <!--android:id="@+id/error2"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="ERROR" />-->
+        <!--<Button-->
+        <!--android:id="@+id/error2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="ERROR" />-->
 
-            <!--<Button-->
-                <!--android:id="@+id/error3"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:text="ERROR2" />-->
+        <!--<Button-->
+        <!--android:id="@+id/error3"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="ERROR2" />-->
 
         <!--</LinearLayout>-->
 

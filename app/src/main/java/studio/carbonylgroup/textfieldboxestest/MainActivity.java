@@ -18,16 +18,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error message");
-//        ((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int actionId, KeyEvent event) {
-//                if (actionId == 66)
-//                    if (!((TextFieldBoxes) findViewById(R.id.tfb1)).getEditText().getText().toString().equals("Text fields"))
-//                        ((TextFieldBoxes) findViewById(R.id.tfb1)).setError("Error message");
-//                return false;
-//            }
-//        });
+        final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+        textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().equals("wrong"))
+                    textFieldBoxes.setError("It's wrong");
+            }
+        });
 
 //        findViewById(R.id.error1).setOnClickListener(new View.OnClickListener() {
 //            @Override
