@@ -72,7 +72,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int minCharacters;
 
     /**
-     * the text color for the helper Label. DEFAULT_TEXT_COLOR by default.
+     * the text color for the helper text. DEFAULT_TEXT_COLOR by default.
      */
     protected int helperTextColor;
 
@@ -83,7 +83,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int errorColor;
 
     /**
-     * the color for the underline and the hint label. Current theme primary color by default.
+     * the color for the underline and the hint text. Current theme primary color by default.
      */
     protected int primaryColor;
 
