@@ -496,19 +496,19 @@ public class TextFieldBoxes extends FrameLayout {
         helper.setText(helperText);
     }
 
-    public void setHelperTextColor(int _color) {
+    public void setHelperTextColor(int _colorRes) {
 
-        this.helperTextColor = _color;
+        this.helperTextColor = _colorRes;
         helper.setTextColor(this.helperTextColor);
     }
 
-    public void setErrorColor(int _color) {
-        this.errorColor = _color;
+    public void setErrorColor(int _colorRes) {
+        this.errorColor = _colorRes;
     }
 
-    public void setPrimaryColor(int _color) {
+    public void setPrimaryColor(int _colorRes) {
 
-        this.primaryColor = _color;
+        this.primaryColor = _colorRes;
         if (hasFocus) setHighlightColor(primaryColor);
     }
 
