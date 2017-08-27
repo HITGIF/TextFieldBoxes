@@ -25,7 +25,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:-SNAPSHOT'
+    compile 'com.github.HITGIF:TextFieldBoxes:v1.0.0'
 }
 ```
 
@@ -42,7 +42,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>-SNAPSHOT</version>
+    <version>v1.0.0</version>
 </dependency>
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "v1.0.0"
 ```
 
 
@@ -60,7 +60,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "-SNAPSHOT"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "-SNAPSHOT"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "v1.0.0"]]	
 ```
 
 ​
@@ -167,7 +167,7 @@ app:helperTextColor="#795548"   <!--Brown-->
 
 #### 8. Customize EditText
 
-If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener`)
+If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
 
 ```java
 final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
@@ -193,10 +193,9 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 ![](/images/edittext.gif)
 
 ​
-## Documentation
-### All Attributes
+## All Attributes
 
-`app:enabled` Whether the text field is enabled. `True` by default.
+#### Texts
 
 `app:text` EditText text.
 
@@ -204,13 +203,7 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 `app:helperText` Helper text at the bottom.
 
-`app:singleLine` Whether the EditText is single-lined. `False` by default.
-
-`app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
-
-`app:maxCharacters` Max characters count limit. `0` means no limit. `0` by default.
-
-`app:minCharacters` Min characters count limit. `0` means no limit. `0` by default.
+#### Colors
 
 `app:helperTextColor` Helper text color.
 
@@ -218,7 +211,27 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 `app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
 
+#### Characters counter
+
+`app:maxCharacters` Max characters count limit. `0` means no limit. `0` by default.
+
+`app:minCharacters` Min characters count limit. `0` means no limit. `0` by default.
+
+#### Others
+
+`app:enabled` Whether the text field is enabled. `True` by default.
+
+`app:singleLine` Whether the EditText is single-lined. `False` by default.
+
+`app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+
 `app:hasFocus`Whether the EditText is having the focus. `False` by default.
+
+​
+## Todo List
+- Prefix & Suffix
+- Icon signifier
+- Dark theme
 
 ​
 ## License
