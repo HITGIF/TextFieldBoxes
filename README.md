@@ -4,13 +4,13 @@
 [![JitPack](https://jitpack.io/v/HITGIF/TextFieldBoxes.svg)](https://jitpack.io/#HITGIF/TextFieldBoxes)
 [![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
 [![GitHub issues](https://img.shields.io/github/issues/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/issues)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
 [![GitHub forks](https://img.shields.io/github/forks/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/network)
 [![GitHub stars](https://img.shields.io/github/stars/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/stargazers)
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
 
 ![Animation](/images/tfb1.gif)
 
-A new Material Design text field that comes in a box.
+A new Material Design text field that comes in a box. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
 
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
@@ -143,7 +143,9 @@ app:maxLines="3"
 
 #### 6. Max & Min Characters
 
-Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The bottom line will turn red when exceeding max or min characters limit. 0, as default, means no max or min characters. 
+Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters. 
+
+*NOTE: Space and line feed will NOT count.*
 
 ```xml
 app:maxCharacters="10"
@@ -234,7 +236,7 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 `app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
 
-`app:hasFocus`Whether the EditText is having the focus. `False` by default.
+`app:hasFocus` Whether the EditText is having the focus. `False` by default.
 
 ​
 ## TODO
