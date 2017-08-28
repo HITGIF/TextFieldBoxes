@@ -93,7 +93,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
 
 #### 2. 启用 / 禁用
 
-xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean _enabled)`。
+在 xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean _enabled)`。
 
 ```xml
 app:enabled="false"
