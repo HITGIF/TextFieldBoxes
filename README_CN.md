@@ -10,18 +10,18 @@
 
 ![Animation](/images/tfb1.gif)
 
-A new Material Design text field that comes in a box. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
+新的 Material Design 文本框。
 
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ​
-## Requirements
-- Android 4.0.3 IceCreamSandwich (API lv 15) or greater
-- Your favorite IDE
+## 要求
+- Android 4.0.3 IceCreamSandwich (API lv 15) 或更高
+- 你最喜欢的 IDE
 
 ​
-## Installation
-In order to use it, you need to include it in your project.
+## 安装
+在你的项目中加入以下依赖：
 
 #### Gradle:
 ```groovy
@@ -73,11 +73,11 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
 ```
 
 ​
-## Usage
+## 使用
 
-#### 1. Basic
+#### 1. 基础
 
-Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
+将 `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` 加入你的布局文件:
 
 ```xml
 ...
@@ -91,9 +91,9 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 
 ![](/images/hint.png)![](/images/input.png)
 
-#### 2. Enable / Disable
+#### 2. 启用 / 禁用
 
-`app:enabled` in xml or `setEnabled(boolean _enabled)` in Java.
+在 xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean _enabled)`。
 
 ```xml
 app:enabled="false"
@@ -101,9 +101,9 @@ app:enabled="false"
 
 ![](/images/basic_disabled.png)
 
-#### 3. SingleLine
+#### 3. 单行
 
-Use `app:singleLine` in xml or `setSingleLine(boolean _singleLine)` in Java to set whether the EditText is single-lined, that scrolls horizontally.
+在 xml 中加入 `app:singleLine` 或在 Java 代码中使用 `setSingleLine(boolean _singleLine)` 以设置 EditText 是否为单行，即能够横向滚动。
 
 ```xml
 app:singleLine="true"
@@ -111,9 +111,10 @@ app:singleLine="true"
 
 ![Animation](/images/singleline.gif)
 
-#### 4. Helper Text and Error Text
+#### 4. 帮助和错误信息
 
-helper text: `app:helperText` in xml or `setHelperText(String _helperText)` in Java.
+##### 帮助信息: 
+在 xml 中加入 `app:helperText` 或在 Java 代码中使用 `setHelperText(String _helperText)`。
 
 ```xml
 app:helperText="Helper is here"
@@ -121,9 +122,10 @@ app:helperText="Helper is here"
 
 ![](/images/helper.png)
 
-error text: `setError(String _errorText)` in Java.
+##### 错误信息: 
+在 Java 代码中使用 `setError(String _errorText)`。
 
-*NOTE: Error will be removed when the text changes (input or delete).*
+*注意: 文本改动 (输入或删除) 时会自动清除错误信息。*
 
 ```java
 setError("Error message");
@@ -131,9 +133,9 @@ setError("Error message");
 
 ![](/images/error.png)
 
-#### 5. Maxlines
+#### 5. 最大行数
 
-Use `app:maxLines` in xml or `setMaxLines(Int _maxlines)` to set the number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int _maxlines)` 以设置文本框的最大行数。 默认值是 `Integer.MAX_VALUE`。
 
 ```xml
 app:maxLines="3"
@@ -141,11 +143,11 @@ app:maxLines="3"
 
 ![](/images/maxlines.gif)
 
-#### 6. Max & Min Characters
+#### 6. 最大和最小字符数
 
-Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters. 
+在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int _maxCharacters)` 以设置最大字符数, 在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int _minCharacters)` 以设置最小字符数。 当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。 默认值是 `0`, 表示没有限制。 
 
-*NOTE: Space and line feed will NOT count.*
+*注意: 空格和换行不计入字符数。*
 
 ```xml
 app:maxCharacters="10"
@@ -160,25 +162,25 @@ app:maxCharacters="5"
 
 ![](/images/maxChar.gif)
 
-#### 7. Custom Colors
+#### 7. 自定义颜色
 
-*Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default. 
+*Primary Color* 是底部的线和提示文字的颜色。 在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。 默认值为目前主题的 `Primary Color`。 
 
-*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+) by default. 
+*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。 在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置. 默认值是 `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+)。 
 
-*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+) by default. 
+*Helper Text Color* 是帮助文本的颜色。 在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。 默认值是 `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+)。 
 
 ```xml
-app:primaryColor="#1B5E20"      <!--Green-->
-app:errorColor="#ddaa00"        <!--Yellow-->
-app:helperTextColor="#795548"   <!--Brown-->
+app:primaryColor="#1B5E20"      <!--绿的-->
+app:errorColor="#ddaa00"        <!--黄的-->
+app:helperTextColor="#795548"   <!--棕的-->
 ```
 
 ![](/images/customColor1.png) ![](/images/customColor2.png)
 
-#### 8. Customize EditText
+#### 8. 自定义 EditText
 
-If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
+如果你想要自定义 `TextFieldBoxes` (其实是一个包含 `EditText` 的 `FrameLayout` 继承) 中的 `EditText` , 在 Java 代码中使用 `getEditText()` 就可以随便改 (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
 
 ```java
 final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
@@ -204,48 +206,48 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 ![](/images/edittext.gif)
 
 ​
-## All Attributes
+## 全部属性
 
-#### Texts
+#### 文本
 
-`app:text` EditText text.
+`app:text` EditText 文本。
 
-`app:hint` Hint text at the top.
+`app:hint` 顶部的提示文本。
 
-`app:helperText` Helper text at the bottom.
+`app:helperText` 底部的帮助文本。
 
-#### Colors
+#### 颜色
 
-`app:helperTextColor` Helper text color.
+`app:helperTextColor` 帮助文本颜色。
 
-`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`).
+`app:errorColor` 错误时的显示颜色 (e.g. 超出字符限制, `setError()`)。
 
-`app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
+`app:primaryColor` 是底部的线和提示文字的颜色。 默认值为目前主题的 `Primary Color`。
 
-#### Characters counter
+#### 字符统计
 
-`app:maxCharacters` Max characters count limit. `0` means no limit. `0` by default.
+`app:maxCharacters` 最大字符数。 `0` 表示没有限制。 默认是 `0`。
 
-`app:minCharacters` Min characters count limit. `0` means no limit. `0` by default.
+`app:minCharacters` 最小字符数。 `0` 表示没有限制。 默认是 `0`。
 
-#### Others
+#### 其他
 
-`app:enabled` Whether the text field is enabled. `True` by default.
+`app:enabled` 文本框是否启用。 默认值为 `True`。
 
-`app:singleLine` Whether the EditText is single-lined. `False` by default.
+`app:singleLine` EditText 是否为单行。 默认值为 `False`。
 
-`app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+`app:maxLines` 文本框最大行数。 默认值为 `Integer.MAX_VALUE`。
 
-`app:hasFocus` Whether the EditText is having the focus. `False` by default.
+`app:hasFocus` 文本框是否获得焦点。 默认值为 `False`。
 
 ​
 ## TODO
-- Prefix & Suffix
-- Icon signifier
-- Dark theme
+- 前缀 & 后缀
+- 图标
+- 暗主题
 
 ​
-## License
+## 开源许可
 
     Copyright 2017 Carbonylgroup Studio
 
