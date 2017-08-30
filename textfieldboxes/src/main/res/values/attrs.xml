@@ -12,6 +12,7 @@
         <attr name="helperTextColor" format="color" />
         <attr name="errorColor" format="color" />
         <attr name="primaryColor" format="color" />
+        <attr name="panelBackgroundColor" format="color" />
         <attr name="hasFocus" format="boolean" />
     </declare-styleable>
 </resources>

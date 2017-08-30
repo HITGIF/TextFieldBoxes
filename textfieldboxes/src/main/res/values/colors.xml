@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="A400red">#ff1744</color>
-    <color name="per54black">#757575</color>
-    <color name="per42black">#949494</color>
-    <color name="per10black">#e6e6e6</color>
-    <color name="per06black">#ebebeb</color>
-    <color name="per87black">#212121</color>
+    <color name="per54black">#72000000</color>
+    <color name="per42black">#2a000000</color>
+    <color name="per10black">#0a000000</color>
+    <color name="per06black">#06000000</color>
+    <color name="per87black">#57000000</color>
 </resources>
