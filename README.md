@@ -219,11 +219,13 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 #### Colors
 
-`app:helperTextColor` Helper text color.
+`app:helperTextColor` Helper text color. `54% black` by default.
 
-`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`).
+`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`). `A400 red` by default.
 
 `app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
+
+`app:panelBackgroundColor` The color for the panel at the back. `6% black` by default.
 
 #### Characters counter
 
