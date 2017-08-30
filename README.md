@@ -10,7 +10,7 @@
 
 ![Animation](/images/tfb1.gif)
 
-A new Material Design text field that comes in a box. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
+A new Material Design text field that comes in a box, based on Google Material design guidelines. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
 
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
@@ -34,7 +34,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.0.0'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.0.1'
 }
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 ```
 
 
@@ -69,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.0"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]	
 ```
 
 ​
@@ -164,14 +164,17 @@ app:maxCharacters="5"
 
 *Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default. 
 
-*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+) by default. 
+*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` by default. 
 
-*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+) by default. 
+*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` by default.
+
+*Panel Background Color* will be used for the color of panel at the back. You can use `app:panelBackgroundColor` in xml or `setPanelBackgroundColor(int _colorRes)` in Java. `6% black` by default.
 
 ```xml
-app:primaryColor="#1B5E20"      <!--Green-->
-app:errorColor="#ddaa00"        <!--Yellow-->
-app:helperTextColor="#795548"   <!--Brown-->
+app:primaryColor="#1B5E20"          <!--Green-->
+app:errorColor="#ddaa00"            <!--Yellow-->
+app:helperTextColor="#795548"       <!--Brown-->
+app:panelBackgroundColor="#ffe8e8"  <!--Pink-->
 ```
 
 ![](/images/customColor1.png) ![](/images/customColor2.png)
