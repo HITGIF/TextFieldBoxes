@@ -249,7 +249,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * lower the hint hintLabel when there is no text at losing focus
+     * lower the hint hint Label when there is no text at losing focus
      */
     protected void deactivate() {
 
@@ -273,7 +273,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * raise the hint hintLabel when gaining focus
+     * raise the hint hint Label when gaining focus
      *
      * @param animated whether to animate the hint hintLabel or not
      */
@@ -321,6 +321,8 @@ public class TextFieldBoxes extends FrameLayout {
         hintLabel.setTextColor(colorRes);
         Utils.setCursorDrawableColor(editText, colorRes);
         iconImageView.setColorFilter(colorRes);
+        if (colorRes == DEFAULT_TEXT_COLOR) iconImageView.setAlpha(0.54f);
+        else iconImageView.setAlpha(1f);
         bottomLine.setBackgroundColor(colorRes);
     }
 
@@ -363,7 +365,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set highlight color and counterLabel Label text color to error color
+     * set highlight color and counter Label text color to error color
      */
     protected void setCounterError() {
 
@@ -407,15 +409,14 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setEnabled(false);
             editText.setFocusableInTouchMode(false);
             editText.setFocusable(false);
+            iconImageView.setClickable(false);
+            iconImageView.setEnabled(false);
             hintLabel.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
-//            Utils.setDrawableTintColor(iconImageView.getDrawable(), DEFAULT_DISABLED_TEXT_COLOR);
             iconImageView.setColorFilter(DEFAULT_DISABLED_TEXT_COLOR);
             helperLabel.setVisibility(View.INVISIBLE);
             counterLabel.setVisibility(View.INVISIBLE);
             bottomLine.setVisibility(View.INVISIBLE);
             panel.setEnabled(false);
-            iconImageView.setClickable(false);
-            iconImageView.setEnabled(false);
         }
     }
 
