@@ -10,7 +10,7 @@
 
 ![Animation](/images/tfb1.gif)
 
-新的 Material Design 文本框。
+新的 Material Design 文本框，遵循 Google Material Design 规范。
 
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
@@ -34,7 +34,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.0.0'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.0.1'
 }
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 ```
 
 
@@ -69,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.0"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]	
 ```
 
 ​
@@ -164,16 +164,19 @@ app:maxCharacters="5"
 
 #### 7. 自定义颜色
 
-*Primary Color* 是底部的线和提示文字的颜色。 在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。 默认值为目前主题的 `Primary Color`。 
+*Primary Color* 是底部的线和提示文字的颜色。 在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。默认值为目前主题的 `Primary Color`。 
 
-*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。 在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置. 默认值是 `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+)。 
+*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置. 默认值是 `A400 red`。 
 
-*Helper Text Color* 是帮助文本的颜色。 在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。 默认值是 `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+)。 
+*Helper Text Color* 是帮助文本的颜色。在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。 默认值是 `54% black`。 
+
+*Panel Background Color* 是文本框背板的颜色。在 xml 中加入 `app:panelBackgroundColor` 或在 Java 代码中使用 `setPanelBackgroundColor(int _colorRes)` 以设置。默认值是 `6% black`。
 
 ```xml
-app:primaryColor="#1B5E20"      <!--绿的-->
-app:errorColor="#ddaa00"        <!--黄的-->
-app:helperTextColor="#795548"   <!--棕的-->
+app:primaryColor="#1B5E20"          <!--绿的-->
+app:errorColor="#ddaa00"            <!--黄的-->
+app:helperTextColor="#795548"       <!--棕的-->
+app:panelBackgroundColor="#ffe8e8"  <!--粉的-->
 ```
 
 ![](/images/customColor1.png) ![](/images/customColor2.png)
