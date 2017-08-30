@@ -13,5 +13,6 @@
         <attr name="errorColor" format="color" />
         <attr name="primaryColor" format="color" />
         <attr name="hasFocus" format="boolean" />
+        <attr name="iconSignifier" format="reference" />
     </declare-styleable>
 </resources>

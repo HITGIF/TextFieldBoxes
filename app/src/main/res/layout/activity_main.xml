@@ -49,6 +49,7 @@
                 app:hasFocus="true"
                 app:hint="Location (optional)"
                 app:singleLine="true"
+                app:iconSignifier="@android:drawable/ic_menu_mylocation"
                 app:text="" />
 
         </LinearLayout>

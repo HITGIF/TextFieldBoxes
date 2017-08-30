@@ -10,12 +10,14 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -98,6 +100,7 @@ public class TextFieldBoxes extends FrameLayout {
     public ViewGroup editTextLayout;
     public AppCompatTextView helper;
     public AppCompatTextView counter;
+    public ImageView imageView;
     protected InputMethodManager inputMethodManager;
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
@@ -213,6 +216,7 @@ public class TextFieldBoxes extends FrameLayout {
             primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
+            setIconSignifier(styledAttrs.getResourceId(R.styleable.TextFieldBoxes_enabled, 0));
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -382,6 +386,22 @@ public class TextFieldBoxes extends FrameLayout {
             ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(DEFAULT_DISABLED_BG_COLOR);
             ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_bottom_line)).setColor(DEFAULT_DISABLED_BG_COLOR);
         }
+    }
+
+    public void setIconSignifier(int resourceID){
+
+        Log.d("aaaaaaaaa", Integer.toString(resourceID));
+        if(resourceID==0) {
+            removeIconSignifier();
+            return;
+        }
+        imageView.setImageResource(resourceID);
+        imageView.setVisibility(VISIBLE);
+    }
+
+    public void removeIconSignifier(){
+
+        imageView.setVisibility(GONE);
     }
 
     /**
