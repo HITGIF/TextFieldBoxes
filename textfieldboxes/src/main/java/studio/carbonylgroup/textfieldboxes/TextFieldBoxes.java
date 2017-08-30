@@ -99,7 +99,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean hasFocus;
 
     protected int iconSignifierResourceId;
-    
+
     public View panel;
     public TextView label;
     public EditText editText;
@@ -288,6 +288,10 @@ public class TextFieldBoxes extends FrameLayout {
                     .scaleY(0.75f)
                     .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
                     .setDuration(ANIMATION_DURATION);
+
+
+            imageView.setImageResource(iconSignifierResourceId);
+            imageView.setVisibility(VISIBLE);
         } else {
 
             editText.setAlpha(1f);
@@ -402,17 +406,11 @@ public class TextFieldBoxes extends FrameLayout {
     public void setIconSignifier(int resourceID){
 
         iconSignifierResourceId=resourceID;
-        Log.d("aaaaaaaaa", Integer.toString(resourceID));
-        if(resourceID==0) {
-            removeIconSignifier();
-            return;
-        }
-        imageView.setImageResource(resourceID);
-        imageView.setVisibility(VISIBLE);
     }
 
     public void removeIconSignifier(){
 
+        iconSignifierResourceId=0;
         imageView.setVisibility(GONE);
     }
 
