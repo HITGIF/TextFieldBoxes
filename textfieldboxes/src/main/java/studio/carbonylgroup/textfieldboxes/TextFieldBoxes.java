@@ -10,7 +10,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
 
 /**
  * Text Field Boxes
@@ -94,11 +95,14 @@ public class TextFieldBoxes extends FrameLayout {
     protected int panelBackgroundColor;
 
     /**
+     * the resource ID of the icon signifier. 0 by default.
+     */
+    protected int iconSignifierResourceId;
+
+    /**
      * whether the EditText is having the focus. False by default.
      */
     protected boolean hasFocus;
-
-    protected int iconSignifierResourceId;
 
     public View panel;
     public TextView label;
@@ -107,7 +111,7 @@ public class TextFieldBoxes extends FrameLayout {
     public FrameLayout bottomLine;
     public AppCompatTextView helper;
     public AppCompatTextView counter;
-    public ImageView imageView;
+    public ImageView iconImageView;
     protected InputMethodManager inputMethodManager;
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
@@ -157,10 +161,19 @@ public class TextFieldBoxes extends FrameLayout {
         labelTopMargin = RelativeLayout.LayoutParams.class.cast(label.getLayoutParams()).topMargin;
         helper = findViewById(R.id.text_field_boxes_helper);
         counter = findViewById(R.id.text_field_boxes_counter);
-        imageView = findViewById(R.id.text_field_boxes_imageView);
+        iconImageView = findViewById(R.id.text_field_boxes_imageView);
         bottomLine = findViewById(R.id.bg_bottom_line);
 
         panel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isActivated()) activate(true);
+                setHasFocus(true);
+                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+            }
+        });
+
+        iconImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
@@ -206,8 +219,8 @@ public class TextFieldBoxes extends FrameLayout {
         setErrorColor(errorColor);
         setPrimaryColor(primaryColor);
         setPanelBackgroundColor(panelBackgroundColor);
-        setHasFocus(hasFocus);
         setIconSignifier(iconSignifierResourceId);
+        setHasFocus(hasFocus);
         updateCounterText();
     }
 
@@ -226,9 +239,9 @@ public class TextFieldBoxes extends FrameLayout {
             errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
             panelBackgroundColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
-            hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
-            iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_enabled, 0);
+            iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
+            hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -289,9 +302,6 @@ public class TextFieldBoxes extends FrameLayout {
                     .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
                     .setDuration(ANIMATION_DURATION);
 
-
-            imageView.setImageResource(iconSignifierResourceId);
-            imageView.setVisibility(VISIBLE);
         } else {
 
             editText.setAlpha(1f);
@@ -303,7 +313,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set the color of the hint Label, EditText cursor and the underline
+     * set the color of the hint Label, EditText cursor, icon signifier and the underline
      *
      * @param colorRes color resource
      */
@@ -311,6 +321,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         label.setTextColor(colorRes);
         Utils.setCursorDrawableColor(editText, colorRes);
+        Utils.setDrawableTintColor(iconImageView.getDrawable(), colorRes);
         bottomLine.setBackgroundColor(colorRes);
     }
 
@@ -386,6 +397,8 @@ public class TextFieldBoxes extends FrameLayout {
             counter.setVisibility(View.VISIBLE);
             bottomLine.setVisibility(View.VISIBLE);
             panel.setEnabled(true);
+            iconImageView.setEnabled(true);
+            iconImageView.setClickable(true);
             setHighlightColor(DEFAULT_TEXT_COLOR);
             updateCounterText();
 
@@ -396,22 +409,14 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setFocusableInTouchMode(false);
             editText.setFocusable(false);
             label.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
+            Utils.setDrawableTintColor(iconImageView.getDrawable(), DEFAULT_DISABLED_TEXT_COLOR);
             helper.setVisibility(View.INVISIBLE);
             counter.setVisibility(View.INVISIBLE);
             bottomLine.setVisibility(View.INVISIBLE);
             panel.setEnabled(false);
+            iconImageView.setClickable(false);
+            iconImageView.setEnabled(false);
         }
-    }
-
-    public void setIconSignifier(int resourceID){
-
-        iconSignifierResourceId=resourceID;
-    }
-
-    public void removeIconSignifier(){
-
-        iconSignifierResourceId=0;
-        imageView.setVisibility(GONE);
     }
 
     /**
@@ -548,6 +553,24 @@ public class TextFieldBoxes extends FrameLayout {
         ((GradientDrawable) ((LayerDrawable) panel.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
     }
 
+    public void setIconSignifier(int resourceID){
+
+        iconSignifierResourceId = resourceID;
+        if (iconSignifierResourceId != 0) {
+            iconImageView.setImageResource(iconSignifierResourceId);
+            iconImageView.setVisibility(View.VISIBLE);
+        } else removeIconSignifier();
+    }
+
+    /**
+     * remove the icon by setting the visibility of the image view to View.GONE
+     */
+    public void removeIconSignifier(){
+
+        iconSignifierResourceId = 0;
+        iconImageView.setVisibility(View.GONE);
+    }
+
     /**
      * set if the EditText is having focus
      *
@@ -627,6 +650,10 @@ public class TextFieldBoxes extends FrameLayout {
 
     public int getPanelBackgroundColor() {
         return this.panelBackgroundColor;
+    }
+
+    public int getIconSignifierResourceId() {
+        return this.iconSignifierResourceId;
     }
 
     public boolean getHasFocus() {
