@@ -27,7 +27,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="20dp"
                 android:textSize="16sp"
-                tools:text="Password" />
+                tools:text="Hint" />
 
             <ImageView
                 android:id="@+id/text_field_boxes_imageView"
