@@ -94,6 +94,9 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected boolean hasFocus;
 
+    protected int iconSignifierResourceId;
+
+
     public View card;
     public TextView label;
     public EditText editText;
@@ -150,6 +153,7 @@ public class TextFieldBoxes extends FrameLayout {
         labelTopMargin = RelativeLayout.LayoutParams.class.cast(label.getLayoutParams()).topMargin;
         helper = findViewById(R.id.text_field_boxes_helper);
         counter = findViewById(R.id.text_field_boxes_counter);
+        imageView = findViewById(R.id.text_field_boxes_imageView);
 
         card.setOnClickListener(new OnClickListener() {
             @Override
@@ -197,6 +201,7 @@ public class TextFieldBoxes extends FrameLayout {
         setErrorColor(errorColor);
         setPrimaryColor(primaryColor);
         setHasFocus(hasFocus);
+        setIconSignifier(iconSignifierResourceId);
         updateCounterText();
     }
 
@@ -216,7 +221,7 @@ public class TextFieldBoxes extends FrameLayout {
             primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
-            setIconSignifier(styledAttrs.getResourceId(R.styleable.TextFieldBoxes_enabled, 0));
+            iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_enabled, 0);
             styledAttrs.recycle();
 
         } catch (Exception e) {
@@ -390,6 +395,7 @@ public class TextFieldBoxes extends FrameLayout {
 
     public void setIconSignifier(int resourceID){
 
+        iconSignifierResourceId=resourceID;
         Log.d("aaaaaaaaa", Integer.toString(resourceID));
         if(resourceID==0) {
             removeIconSignifier();
