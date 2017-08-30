@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/text_field_boxes_imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -41,7 +41,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp">
 
-                <TextView
+                <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/text_field_boxes_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

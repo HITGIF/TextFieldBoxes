@@ -62,7 +62,7 @@ public class Utils {
 
         if (_drawable != null) {
             _drawable.mutate();
-            _drawable.setColorFilter(_colorRes, PorterDuff.Mode.SRC_ATOP);
+            _drawable.setColorFilter(_colorRes, PorterDuff.Mode.DARKEN);
             _drawable.setAlpha(255);
         }
     }

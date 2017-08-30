@@ -16,7 +16,8 @@
     <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        app:iconSignifier="@drawable/ic_action_password"
+        app:hasFocus="true"
+        app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
         app:hint="Password" />
 
     </LinearLayout>
@@ -61,7 +62,7 @@
     <!--android:layout_gravity="center_horizontal"-->
     <!--android:layout_weight="2"-->
     <!--app:hasFocus="true"-->
-    <!--app:iconSignifier="@drawable/ic_action_location"-->
+    <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
     <!--app:hint="Location (optional)"-->
     <!--app:singleLine="true"-->
     <!--app:text="" />-->

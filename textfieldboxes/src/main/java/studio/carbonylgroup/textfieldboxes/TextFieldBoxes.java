@@ -1,11 +1,13 @@
 package studio.carbonylgroup.textfieldboxes;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v4.view.ViewCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,9 +20,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-
-import java.lang.reflect.Array;
 
 /**
  * Text Field Boxes
@@ -49,7 +48,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected String hint;
 
     /**
-     * helper text at the bottom.
+     * helperLabel text at the bottom.
      */
     protected String helperText;
 
@@ -74,7 +73,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int minCharacters;
 
     /**
-     * the text color for the helper text. DEFAULT_TEXT_COLOR by default.
+     * the text color for the helperLabel text. DEFAULT_TEXT_COLOR by default.
      */
     protected int helperTextColor;
 
@@ -105,13 +104,13 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean hasFocus;
 
     public View panel;
-    public TextView label;
     public EditText editText;
     public ViewGroup editTextLayout;
     public FrameLayout bottomLine;
-    public AppCompatTextView helper;
-    public AppCompatTextView counter;
-    public ImageView iconImageView;
+    public AppCompatTextView hintLabel;
+    public AppCompatTextView helperLabel;
+    public AppCompatTextView counterLabel;
+    public AppCompatImageView iconImageView;
     protected InputMethodManager inputMethodManager;
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
@@ -154,13 +153,13 @@ public class TextFieldBoxes extends FrameLayout {
         editText = findViewById(R.id.text_field_boxes_editText);
         editText.setBackgroundColor(Color.TRANSPARENT);
         editText.setAlpha(0f);
-        label = findViewById(R.id.text_field_boxes_label);
-        label.setPivotX(0f);
-        label.setPivotY(0f);
-        labelColor = label.getCurrentTextColor();
-        labelTopMargin = RelativeLayout.LayoutParams.class.cast(label.getLayoutParams()).topMargin;
-        helper = findViewById(R.id.text_field_boxes_helper);
-        counter = findViewById(R.id.text_field_boxes_counter);
+        hintLabel = findViewById(R.id.text_field_boxes_label);
+        hintLabel.setPivotX(0f);
+        hintLabel.setPivotY(0f);
+        labelColor = hintLabel.getCurrentTextColor();
+        labelTopMargin = RelativeLayout.LayoutParams.class.cast(hintLabel.getLayoutParams()).topMargin;
+        helperLabel = findViewById(R.id.text_field_boxes_helper);
+        counterLabel = findViewById(R.id.text_field_boxes_counter);
         iconImageView = findViewById(R.id.text_field_boxes_imageView);
         bottomLine = findViewById(R.id.bg_bottom_line);
 
@@ -250,13 +249,13 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * lower the hint label when there is no text at losing focus
+     * lower the hint hintLabel when there is no text at losing focus
      */
     protected void deactivate() {
 
         if (editText.getText().toString().equals("")) {
 
-            ViewCompat.animate(label)
+            ViewCompat.animate(hintLabel)
                     .alpha(1)
                     .scaleX(1)
                     .scaleY(1)
@@ -274,9 +273,9 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * raise the hint label when gaining focus
+     * raise the hint hintLabel when gaining focus
      *
-     * @param animated whether to animate the hint label or not
+     * @param animated whether to animate the hint hintLabel or not
      */
     protected void activate(boolean animated) {
 
@@ -287,16 +286,16 @@ public class TextFieldBoxes extends FrameLayout {
             if (editText.getText().toString().equals("") && !isActivated()) {
 
                 editText.setAlpha(0f);
-                label.setScaleX(1f);
-                label.setScaleY(1f);
-                label.setTranslationY(0);
+                hintLabel.setScaleX(1f);
+                hintLabel.setScaleY(1f);
+                hintLabel.setTranslationY(0);
             }
 
             ViewCompat.animate(editText)
                     .alpha(1f)
                     .setDuration(ANIMATION_DURATION);
 
-            ViewCompat.animate(label)
+            ViewCompat.animate(hintLabel)
                     .scaleX(0.75f)
                     .scaleY(0.75f)
                     .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
@@ -305,9 +304,9 @@ public class TextFieldBoxes extends FrameLayout {
         } else {
 
             editText.setAlpha(1f);
-            label.setScaleX(0.75f);
-            label.setScaleY(0.75f);
-            label.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+            hintLabel.setScaleX(0.75f);
+            hintLabel.setScaleY(0.75f);
+            hintLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
         }
         activated = true;
     }
@@ -319,9 +318,9 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void setHighlightColor(int colorRes) {
 
-        label.setTextColor(colorRes);
+        hintLabel.setTextColor(colorRes);
         Utils.setCursorDrawableColor(editText, colorRes);
-        Utils.setDrawableTintColor(iconImageView.getDrawable(), colorRes);
+        iconImageView.setColorFilter(colorRes);
         bottomLine.setBackgroundColor(colorRes);
     }
 
@@ -342,48 +341,48 @@ public class TextFieldBoxes extends FrameLayout {
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                counter.setText(lengthStr + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
+                counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
                 if (length < this.minCharacters || length > maxCharacters) setCounterError();
                 else removeCounterError();
 
             } else {
                 /* MAX ONLY */
-                counter.setText(lengthStr + Integer.toString(this.maxCharacters));
+                counterLabel.setText(lengthStr + Integer.toString(this.maxCharacters));
                 if (length > maxCharacters) setCounterError();
                 else removeCounterError();
             }
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                counter.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
+                counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
                 if (length < minCharacters) setCounterError();
                 else removeCounterError();
 
-            } else counter.setText("");
+            } else counterLabel.setText("");
         }
     }
 
     /**
-     * set highlight color and counter Label text color to error color
+     * set highlight color and counterLabel Label text color to error color
      */
     protected void setCounterError() {
 
         this.onError = true;
         setHighlightColor(errorColor);
-        counter.setTextColor(this.errorColor);
+        counterLabel.setTextColor(this.errorColor);
     }
 
     /**
      * set highlight color to primary color if having focus,
      * otherwise set to DEFAULT_TEXT_COLOR
-     * set counter Label text color to DEFAULT_TEXT_COLOR
+     * set counterLabel Label text color to DEFAULT_TEXT_COLOR
      */
     protected void removeCounterError() {
 
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
-        counter.setTextColor(this.DEFAULT_TEXT_COLOR);
+        counterLabel.setTextColor(this.DEFAULT_TEXT_COLOR);
     }
 
     public void setEnabled(boolean _enabled) {
@@ -393,8 +392,8 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setEnabled(true);
             editText.setFocusableInTouchMode(true);
             editText.setFocusable(true);
-            helper.setVisibility(View.VISIBLE);
-            counter.setVisibility(View.VISIBLE);
+            helperLabel.setVisibility(View.VISIBLE);
+            counterLabel.setVisibility(View.VISIBLE);
             bottomLine.setVisibility(View.VISIBLE);
             panel.setEnabled(true);
             iconImageView.setEnabled(true);
@@ -408,10 +407,11 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setEnabled(false);
             editText.setFocusableInTouchMode(false);
             editText.setFocusable(false);
-            label.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
-            Utils.setDrawableTintColor(iconImageView.getDrawable(), DEFAULT_DISABLED_TEXT_COLOR);
-            helper.setVisibility(View.INVISIBLE);
-            counter.setVisibility(View.INVISIBLE);
+            hintLabel.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
+//            Utils.setDrawableTintColor(iconImageView.getDrawable(), DEFAULT_DISABLED_TEXT_COLOR);
+            iconImageView.setColorFilter(DEFAULT_DISABLED_TEXT_COLOR);
+            helperLabel.setVisibility(View.INVISIBLE);
+            counterLabel.setVisibility(View.INVISIBLE);
             bottomLine.setVisibility(View.INVISIBLE);
             panel.setEnabled(false);
             iconImageView.setClickable(false);
@@ -420,8 +420,8 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set highlight color and helper Label text color to error color
-     * set helper Label text to error message
+     * set highlight color and helperLabel Label text color to error color
+     * set helperLabel Label text to error message
      *
      * @param _errorText error message
      */
@@ -430,15 +430,15 @@ public class TextFieldBoxes extends FrameLayout {
         if (enabled) {
             onError = true;
             setHighlightColor(errorColor);
-            helper.setTextColor(this.errorColor);
-            helper.setText(_errorText);
+            helperLabel.setTextColor(this.errorColor);
+            helperLabel.setText(_errorText);
         }
     }
 
     /**
      * set highlight to primary color if having focus,
      * otherwise set to DEFAULT_TEXT_COLOR
-     * set helper Label text color to DEFAULT_TEXT_COLOR
+     * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
      * NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
      */
@@ -447,12 +447,12 @@ public class TextFieldBoxes extends FrameLayout {
         onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
-        helper.setTextColor(this.helperTextColor);
-        helper.setText(helperText);
+        helperLabel.setTextColor(this.helperTextColor);
+        helperLabel.setText(helperText);
     }
 
     /**
-     * set EditText text, raise the hint label if there is something
+     * set EditText text, raise the hint hintLabel if there is something
      *
      * @param _text new text
      */
@@ -468,7 +468,7 @@ public class TextFieldBoxes extends FrameLayout {
     public void setHint(String _hint) {
 
         this.hint = _hint;
-        label.setText(hint);
+        hintLabel.setText(hint);
     }
 
     /**
@@ -528,13 +528,13 @@ public class TextFieldBoxes extends FrameLayout {
     public void setHelperText(String _helperText) {
 
         this.helperText = _helperText;
-        helper.setText(helperText);
+        helperLabel.setText(helperText);
     }
 
     public void setHelperTextColor(int _colorRes) {
 
         this.helperTextColor = _colorRes;
-        helper.setTextColor(this.helperTextColor);
+        helperLabel.setTextColor(this.helperTextColor);
     }
 
     public void setErrorColor(int _colorRes) {
@@ -553,7 +553,7 @@ public class TextFieldBoxes extends FrameLayout {
         ((GradientDrawable) ((LayerDrawable) panel.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
     }
 
-    public void setIconSignifier(int resourceID){
+    public void setIconSignifier(int resourceID) {
 
         iconSignifierResourceId = resourceID;
         if (iconSignifierResourceId != 0) {
@@ -565,7 +565,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * remove the icon by setting the visibility of the image view to View.GONE
      */
-    public void removeIconSignifier(){
+    public void removeIconSignifier() {
 
         iconSignifierResourceId = 0;
         iconImageView.setVisibility(View.GONE);
@@ -633,7 +633,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     public String getCounterText() {
-        return counter.getText().toString();
+        return counterLabel.getText().toString();
     }
 
     public int getHelperTextColor() {
