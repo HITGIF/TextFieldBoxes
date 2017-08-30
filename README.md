@@ -168,7 +168,7 @@ app:maxCharacters="5"
 
 *Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` by default.
 
-*Panel Background Color* will be used for the color of panel at the back. You can use `app:panelBackgroundColor` in xml or `setPanelBackgroundColor(int _colorRes)` in Java. `6% black` by default.
+*Panel Background Color* will be used for the color of panel at the back. You can use `app:panelBackgroundColor` in xml or `setPanelBackgroundColor(int _colorRes)` in Java. `6% black` by default. *NOTE that the default color, as in the guideline, is the black (`#000000`) color with the transparency of 6%, so when you're customizing and want it to still be transparent you have to set a color with transparency.*
 
 ```xml
 app:primaryColor="#1B5E20"          <!--Green-->
