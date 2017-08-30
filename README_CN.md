@@ -135,7 +135,7 @@ setError("Error message");
 
 #### 5. 最大行数
 
-在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int _maxlines)` 以设置文本框的最大行数。 默认值是 `Integer.MAX_VALUE`。
+在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int _maxlines)` 以设置文本框的最大行数。默认值是 `Integer.MAX_VALUE`。
 
 ```xml
 app:maxLines="3"
@@ -145,7 +145,7 @@ app:maxLines="3"
 
 #### 6. 最大和最小字符数
 
-在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int _maxCharacters)` 以设置最大字符数, 在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int _minCharacters)` 以设置最小字符数。 当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。 默认值是 `0`, 表示没有限制。 
+在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int _maxCharacters)` 以设置最大字符数, 在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int _minCharacters)` 以设置最小字符数。当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。默认值是 `0`, 表示没有限制。
 
 *注意: 空格和换行不计入字符数。*
 
@@ -164,11 +164,11 @@ app:maxCharacters="5"
 
 #### 7. 自定义颜色
 
-*Primary Color* 是底部的线和提示文字的颜色。 在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。默认值为目前主题的 `Primary Color`。 
+*Primary Color* 是底部的线和提示文字的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
 
-*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置. 默认值是 `A400 red`。 
+*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置。默认值是 `A400 red`。
 
-*Helper Text Color* 是帮助文本的颜色。在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。 默认值是 `54% black`。 
+*Helper Text Color* 是帮助文本的颜色。在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。默认值是 `54% black`。
 
 *Panel Background Color* 是文本框背板的颜色。在 xml 中加入 `app:panelBackgroundColor` 或在 Java 代码中使用 `setPanelBackgroundColor(int _colorRes)` 以设置。默认值是 `6% black`。*需要注意的是根据规范，默认的颜色是 6% 透明度的黑色 (`#000000`)，所以如果你要自定义颜色并且仍需让其保持透明，则应同样设置一个带透明度的颜色。*
 
@@ -221,27 +221,29 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 #### 颜色
 
-`app:helperTextColor` 帮助文本颜色。
+`app:helperTextColor` 帮助文本颜色。默认值是 `54% black`。
 
-`app:errorColor` 错误时的显示颜色 (e.g. 超出字符限制, `setError()`)。
+`app:errorColor` 错误时的显示颜色 (e.g. 超出字符限制, `setError()`)。默认值是 `A400 red`。
 
-`app:primaryColor` 是底部的线和提示文字的颜色。 默认值为目前主题的 `Primary Color`。
+`app:primaryColor` 底部的线和提示文字的颜色。默认值为目前主题的 `Primary Color`。
+
+`app:panelBackgroundColor` 文本框背板的颜色。默认值为 `6% black`。
 
 #### 字符统计
 
-`app:maxCharacters` 最大字符数。 `0` 表示没有限制。 默认是 `0`。
+`app:maxCharacters` 最大字符数。`0` 表示没有限制。默认是 `0`。
 
-`app:minCharacters` 最小字符数。 `0` 表示没有限制。 默认是 `0`。
+`app:minCharacters` 最小字符数。`0` 表示没有限制。默认是 `0`。
 
 #### 其他
 
-`app:enabled` 文本框是否启用。 默认值为 `True`。
+`app:enabled` 文本框是否启用。默认值为 `True`。
 
-`app:singleLine` EditText 是否为单行。 默认值为 `False`。
+`app:singleLine` EditText 是否为单行。默认值为 `False`。
 
-`app:maxLines` 文本框最大行数。 默认值为 `Integer.MAX_VALUE`。
+`app:maxLines` 文本框最大行数。默认值为 `Integer.MAX_VALUE`。
 
-`app:hasFocus` 文本框是否获得焦点。 默认值为 `False`。
+`app:hasFocus` 文本框是否获得焦点。默认值为 `False`。
 
 ​
 ## TODO
