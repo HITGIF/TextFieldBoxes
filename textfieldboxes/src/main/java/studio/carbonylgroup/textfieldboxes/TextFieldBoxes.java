@@ -30,8 +30,7 @@ public class TextFieldBoxes extends FrameLayout {
     public final int DEFAULT_TEXT_COLOR = getContext().getResources().getColor(R.color.per54black);
     public final int DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
     public final int DEFAULT_DISABLED_TEXT_COLOR = getContext().getResources().getColor(R.color.per42black);
-    public final int DEFAULT_DISABLED_BG_COLOR = getContext().getResources().getColor(R.color.per10black);
-    public final int DEFAULT_ENABLED_BG_COLOR = getContext().getResources().getColor(R.color.per06black);
+    public final int DEFAULT_BG_COLOR = getContext().getResources().getColor(R.color.per06black);
 
     /**
      * whether the text field is enabled. True by default.
@@ -90,17 +89,22 @@ public class TextFieldBoxes extends FrameLayout {
     protected int primaryColor;
 
     /**
+     * the color for panel at the back. DEFAULT_BG_COLOR by default.
+     */
+    protected int panelBackgroundColor;
+
+    /**
      * whether the EditText is having the focus. False by default.
      */
     protected boolean hasFocus;
 
     protected int iconSignifierResourceId;
-
-
-    public View card;
+    
+    public View panel;
     public TextView label;
     public EditText editText;
     public ViewGroup editTextLayout;
+    public FrameLayout bottomLine;
     public AppCompatTextView helper;
     public AppCompatTextView counter;
     public ImageView imageView;
@@ -141,7 +145,7 @@ public class TextFieldBoxes extends FrameLayout {
         super.onFinishInflate();
         addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
 
-        card = findViewById(R.id.text_field_boxes_card);
+        panel = findViewById(R.id.text_field_boxes_panel);
         editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
         editText = findViewById(R.id.text_field_boxes_editText);
         editText.setBackgroundColor(Color.TRANSPARENT);
@@ -154,8 +158,9 @@ public class TextFieldBoxes extends FrameLayout {
         helper = findViewById(R.id.text_field_boxes_helper);
         counter = findViewById(R.id.text_field_boxes_counter);
         imageView = findViewById(R.id.text_field_boxes_imageView);
+        bottomLine = findViewById(R.id.bg_bottom_line);
 
-        card.setOnClickListener(new OnClickListener() {
+        panel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
@@ -200,6 +205,7 @@ public class TextFieldBoxes extends FrameLayout {
         setHelperTextColor(helperTextColor);
         setErrorColor(errorColor);
         setPrimaryColor(primaryColor);
+        setPanelBackgroundColor(panelBackgroundColor);
         setHasFocus(hasFocus);
         setIconSignifier(iconSignifierResourceId);
         updateCounterText();
@@ -219,6 +225,7 @@ public class TextFieldBoxes extends FrameLayout {
             helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
             errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
+            panelBackgroundColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
             hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_enabled, 0);
@@ -300,7 +307,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         label.setTextColor(colorRes);
         Utils.setCursorDrawableColor(editText, colorRes);
-        ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_bottom_line)).setColor(colorRes);
+        bottomLine.setBackgroundColor(colorRes);
     }
 
     /**
@@ -373,9 +380,9 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setFocusable(true);
             helper.setVisibility(View.VISIBLE);
             counter.setVisibility(View.VISIBLE);
-            card.setEnabled(true);
+            bottomLine.setVisibility(View.VISIBLE);
+            panel.setEnabled(true);
             setHighlightColor(DEFAULT_TEXT_COLOR);
-            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(DEFAULT_ENABLED_BG_COLOR);
             updateCounterText();
 
         } else {
@@ -387,9 +394,8 @@ public class TextFieldBoxes extends FrameLayout {
             label.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
             helper.setVisibility(View.INVISIBLE);
             counter.setVisibility(View.INVISIBLE);
-            card.setEnabled(false);
-            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(DEFAULT_DISABLED_BG_COLOR);
-            ((GradientDrawable) ((LayerDrawable) card.getBackground()).findDrawableByLayerId(R.id.bg_bottom_line)).setColor(DEFAULT_DISABLED_BG_COLOR);
+            bottomLine.setVisibility(View.INVISIBLE);
+            panel.setEnabled(false);
         }
     }
 
@@ -538,6 +544,12 @@ public class TextFieldBoxes extends FrameLayout {
         if (hasFocus) setHighlightColor(primaryColor);
     }
 
+    public void setPanelBackgroundColor(int _colorRes) {
+
+        this.panelBackgroundColor = _colorRes;
+        ((GradientDrawable) ((LayerDrawable) panel.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
+    }
+
     /**
      * set if the EditText is having focus
      *
@@ -613,6 +625,10 @@ public class TextFieldBoxes extends FrameLayout {
 
     public int getPrimaryColor() {
         return this.primaryColor;
+    }
+
+    public int getPanelBackgroundColor() {
+        return this.panelBackgroundColor;
     }
 
     public boolean getHasFocus() {

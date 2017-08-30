@@ -5,13 +5,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/text_field_boxes_card"
+    <studio.carbonylgroup.textfieldboxes.PanelView
+        android:id="@+id/text_field_boxes_panel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/bg"
         android:clickable="true"
+        android:clipChildren="true"
+        android:clipToPadding="true"
         android:foreground="?attr/selectableItemBackground">
 
         <RelativeLayout
@@ -57,7 +59,14 @@
 
         </RelativeLayout>
 
-    </RelativeLayout>
+        <FrameLayout
+            android:id="@+id/bg_bottom_line"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_alignParentBottom="true"
+            android:clipChildren="true" />
+
+    </studio.carbonylgroup.textfieldboxes.PanelView>
 
     <RelativeLayout
         android:id="@+id/text_field_boxes_bottom"

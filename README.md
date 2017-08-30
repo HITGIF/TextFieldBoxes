@@ -1,13 +1,18 @@
 # TextFieldBoxes
+
+[![Build Status](https://travis-ci.org/HITGIF/TextFieldBoxes.svg?branch=master)](https://travis-ci.org/HITGIF/TextFieldBoxes)
 [![JitPack](https://jitpack.io/v/HITGIF/TextFieldBoxes.svg)](https://jitpack.io/#HITGIF/TextFieldBoxes)
-[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
+[![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
 [![GitHub issues](https://img.shields.io/github/issues/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/issues)
 [![GitHub forks](https://img.shields.io/github/forks/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/network)
 [![GitHub stars](https://img.shields.io/github/stars/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/stargazers)
-
-A new Material Design text field that comes in a box.
+[![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
 
 ![Animation](/images/tfb1.gif)
+
+A new Material Design text field that comes in a box, based on Google Material Design guidelines. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
+
+<a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ​
 ## Requirements
@@ -29,7 +34,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.0.0'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.0.1'
 }
 ```
 
@@ -46,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
@@ -55,7 +60,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 ```
 
 
@@ -64,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.0"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.0"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]	
 ```
 
 ​
@@ -138,7 +143,9 @@ app:maxLines="3"
 
 #### 6. Max & Min Characters
 
-Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The bottom line will turn red when exceeding max or min characters limit. 0, as default, means no max or min characters. 
+Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters. 
+
+*NOTE: Space and line feed will NOT count.*
 
 ```xml
 app:maxCharacters="10"
@@ -157,14 +164,17 @@ app:maxCharacters="5"
 
 *Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default. 
 
-*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` ![#ff1744](https://placehold.it/15/ff1744/000000?text=+) by default. 
+*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` by default. 
 
-*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` ![#757575](https://placehold.it/15/757575/000000?text=+) by default. 
+*Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` by default.
+
+*Panel Background Color* will be used for the color of panel at the back. You can use `app:panelBackgroundColor` in xml or `setPanelBackgroundColor(int _colorRes)` in Java. `6% black` by default. *NOTE that the default color, as in the guideline, is the black (`#000000`) color with the transparency of 6%, so when you're customizing and want it to still be transparent you have to set a color with transparency.*
 
 ```xml
-app:primaryColor="#1B5E20"      <!--Green-->
-app:errorColor="#ddaa00"        <!--Yellow-->
-app:helperTextColor="#795548"   <!--Brown-->
+app:primaryColor="#1B5E20"          <!--Green-->
+app:errorColor="#ddaa00"            <!--Yellow-->
+app:helperTextColor="#795548"       <!--Brown-->
+app:panelBackgroundColor="#ffe8e8"  <!--Pink-->
 ```
 
 ![](/images/customColor1.png) ![](/images/customColor2.png)
@@ -209,11 +219,13 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 #### Colors
 
-`app:helperTextColor` Helper text color.
+`app:helperTextColor` Helper text color. `54% black` by default.
 
-`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`).
+`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`). `A400 red` by default.
 
 `app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
+
+`app:panelBackgroundColor` The color for the panel at the back. `6% black` by default.
 
 #### Characters counter
 
@@ -229,10 +241,10 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 `app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
 
-`app:hasFocus`Whether the EditText is having the focus. `False` by default.
+`app:hasFocus` Whether the EditText is having the focus. `False` by default.
 
 ​
-## Todo List
+## TODO
 - Prefix & Suffix
 - Icon signifier
 - Dark theme

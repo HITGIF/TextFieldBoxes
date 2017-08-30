@@ -7,6 +7,26 @@
     android:scrollbarStyle="outsideOverlay"
     tools:context=".MainActivity">
 
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:layout_gravity="center">-->
+
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:layout_width="250dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:hint="Hint"-->
+    <!--app:text="Text f"-->
+    <!--app:helperText="Helper is here"-->
+    <!--app:maxCharacters="5"-->
+    <!--app:errorColor="#ddaa00"-->
+    <!--app:helperTextColor="#795548"-->
+    <!--app:primaryColor="#1B5E20"-->
+    <!--app:panelBackgroundColor="#ffe8e8"/>-->
+
+    <!--</LinearLayout>-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
