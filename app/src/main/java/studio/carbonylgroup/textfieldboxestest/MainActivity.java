@@ -2,6 +2,9 @@ package studio.carbonylgroup.textfieldboxestest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
+
+import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class MainActivity extends AppCompatActivity {
 

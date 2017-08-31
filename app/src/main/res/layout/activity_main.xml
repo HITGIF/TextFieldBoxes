@@ -8,22 +8,17 @@
     tools:context=".MainActivity">
 
     <!--<LinearLayout-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:gravity="center"-->
-    <!--android:layout_gravity="center">-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center">-->
 
     <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-    <!--android:layout_width="250dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:hint="Hint"-->
-    <!--app:text="Text f"-->
-    <!--app:helperText="Helper is here"-->
-    <!--app:maxCharacters="5"-->
-    <!--app:errorColor="#ddaa00"-->
-    <!--app:helperTextColor="#795548"-->
-    <!--app:primaryColor="#1B5E20"-->
-    <!--app:panelBackgroundColor="#ffe8e8"/>-->
+        <!--android:layout_width="250dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tfb"-->
+        <!--app:iconSignifier="@drawable/ic_vpn_key_black_24dp"-->
+        <!--app:hint="Password" />-->
 
     <!--</LinearLayout>-->
 
@@ -68,6 +63,7 @@
                 android:layout_weight="2"
                 app:hasFocus="true"
                 app:hint="Location (optional)"
+                app:iconSignifier="@drawable/ic_location_on_black_24dp"
                 app:singleLine="true"
                 app:text="" />
 

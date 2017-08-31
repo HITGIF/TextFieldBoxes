@@ -56,6 +56,18 @@ public class Utils {
     }
 
     /**
+     * set the tint color of the drawable icon
+     */
+    public static void setDrawableTintColor(Drawable _drawable, int _colorRes) {
+
+        if (_drawable != null) {
+            _drawable.mutate();
+            _drawable.setColorFilter(_colorRes, PorterDuff.Mode.DARKEN);
+            _drawable.setAlpha(255);
+        }
+    }
+
+    /**
      * convert dp value into pixels
      */
     public static int dp2px(Context context, float dp) {
