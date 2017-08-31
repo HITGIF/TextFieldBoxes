@@ -1,0 +1,12 @@
+engines:
+  checkstyle:
+    enabled: true
+    channel: "beta"
+  pmd:
+    enabled: true
+    channel: "beta"
+ratings:
+   paths:
+   - "TextFieldBoxes.java"
+   - "PanelView.java"
+   - "Utils.java"
