@@ -56,6 +56,26 @@ public class Utils {
     }
 
     /**
+     * return a lighter color
+     *
+     * @param _factor percentage of light applied
+     */
+    public static int lighter(int color, float _factor) {
+
+        int red = (int) ((Color.red(color) * (1 - _factor) / 255 + _factor) * 255);
+        int green = (int) ((Color.green(color) * (1 - _factor) / 255 + _factor) * 255);
+        int blue = (int) ((Color.blue(color) * (1 - _factor) / 255 + _factor) * 255);
+        return Color.argb(Color.alpha(color), red, green, blue);
+    }
+
+    public static boolean isLight(int color) {
+        return Math.sqrt(
+                Color.red(color) * Color.red(color) * .241 +
+                        Color.green(color) * Color.green(color) * .691 +
+                        Color.blue(color) * Color.blue(color) * .068) > 130;
+    }
+
+    /**
      * set the tint color of the drawable icon
      */
     public static void setDrawableTintColor(Drawable _drawable, int _colorRes) {
@@ -81,8 +101,8 @@ public class Utils {
      *
      * @return the color after adjustment
      */
-    public static int adjustAlpha(int color, float _alphaFactor) {
-        int alpha = Math.round(Color.alpha(color) * _alphaFactor);
+    public static int adjustAlpha(int color, float _toAlpha) {
+        int alpha = Math.round(255 * _toAlpha);
         int red = Color.red(color);
         int green = Color.green(color);
         int blue = Color.blue(color);

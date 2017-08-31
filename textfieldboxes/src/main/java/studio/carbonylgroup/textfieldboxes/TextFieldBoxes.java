@@ -1,7 +1,7 @@
 package studio.carbonylgroup.textfieldboxes;
 
 import android.content.Context;
-import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -18,8 +18,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
 
 /**
  * Text Field Boxes
@@ -27,10 +27,14 @@ import android.widget.RelativeLayout;
  */
 public class TextFieldBoxes extends FrameLayout {
 
-    public final int DEFAULT_TEXT_COLOR = getContext().getResources().getColor(R.color.per54black);
-    public final int DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
-    public final int DEFAULT_DISABLED_TEXT_COLOR = getContext().getResources().getColor(R.color.per42black);
-    public final int DEFAULT_BG_COLOR = getContext().getResources().getColor(R.color.per06black);
+    /**
+     * all the default colors to be used on light or dark themes.
+     */
+    public int DEFAULT_ERROR_COLOR;
+    public int DEFAULT_PRIMARY_COLOR;
+    public int DEFAULT_TEXT_COLOR;
+    public int DEFAULT_DISABLED_TEXT_COLOR;
+    public int DEFAULT_BG_COLOR;
 
     /**
      * whether the text field is enabled. True by default.
@@ -127,19 +131,47 @@ public class TextFieldBoxes extends FrameLayout {
     public TextFieldBoxes(Context context, AttributeSet attrs) {
 
         super(context, attrs);
-        handleAttributes(context, attrs);
         init();
+        handleAttributes(context, attrs);
     }
 
     public TextFieldBoxes(Context context, AttributeSet attrs, int defStyleAttr) {
 
         super(context, attrs, defStyleAttr);
-        handleAttributes(context, attrs);
         init();
+        handleAttributes(context, attrs);
     }
 
     protected void init() {
+        initDefaultColor();
         inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
+
+    protected void initDefaultColor() {
+
+        Resources.Theme theme = getContext().getTheme();
+        TypedArray themeArray;
+
+        DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
+
+        themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorForeground});
+        DEFAULT_BG_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), 0.06f);
+
+        themeArray = theme.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
+        if (Utils.isLight(DEFAULT_BG_COLOR))
+            DEFAULT_PRIMARY_COLOR = Utils.lighter(themeArray.getColor(0, 0), 0.2f);
+        else DEFAULT_PRIMARY_COLOR = themeArray.getColor(0, 0);
+
+        themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.textColorTertiary});
+        DEFAULT_TEXT_COLOR = themeArray.getColor(0, 0);
+
+        themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.disabledAlpha});
+        float disabledAlpha = themeArray.getFloat(0, 0);
+
+        themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.textColorTertiary});
+        DEFAULT_DISABLED_TEXT_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), disabledAlpha);
+
+        themeArray.recycle();
     }
 
     @Override
@@ -206,7 +238,6 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
-        setEnabled(enabled);
         setText(text);
         setHint(hint);
         setSingleLine(singleLine);
@@ -219,6 +250,7 @@ public class TextFieldBoxes extends FrameLayout {
         setPrimaryColor(primaryColor);
         setPanelBackgroundColor(panelBackgroundColor);
         setIconSignifier(iconSignifierResourceId);
+        setEnabled(enabled);
         setHasFocus(hasFocus);
         updateCounterText();
     }
@@ -236,7 +268,7 @@ public class TextFieldBoxes extends FrameLayout {
             helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
             helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
             errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
-            primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, Utils.fetchPrimaryColor(getContext()));
+            primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, DEFAULT_PRIMARY_COLOR);
             panelBackgroundColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
             enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
@@ -323,6 +355,7 @@ public class TextFieldBoxes extends FrameLayout {
         iconImageView.setColorFilter(colorRes);
         if (colorRes == DEFAULT_TEXT_COLOR) iconImageView.setAlpha(0.54f);
         else iconImageView.setAlpha(1f);
+        if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) iconImageView.setAlpha(0.35f);
         bottomLine.setBackgroundColor(colorRes);
     }
 
@@ -332,7 +365,7 @@ public class TextFieldBoxes extends FrameLayout {
      * if exceeds limit, setCounterError()
      * otherwise removeCounterError()
      * <p>
-     * NOTE: SPACE AND LINE FEED WILL NOT COUNT
+     * <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
      */
     protected void updateCounterText() {
 
@@ -411,8 +444,7 @@ public class TextFieldBoxes extends FrameLayout {
             editText.setFocusable(false);
             iconImageView.setClickable(false);
             iconImageView.setEnabled(false);
-            hintLabel.setTextColor(DEFAULT_DISABLED_TEXT_COLOR);
-            iconImageView.setColorFilter(DEFAULT_DISABLED_TEXT_COLOR);
+            setHighlightColor(DEFAULT_DISABLED_TEXT_COLOR);
             helperLabel.setVisibility(View.INVISIBLE);
             counterLabel.setVisibility(View.INVISIBLE);
             bottomLine.setVisibility(View.INVISIBLE);
@@ -441,7 +473,7 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise set to DEFAULT_TEXT_COLOR
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
-     * NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
+     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES</i>
      */
     public void removeError() {
 
@@ -542,6 +574,9 @@ public class TextFieldBoxes extends FrameLayout {
         this.errorColor = _colorRes;
     }
 
+    /**
+     * <i>NOTE: the color will automatically be made lighter by 20% if it's on the DARK theme</i>
+     */
     public void setPrimaryColor(int _colorRes) {
 
         this.primaryColor = _colorRes;
