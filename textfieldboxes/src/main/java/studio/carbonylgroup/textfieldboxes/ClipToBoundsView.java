@@ -11,7 +11,7 @@ import android.widget.RelativeLayout;
  * Text Field Boxes
  * Created by CarbonylGroup on 2017/08/25
  */
-class ClipToBoundsView extends RelativeLayout {
+public class ClipToBoundsView extends RelativeLayout {
 
     Context context;
 
