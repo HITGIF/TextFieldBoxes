@@ -47,8 +47,8 @@ public class ExtendedEditText extends AppCompatEditText {
 
             final int lineBase = getLineBounds(0, null);
             final int lineBottom = getLineBounds(getLineCount() - 1, null);
-            final float endX = getWidth() - getPaddingRight() +
-                    (int) getPaint().measureText(suffixText) - 2 - getPaint().measureText(suffixText);
+            final float endX = getWidth() - getPaddingRight()
+                    + (int) getPaint().measureText(suffixText) - 2 - getPaint().measureText(suffixText);
 
             Paint paint = getPaint();
             paint.setColor(prefixTextColor.getColorForState(getDrawableState(), 0));
