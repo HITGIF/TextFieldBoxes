@@ -42,14 +42,15 @@ public class ExtendedEditText extends AppCompatEditText {
         @Override
         public void draw(Canvas canvas) {
 
-            int lineBaseline = getLineBounds(0, null);
+            int lineBase = getLineBounds(0, null);
+            int lineBottom = getLineBounds(getLineCount() - 1, null);
             float endX = getWidth() - getPaddingRight() + (int) getPaint().measureText(suffixText) - 2 - getPaint().measureText(suffixText);
 
             Paint paint = getPaint();
             paint.setColor(prefixTextColor.getColorForState(getDrawableState(), 0));
-            canvas.drawText(prefixText, 0, canvas.getClipBounds().top + lineBaseline, paint);
+            canvas.drawText(prefixText, 0, canvas.getClipBounds().top + lineBase, paint);
             paint.setColor(suffixTextColor.getColorForState(getDrawableState(), 0));
-            canvas.drawText(suffixText, endX, canvas.getClipBounds().bottom - getLineHeight() + lineBaseline, paint);
+            canvas.drawText(suffixText, endX, canvas.getClipBounds().top + lineBottom, paint);
         }
 
         @Override
