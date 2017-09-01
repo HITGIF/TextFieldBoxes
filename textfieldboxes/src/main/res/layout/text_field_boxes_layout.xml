@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal">
 
     <android.support.v7.widget.AppCompatImageView
@@ -22,7 +23,7 @@
         android:layout_toRightOf="@+id/text_field_boxes_imageView"
         android:orientation="vertical">
 
-        <studio.carbonylgroup.textfieldboxes.PanelView
+        <studio.carbonylgroup.textfieldboxes.ClipToBoundsView
             android:id="@+id/text_field_boxes_panel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -59,7 +60,7 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="32dp">
 
-                    <EditText
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                         android:id="@+id/text_field_boxes_editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
                 android:layout_alignParentBottom="true"
                 android:clipChildren="true" />
 
-        </studio.carbonylgroup.textfieldboxes.PanelView>
+        </studio.carbonylgroup.textfieldboxes.ClipToBoundsView>
 
         <RelativeLayout
             android:id="@+id/text_field_boxes_bottom"

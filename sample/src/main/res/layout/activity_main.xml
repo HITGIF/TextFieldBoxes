@@ -11,84 +11,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tfb"
-        app:maxCharacters="5"
-        app:hasFocus="true"
-        app:helperText="Helper is here"
-        app:iconSignifier="@drawable/ic_location_on_black_24dp"
-        app:hint="Hint" />
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/tfb"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            app:hint="Hint"
+            app:prefix="$ "
+            app:suffix="\@gmail.com"
+            app:iconSignifier="@drawable/ic_location_on_black_24dp"
+            app:text="10.00" />
 
         <EditText
-            android:layout_marginTop="100dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp" />
 
     </LinearLayout>
 
     <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="20dp">-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:gravity="center_horizontal"-->
+    <!--android:orientation="vertical"-->
+    <!--android:padding="20dp">-->
 
-        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes1"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:hint="Title"-->
-            <!--app:maxCharacters="20"-->
-            <!--app:text="Vintage 50's Dress" />-->
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:id="@+id/text_field_boxes1"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:hint="Title"-->
+    <!--app:maxCharacters="20"-->
+    <!--app:text="Vintage 50's Dress" />-->
 
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="15dp">-->
+    <!--<LinearLayout-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_marginTop="15dp">-->
 
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/text_field_boxes2"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginEnd="20dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:layout_weight="1"-->
-                <!--app:hasFocus="false"-->
-                <!--app:hint="Price"-->
-                <!--app:singleLine="true"-->
-                <!--app:text="$ 10.00" />-->
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:id="@+id/text_field_boxes2"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_marginEnd="20dp"-->
+    <!--android:layout_marginRight="20dp"-->
+    <!--android:layout_weight="1"-->
+    <!--app:hasFocus="false"-->
+    <!--app:hint="Price"-->
+    <!--app:singleLine="true"-->
+    <!--app:text="$ 10.00" />-->
 
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/text_field_boxes3"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_weight="2"-->
-                <!--app:hasFocus="true"-->
-                <!--app:hint="Location (optional)"-->
-                <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
-                <!--app:singleLine="true"-->
-                <!--app:text="" />-->
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:id="@+id/text_field_boxes3"-->
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_weight="2"-->
+    <!--app:hasFocus="true"-->
+    <!--app:hint="Location (optional)"-->
+    <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
+    <!--app:singleLine="true"-->
+    <!--app:text="" />-->
 
-        <!--</LinearLayout>-->
+    <!--</LinearLayout>-->
 
-        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="150dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--app:hasFocus="false"-->
-            <!--app:hint="Description"-->
-            <!--app:maxCharacters="140"-->
-            <!--app:singleLine="false"-->
-            <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:id="@+id/text_field_boxes4"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="150dp"-->
+    <!--android:layout_gravity="center_horizontal"-->
+    <!--android:layout_marginTop="15dp"-->
+    <!--app:hasFocus="false"-->
+    <!--app:hint="Description"-->
+    <!--app:maxCharacters="140"-->
+    <!--app:singleLine="false"-->
+    <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
 
     <!--</LinearLayout>-->
 
