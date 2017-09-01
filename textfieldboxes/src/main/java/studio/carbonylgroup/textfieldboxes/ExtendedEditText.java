@@ -2,7 +2,10 @@ package studio.carbonylgroup.textfieldboxes;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
@@ -42,9 +45,10 @@ public class ExtendedEditText extends AppCompatEditText {
         @Override
         public void draw(Canvas canvas) {
 
-            int lineBase = getLineBounds(0, null);
-            int lineBottom = getLineBounds(getLineCount() - 1, null);
-            float endX = getWidth() - getPaddingRight() + (int) getPaint().measureText(suffixText) - 2 - getPaint().measureText(suffixText);
+            final int lineBase = getLineBounds(0, null);
+            final int lineBottom = getLineBounds(getLineCount() - 1, null);
+            final float endX = getWidth() - getPaddingRight() +
+                    (int) getPaint().measureText(suffixText) - 2 - getPaint().measureText(suffixText);
 
             Paint paint = getPaint();
             paint.setColor(prefixTextColor.getColorForState(getDrawableState(), 0));
