@@ -69,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]
 ```
 
 ​
@@ -143,7 +143,7 @@ app:maxLines="3"
 
 #### 6. Max & Min Characters
 
-Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters. 
+Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters.
 
 *NOTE: Space and line feed will NOT count.*
 
@@ -162,9 +162,9 @@ app:maxCharacters="5"
 
 #### 7. Custom Colors
 
-*Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default. 
+*Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default.
 
-*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` by default. 
+*Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int _colorRes)` in Java. `A400 red` by default.
 
 *Helper Text Color* will be used for the color of the helper text. You can use `app:helperTextColor` in xml or `setHelperTextColor(int _colorRes)` in Java. `54% black` by default.
 
@@ -188,7 +188,7 @@ final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
 textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                
+
     }
 
     @Override
