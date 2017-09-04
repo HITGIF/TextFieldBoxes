@@ -11,23 +11,23 @@ import android.widget.RelativeLayout;
  * Text Field Boxes
  * Created by CarbonylGroup on 2017/08/25
  */
-public class PanelView extends RelativeLayout {
+public class ClipToBoundsView extends RelativeLayout {
 
     Context context;
 
-    public PanelView(Context context) {
+    public ClipToBoundsView(Context context) {
 
         super(context);
         this.context = context;
     }
 
-    public PanelView(Context context, AttributeSet attrs) {
+    public ClipToBoundsView(Context context, AttributeSet attrs) {
 
         super(context, attrs);
         this.context = context;
     }
 
-    public PanelView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ClipToBoundsView(Context context, AttributeSet attrs, int defStyleAttr) {
 
         super(context, attrs, defStyleAttr);
         this.context = context;
