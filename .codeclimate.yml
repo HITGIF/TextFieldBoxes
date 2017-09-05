@@ -1,10 +1,10 @@
 engines:
+  checkstyle:
+    enabled: true
+    channel: "beta"
   pmd:
     enabled: true
     channel: "beta"
 ratings:
    paths:
-   - "TextFieldBoxes/textfieldboxes/src/main/java/studio/carbonylgroup/textfieldboxes/"
-   - "TextFieldBoxes.java"
-   - "PanelView.java"
-   - "Utils.java"
+   - "**.java"
