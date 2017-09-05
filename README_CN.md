@@ -8,7 +8,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
 
-![Animation](/images/tfb1.gif)
+![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/tfb1.gif)
 
 新的 Material Design 文本框，遵循 Google Material Design 规范。
 
@@ -34,7 +34,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.0.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.1.0'
 }
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.0"
 ```
 
 
@@ -69,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]	
+:dependencies [[com.github.hitgif/textfieldboxes "1.1.0"]]
 ```
 
 ​
@@ -89,7 +89,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 ...
 ```
 
-![](/images/hint.png)![](/images/input.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/hint.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
 #### 2. 启用 / 禁用
 
@@ -99,7 +99,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 app:enabled="false"
 ```
 
-![](/images/basic_disabled.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
 #### 3. 单行
 
@@ -109,20 +109,20 @@ app:enabled="false"
 app:singleLine="true"
 ```
 
-![Animation](/images/singleline.gif)
+![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/singleline.gif)
 
 #### 4. 帮助和错误信息
 
-##### 帮助信息: 
+##### 帮助信息:
 在 xml 中加入 `app:helperText` 或在 Java 代码中使用 `setHelperText(String _helperText)`。
 
 ```xml
 app:helperText="Helper is here"
 ```
 
-![](/images/helper.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
 
-##### 错误信息: 
+##### 错误信息:
 在 Java 代码中使用 `setError(String _errorText)`。
 
 *注意: 文本改动 (输入或删除) 时会自动清除错误信息。*
@@ -131,9 +131,29 @@ app:helperText="Helper is here"
 setError("Error message");
 ```
 
-![](/images/error.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
-#### 5. 最大行数
+#### 5. 前缀 & 后缀
+
+在 xml 中加入 `app:prefix` 或在 Java 代码中使用 `setPrefix(String _prefix)` 以设置 EditText 前端的前缀。
+
+在 xml 中加入 `app:suffix` 或在 Java 代码中使用 `setSuffix(String _suffix)` 以设置 EditText 尾端的后缀。
+
+```xml
+app:prefix="$ "
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/prefix.png)
+
+
+```xml
+app:suffix=" @gmail.com"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
+
+
+#### 6. 最大行数
 
 在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int _maxlines)` 以设置文本框的最大行数。默认值是 `Integer.MAX_VALUE`。
 
@@ -141,9 +161,9 @@ setError("Error message");
 app:maxLines="3"
 ```
 
-![](/images/maxlines.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxlines.gif)
 
-#### 6. 最大和最小字符数
+#### 7. 最大和最小字符数
 
 在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int _maxCharacters)` 以设置最大字符数, 在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int _minCharacters)` 以设置最小字符数。当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。默认值是 `0`, 表示没有限制。
 
@@ -154,15 +174,19 @@ app:maxCharacters="10"
 app:minCharacters="5"
 ```
 
-![](/images/maxMinChar.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxMinChar.gif)
 
 ```xml
 app:maxCharacters="5"
 ```
 
-![](/images/maxChar.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-#### 7. 自定义颜色
+#### 8. 图标
+
+
+
+#### 9. 自定义颜色
 
 *Primary Color* 是底部的线和提示文字的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
 
@@ -179,9 +203,9 @@ app:helperTextColor="#795548"       <!--棕的-->
 app:panelBackgroundColor="#ffe8e8"  <!--粉的-->
 ```
 
-![](/images/customColor1.png) ![](/images/customColor2.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 8. 自定义 EditText
+#### 10. 自定义 EditText
 
 如果你想要自定义 `TextFieldBoxes` (其实是一个包含 `EditText` 的 `FrameLayout` 继承) 中的 `EditText` , 在 Java 代码中使用 `getEditText()` 就可以随便改 (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
 
@@ -190,7 +214,7 @@ final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
 textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                
+
     }
 
     @Override
@@ -206,7 +230,7 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 });
 ```
 
-![](/images/edittext.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
 
 ​
 ## 全部属性
