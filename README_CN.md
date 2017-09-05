@@ -184,7 +184,13 @@ app:maxCharacters="5"
 
 #### 8. 图标
 
+在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标。
 
+```xml
+app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
 #### 9. 自定义颜色
 
@@ -232,48 +238,60 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
 
+#### 11. 暗主题
+
+TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以适应暗主题而不需其他设置。
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/lightTheme.gif)
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/darkTheme.gif)
+
 ​
 ## 全部属性
 
 #### 文本
 
-`app:text` EditText 文本。
-
-`app:hint` 顶部的提示文本。
-
-`app:helperText` 底部的帮助文本。
+| 属性 | 描述 |
+| --- | --- |
+| `app:text` | EditText 文本 |
+| `app:hint` | 顶部的提示文本 |
+| `app:helperText` | 底部的帮助文本 |
+| `app:prefix` | 前缀文本 |
+| `app:suffix` | 后缀文本 |
 
 #### 颜色
 
-`app:helperTextColor` 帮助文本颜色。默认值是 `54% black`。
-
-`app:errorColor` 错误时的显示颜色 (e.g. 超出字符限制, `setError()`)。默认值是 `A400 red`。
-
-`app:primaryColor` 底部的线和提示文字的颜色。默认值为目前主题的 `Primary Color`。
-
-`app:panelBackgroundColor` 文本框背板的颜色。默认值为 `6% black`。
+| 属性 | 描述 | 默认值 |
+| --- | --- | --- |
+| `app:helperTextColor` | 帮助文本颜色 | 目前主题 `textColorTertiary` |
+| `app:errorColor` | 错误时的显示颜色 (e.g. 超出字符限制, `setError()`) | `A400 red` |
+| `app:primaryColor` | 底部的线和提示文字的颜色 | 目前主题 `colorPrimary` |
+| `app:prefixTextColor` | 前缀文本颜色 | 目前主题 `textColorTertiary` |
+| `app:suffixTextColor` | 后缀文本颜色 | 目前主题 `textColorTertiary` |
+| `app:panelBackgroundColor` | 文本框背板的颜色 | 6% `colorForeground` |
 
 #### 字符统计
 
-`app:maxCharacters` 最大字符数。`0` 表示没有限制。默认是 `0`。
-
-`app:minCharacters` 最小字符数。`0` 表示没有限制。默认是 `0`。
+| 属性 | 描述 | 默认值 |
+| --- | --- | --- |
+| `app:maxCharacters` | 最大字符数。`0` 表示没有限制 | `0` |
+| `app:minCharacters` | 最小字符数。`0` 表示没有限制 | `0` |
 
 #### 其他
 
-`app:enabled` 文本框是否启用。默认值为 `True`。
-
-`app:singleLine` EditText 是否为单行。默认值为 `False`。
-
-`app:maxLines` 文本框最大行数。默认值为 `Integer.MAX_VALUE`。
-
-`app:hasFocus` 文本框是否获得焦点。默认值为 `False`。
+| 属性 | 描述 | 默认值 |
+| --- | --- | --- |
+| `app:enabled` | 文本框是否启用 | `True` |
+| `app:singleLine` | EditText 是否为单行 | `False` |
+| `app:maxLines` | 文本框最大行数 | `Integer.MAX_VALUE` |
+| `app:iconSignifier` | TextFieldBoxes 前边的图标的资源 ID | `0` |
+| `app:hasFocus` | 文本框是否获得焦点 | `False` |
 
 ​
 ## TODO
-- 前缀 & 后缀
-- 图标
-- 暗主题
+- ~~前缀 & 后缀~~ ✅
+- ~~图标~~ ✅
+- ~~暗主题~~ ✅
 
 ​
 ## 开源许可

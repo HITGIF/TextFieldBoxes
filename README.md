@@ -265,7 +265,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 
 | Attribute | Description | Default |
 | --- | --- | --- |
-| `app:helperTextColor` | Helper text color. | Current theme `textColorTertiary` |
+| `app:helperTextColor` | Helper text color | Current theme `textColorTertiary` |
 | `app:errorColor` | The color that is used to indicate error (e.g. exceeding max characters, `setError()`) | `A400 red` |
 | `app:primaryColor` | The color for the underline and the hint text | Current theme `colorPrimary` |
 | `app:prefixTextColor` | Prefix text color | Current theme `textColorTertiary` |
