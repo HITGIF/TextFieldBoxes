@@ -290,9 +290,9 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 
 ​
 ## TODO
-- ~~Prefix & Suffix~~ ✅
-- ~~Icon signifier~~ ✅
-- ~~Dark theme~~ ✅
++ [X] Prefix & Suffix
++ [X] Icon signifier
++ [X] Dark theme
 
 ​
 ## License
