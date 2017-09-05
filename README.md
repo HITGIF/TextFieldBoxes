@@ -8,7 +8,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/HITGIF/TextFieldBoxes.svg)](https://github.com/HITGIF/TextFieldBoxes/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/LICENSE)
 
-![Animation](/images/tfb1.gif)
+![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/tfb1.gif)
 
 A new Material Design text field that comes in a box, based on Google Material Design guidelines. [中文看这里](https://github.com/HITGIF/TextFieldBoxes/blob/master/README_CN.md)
 
@@ -34,7 +34,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.0.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.1.0'
 }
 ```
 
@@ -51,7 +51,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.0"
 ```
 
 
@@ -69,7 +69,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.0.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.0.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.1.0"]]
 ```
 
 ​
@@ -89,7 +89,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 ...
 ```
 
-![](/images/hint.png)![](/images/input.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/hint.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
 #### 2. Enable / Disable
 
@@ -99,7 +99,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 app:enabled="false"
 ```
 
-![](/images/basic_disabled.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
 #### 3. SingleLine
 
@@ -109,7 +109,7 @@ Use `app:singleLine` in xml or `setSingleLine(boolean _singleLine)` in Java to s
 app:singleLine="true"
 ```
 
-![Animation](/images/singleline.gif)
+![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/singleline.gif)
 
 #### 4. Helper Text and Error Text
 
@@ -119,7 +119,7 @@ helper text: `app:helperText` in xml or `setHelperText(String _helperText)` in J
 app:helperText="Helper is here"
 ```
 
-![](/images/helper.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
 
 error text: `setError(String _errorText)` in Java.
 
@@ -129,9 +129,28 @@ error text: `setError(String _errorText)` in Java.
 setError("Error message");
 ```
 
-![](/images/error.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
-#### 5. Maxlines
+#### 5. Prefix & Suffix
+
+Use `app:prefix` in xml or `setPrefix(String _prefix)` to set the unselectable prefix text at the start of the EditText.
+
+Use `app:suffix` in xml or `setSuffix(String _suffix)` to set the unselectable suffix text at the end of the EditText.
+
+```xml
+app:prefix="$ "
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/prefix.png)
+
+
+```xml
+app:suffix="\@gmail.com"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
+
+#### 6. Maxlines
 
 Use `app:maxLines` in xml or `setMaxLines(Int _maxlines)` to set the number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
 
@@ -139,11 +158,15 @@ Use `app:maxLines` in xml or `setMaxLines(Int _maxlines)` to set the number of m
 app:maxLines="3"
 ```
 
-![](/images/maxlines.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxlines.gif)
 
-#### 6. Max & Min Characters
+#### 7. Max & Min Characters
 
-Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count, and `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count. The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters.
+Use `app:maxCharacters` in xml or `setMaxCharacters(int _maxCharacters)` in java code to set the max characters count.
+
+Use `app:minCharacters` in xml or `setMinCharacters(int _minCharacters)` in java code to set the min characters count.
+
+The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters.
 
 *NOTE: Space and line feed will NOT count.*
 
@@ -152,15 +175,25 @@ app:maxCharacters="10"
 app:minCharacters="5"
 ```
 
-![](/images/maxMinChar.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxMinChar.gif)
 
 ```xml
 app:maxCharacters="5"
 ```
 
-![](/images/maxChar.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-#### 7. Custom Colors
+#### 8. Icon Signifier
+
+Use `app:iconSignifier` in xml or `setIconSignifier(Int resourceID)` to set the icon that is shown in front of the TextFieldBoxes.
+
+```xml
+app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
+
+#### 9. Custom Colors
 
 *Primary Color* will be used for the color of the underline and the hint text. You can use `app:primaryColor` in xml or `setPrimaryColor(int _colorRes)` in Java. Current theme `Primary Color` by default.
 
@@ -177,9 +210,9 @@ app:helperTextColor="#795548"       <!--Brown-->
 app:panelBackgroundColor="#ffe8e8"  <!--Pink-->
 ```
 
-![](/images/customColor1.png) ![](/images/customColor2.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 8. Customize EditText
+#### 10. Customize EditText
 
 If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
 
@@ -204,50 +237,62 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 });
 ```
 
-![](/images/edittext.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
+
+#### 11. Dark Theme
+
+TextFieldBoxes use the color attributes within the current theme and will automatically change its color to fit the dark theme without additional settings.
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/lightTheme.gif)
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/darkTheme.gif)
 
 ​
 ## All Attributes
 
 #### Texts
 
-`app:text` EditText text.
-
-`app:hint` Hint text at the top.
-
-`app:helperText` Helper text at the bottom.
+| Attribute | Description |
+| --- | --- |
+| `app:text` | EditText text |
+| `app:hint` | Hint text at the top |
+| `app:helperText` | Helper text at the bottom |
+| `app:prefix` | Prefix Text |
+| `app:suffix` | Suffix Text |
 
 #### Colors
 
-`app:helperTextColor` Helper text color. `54% black` by default.
-
-`app:errorColor` The color that is used to indicate error (e.g. exceeding max characters, `setError()`). `A400 red` by default.
-
-`app:primaryColor` The color for the underline and the hint text. Current theme `Primary Color` by default.
-
-`app:panelBackgroundColor` The color for the panel at the back. `6% black` by default.
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `app:helperTextColor` | Helper text color | Current theme `textColorTertiary` |
+| `app:errorColor` | The color that is used to indicate error (e.g. exceeding max characters, `setError()`) | `A400 red` |
+| `app:primaryColor` | The color for the underline and the hint text | Current theme `colorPrimary` |
+| `app:prefixTextColor` | Prefix text color | Current theme `textColorTertiary` |
+| `app:suffixTextColor` | Suffix text color | Current theme `textColorTertiary` |
+| `app:panelBackgroundColor` | The color for the panel at the back | 6% `colorForeground` |
 
 #### Characters counter
 
-`app:maxCharacters` Max characters count limit. `0` means no limit. `0` by default.
-
-`app:minCharacters` Min characters count limit. `0` means no limit. `0` by default.
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `app:maxCharacters` | Max characters count limit. `0` means no limit | `0` |
+| `app:minCharacters` | Min characters count limit. `0` means no limit | `0` |
 
 #### Others
 
-`app:enabled` Whether the text field is enabled. `True` by default.
-
-`app:singleLine` Whether the EditText is single-lined. `False` by default.
-
-`app:maxLines` The number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
-
-`app:hasFocus` Whether the EditText is having the focus. `False` by default.
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `app:enabled` | Whether the text field is enabled | `True` |
+| `app:singleLine` | Whether the EditText is single-lined | `False` |
+| `app:maxLines` | The number of maximum lines allowed in the text field | `Integer.MAX_VALUE` |
+| `app:iconSignifier` | The resource ID of the icon before the TextFieldBoxes | `0` |
+| `app:hasFocus` | Whether the EditText is having the focus | `False` |
 
 ​
 ## TODO
-- Prefix & Suffix
-- Icon signifier
-- Dark theme
+- ~~Prefix & Suffix~~ ✅
+- ~~Icon signifier~~ ✅
+- ~~Dark theme~~ ✅
 
 ​
 ## License
