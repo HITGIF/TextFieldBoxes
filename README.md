@@ -295,6 +295,8 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 + [X] Prefix & Suffix
 + [X] Icon signifier
 + [X] Dark theme
++ [ ] Delete Button
++ [ ] Placeholder (real "hint")
 
 ​
 ## License
