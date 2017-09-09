@@ -28,22 +28,22 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Button darkButton = findViewById(R.id.dark_button);
-        if (dark) darkButton.setText("LIGHT SIDE");
-        else darkButton.setText("DARK SIDE");
-        darkButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (dark) {
-                    sharedPreferences.edit().putBoolean("dark", false).apply();
-                    restart();
-                }
-                else {
-                    sharedPreferences.edit().putBoolean("dark", true).apply();
-                    restart();
-                }
-            }
-        });
+//        final Button darkButton = findViewById(R.id.dark_button);
+//        if (dark) darkButton.setText("LIGHT SIDE");
+//        else darkButton.setText("DARK SIDE");
+//        darkButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (dark) {
+//                    sharedPreferences.edit().putBoolean("dark", false).apply();
+//                    restart();
+//                }
+//                else {
+//                    sharedPreferences.edit().putBoolean("dark", true).apply();
+//                    restart();
+//                }
+//            }
+//        });
     }
 
     public void restart() {

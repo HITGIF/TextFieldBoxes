@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -136,11 +137,15 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatTextView counterLabel;
     protected AppCompatImageView iconImageView;
     protected InputMethodManager inputMethodManager;
+    protected RelativeLayout rightShell;
+    protected RelativeLayout upperPanel;
+    protected RelativeLayout bottomPart;
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
+    protected String TAG = "[][][";
 
     public TextFieldBoxes(Context context) {
 
@@ -213,6 +218,9 @@ public class TextFieldBoxes extends FrameLayout {
         this.hintLabel.setPivotX(0f);
         this.hintLabel.setPivotY(0f);
         this.bottomLine = findViewById(R.id.bg_bottom_line);
+        this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
+        this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
+        this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
         this.labelColor = this.hintLabel.getCurrentTextColor();
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
@@ -290,6 +298,40 @@ public class TextFieldBoxes extends FrameLayout {
         setIconSignifier(this.iconSignifierResourceId);
         setHasFocus(this.hasFocus);
         updateCounterText();
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+
+        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+
+        if (widthMode == MeasureSpec.AT_MOST) {
+
+            /* wrap_content */
+            this.editText.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+
+        if (heightMode == MeasureSpec.EXACTLY) {
+
+            /* match_parent or specific value */
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams()).addRule(RelativeLayout.BELOW, 0);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams()).addRule(RelativeLayout.BELOW, 0);
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            ((RelativeLayout.LayoutParams) this.panel.getLayoutParams()).addRule(RelativeLayout.ABOVE, R.id.text_field_boxes_bottom);
+
+        } else if (heightMode == MeasureSpec.AT_MOST) {
+
+            /* wrap_content */
+            this.panel.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            this.rightShell.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+            this.upperPanel.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
     }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
