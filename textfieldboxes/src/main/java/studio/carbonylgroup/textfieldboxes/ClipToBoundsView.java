@@ -6,6 +6,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 /**
@@ -15,11 +16,10 @@ import android.widget.RelativeLayout;
 public class ClipToBoundsView extends RelativeLayout {
 
     Context context;
-    Path clipPath = new Path();
+    Float cornerRadius;
     Rect rect = new Rect();
     RectF rectF = new RectF();
-    Float cornerRadius;
-    Canvas canvas;
+    Path clipPath = new Path();
 
     public ClipToBoundsView(Context context) {
 
@@ -44,12 +44,6 @@ public class ClipToBoundsView extends RelativeLayout {
 
     protected void init() {
         cornerRadius = context.getResources().getDimension(R.dimen.text_field_boxes_corner_radius);
-    }
-
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-
-        super.onSizeChanged(w, h, oldw, oldh);
     }
 
     @Override

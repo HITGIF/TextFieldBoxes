@@ -163,6 +163,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     protected void init() {
+
         initDefaultColor();
         inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -172,22 +173,26 @@ public class TextFieldBoxes extends FrameLayout {
         Resources.Theme theme = getContext().getTheme();
         TypedArray themeArray;
 
+        /* Get Default Error Color From Theme */
         DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
 
+        /* Get Default Background Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorForeground});
         DEFAULT_BG_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), 0.06f);
 
+        /* Get Default Primary Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         if (Utils.isLight(DEFAULT_BG_COLOR))
             DEFAULT_PRIMARY_COLOR = Utils.lighter(themeArray.getColor(0, 0), 0.2f);
         else DEFAULT_PRIMARY_COLOR = themeArray.getColor(0, 0);
 
+        /* Get Default Text Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.textColorTertiary});
         DEFAULT_TEXT_COLOR = themeArray.getColor(0, 0);
 
+        /* Get Default Disabled Text Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.disabledAlpha});
         float disabledAlpha = themeArray.getFloat(0, 0);
-
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.textColorTertiary});
         DEFAULT_DISABLED_TEXT_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), disabledAlpha);
 
@@ -200,20 +205,21 @@ public class TextFieldBoxes extends FrameLayout {
         super.onFinishInflate();
         addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
 
-        panel = findViewById(R.id.text_field_boxes_panel);
-        editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
-        editText = findViewById(R.id.text_field_boxes_editText);
-        editText.setBackgroundColor(Color.TRANSPARENT);
-        editText.setAlpha(0f);
-        hintLabel = findViewById(R.id.text_field_boxes_label);
-        hintLabel.setPivotX(0f);
-        hintLabel.setPivotY(0f);
-        labelColor = hintLabel.getCurrentTextColor();
-        labelTopMargin = RelativeLayout.LayoutParams.class.cast(hintLabel.getLayoutParams()).topMargin;
-        helperLabel = findViewById(R.id.text_field_boxes_helper);
-        counterLabel = findViewById(R.id.text_field_boxes_counter);
-        iconImageView = findViewById(R.id.text_field_boxes_imageView);
-        bottomLine = findViewById(R.id.bg_bottom_line);
+        this.panel = findViewById(R.id.text_field_boxes_panel);
+        this.editText = findViewById(R.id.text_field_boxes_editText);
+        this.editText.setBackgroundColor(Color.TRANSPARENT);
+        this.editText.setAlpha(0f);
+        this.hintLabel = findViewById(R.id.text_field_boxes_label);
+        this.hintLabel.setPivotX(0f);
+        this.hintLabel.setPivotY(0f);
+        this.bottomLine = findViewById(R.id.bg_bottom_line);
+        this.labelColor = this.hintLabel.getCurrentTextColor();
+        this.helperLabel = findViewById(R.id.text_field_boxes_helper);
+        this.counterLabel = findViewById(R.id.text_field_boxes_counter);
+        this.iconImageView = findViewById(R.id.text_field_boxes_imageView);
+        this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
+        this.labelTopMargin = RelativeLayout.LayoutParams.class
+                .cast(this.hintLabel.getLayoutParams()).topMargin;
 
         panel.setOnClickListener(new OnClickListener() {
             @Override
@@ -259,63 +265,76 @@ public class TextFieldBoxes extends FrameLayout {
         });
 
         /* Texts */
-        setText(text);
-        setHint(hint);
-        setHelperText(helperText);
-        setPrefix(prefix);
-        setSuffix(suffix);
+        setText(this.text);
+        setHint(this.hint);
+        setHelperText(this.helperText);
+        setPrefix(this.prefix);
+        setSuffix(this.suffix);
 
         /* Colors */
-        setHelperTextColor(helperTextColor);
-        setErrorColor(errorColor);
-        setPrimaryColor(primaryColor);
-        setPrefixTextColor(prefixTextColor);
-        setSuffixTextColor(suffixTextColor);
-        setPanelBackgroundColor(panelBackgroundColor);
+        setHelperTextColor(this.helperTextColor);
+        setErrorColor(this.errorColor);
+        setPrimaryColor(this.primaryColor);
+        setPrefixTextColor(this.prefixTextColor);
+        setSuffixTextColor(this.suffixTextColor);
+        setPanelBackgroundColor(this.panelBackgroundColor);
 
         /* Characters counter */
-        setMaxCharacters(maxCharacters);
-        setMinCharacters(minCharacters);
+        setMaxCharacters(this.maxCharacters);
+        setMinCharacters(this.minCharacters);
 
         /* Others */
-        setEnabled(enabled);
-        setSingleLine(singleLine);
-        setMaxLines(maxLines);
-        setIconSignifier(iconSignifierResourceId);
-        setHasFocus(hasFocus);
+        setEnabled(this.enabled);
+        setSingleLine(this.singleLine);
+        setMaxLines(this.maxLines);
+        setIconSignifier(this.iconSignifierResourceId);
+        setHasFocus(this.hasFocus);
         updateCounterText();
     }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
 
         try {
+
             TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.TextFieldBoxes);
 
             /* Texts */
-            text = styledAttrs.getString(R.styleable.TextFieldBoxes_text) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_text);
-            hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
-            helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
-            prefix = styledAttrs.getString(R.styleable.TextFieldBoxes_prefix) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_prefix);
-            suffix = styledAttrs.getString(R.styleable.TextFieldBoxes_suffix) == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_suffix);
+            this.text = styledAttrs.getString(R.styleable.TextFieldBoxes_text)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_text);
+            this.hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
+            this.helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
+            this.prefix = styledAttrs.getString(R.styleable.TextFieldBoxes_prefix)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_prefix);
+            this.suffix = styledAttrs.getString(R.styleable.TextFieldBoxes_suffix)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_suffix);
 
             /* Colors */
-            helperTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
-            errorColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
-            primaryColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_primaryColor, DEFAULT_PRIMARY_COLOR);
-            prefixTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_prefixTextColor, DEFAULT_TEXT_COLOR);
-            suffixTextColor = styledAttrs.getInt(R.styleable.TextFieldBoxes_suffixTextColor, DEFAULT_TEXT_COLOR);
-            panelBackgroundColor = styledAttrs.getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
+            this.helperTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
+            this.errorColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
+            this.primaryColor = styledAttrs
+                    .getColor(R.styleable.TextFieldBoxes_primaryColor, DEFAULT_PRIMARY_COLOR);
+            this.prefixTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_prefixTextColor, DEFAULT_TEXT_COLOR);
+            this.suffixTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_suffixTextColor, DEFAULT_TEXT_COLOR);
+            this.panelBackgroundColor = styledAttrs
+                    .getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
 
             /* Characters counter */
-            maxCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxCharacters, 0);
-            minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
+            this.maxCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxCharacters, 0);
+            this.minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
 
             /* Others */
-            enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
-            singleLine = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_singleLine, false);
-            maxLines = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxLines, Integer.MAX_VALUE);
-            iconSignifierResourceId = styledAttrs.getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
-            hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
+            this.enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
+            this.singleLine = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_singleLine, false);
+            this.maxLines = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxLines, Integer.MAX_VALUE);
+            this.iconSignifierResourceId = styledAttrs.
+                    getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
+            this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
 
             styledAttrs.recycle();
 
@@ -329,7 +348,7 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void deactivate() {
 
-        if (editText.getText().toString().equals("")) {
+        if (this.editText.getText().toString().equals("")) {
 
             ViewCompat.animate(hintLabel)
                     .alpha(1)
@@ -338,14 +357,14 @@ public class TextFieldBoxes extends FrameLayout {
                     .translationY(0)
                     .setDuration(ANIMATION_DURATION);
 
-            editText.setVisibility(View.GONE);
+            this.editText.setVisibility(View.GONE);
 
-            if (editText.hasFocus()) {
+            if (this.editText.hasFocus()) {
                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                editText.clearFocus();
+                this.editText.clearFocus();
             }
         }
-        activated = false;
+        this.activated = false;
     }
 
     /**
@@ -355,23 +374,23 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void activate(boolean animated) {
 
-        editText.setVisibility(View.VISIBLE);
+        this.editText.setVisibility(View.VISIBLE);
 
         if (animated) {
 
-            if (editText.getText().toString().equals("") && !isActivated()) {
+            if (this.editText.getText().toString().equals("") && !isActivated()) {
 
-                editText.setAlpha(0f);
-                hintLabel.setScaleX(1f);
-                hintLabel.setScaleY(1f);
-                hintLabel.setTranslationY(0);
+                this.editText.setAlpha(0f);
+                this.hintLabel.setScaleX(1f);
+                this.hintLabel.setScaleY(1f);
+                this.hintLabel.setTranslationY(0);
             }
 
-            ViewCompat.animate(editText)
+            ViewCompat.animate(this.editText)
                     .alpha(1f)
                     .setDuration(ANIMATION_DURATION);
 
-            ViewCompat.animate(hintLabel)
+            ViewCompat.animate(this.hintLabel)
                     .scaleX(0.75f)
                     .scaleY(0.75f)
                     .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
@@ -379,10 +398,10 @@ public class TextFieldBoxes extends FrameLayout {
 
         } else {
 
-            editText.setAlpha(1f);
-            hintLabel.setScaleX(0.75f);
-            hintLabel.setScaleY(0.75f);
-            hintLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+            this.editText.setAlpha(1f);
+            this.hintLabel.setScaleX(0.75f);
+            this.hintLabel.setScaleY(0.75f);
+            this.hintLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
         }
         activated = true;
     }
@@ -394,13 +413,15 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void setHighlightColor(int colorRes) {
 
-        hintLabel.setTextColor(colorRes);
-        Utils.setCursorDrawableColor(editText, colorRes);
-        iconImageView.setColorFilter(colorRes);
-        if (colorRes == DEFAULT_TEXT_COLOR) iconImageView.setAlpha(0.54f);
-        else iconImageView.setAlpha(1f);
-        if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) iconImageView.setAlpha(0.35f);
-        bottomLine.setBackgroundColor(colorRes);
+        this.hintLabel.setTextColor(colorRes);
+        Utils.setCursorDrawableColor(this.editText, colorRes);
+
+        this.iconImageView.setColorFilter(colorRes);
+        if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageView.setAlpha(0.54f);
+        else this.iconImageView.setAlpha(1f);
+        if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) this.iconImageView.setAlpha(0.35f);
+
+        this.bottomLine.setBackgroundColor(colorRes);
     }
 
     /**
@@ -420,24 +441,29 @@ public class TextFieldBoxes extends FrameLayout {
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "-" + Integer.toString(this.maxCharacters));
-                if (length < this.minCharacters || length > maxCharacters) setCounterError();
-                else removeCounterError();
+                this.counterLabel.setText(lengthStr + Integer.toString(this.minCharacters)
+                        + "-" + Integer.toString(this.maxCharacters));
+                if (length < this.minCharacters || length > this.maxCharacters) {
+                    setCounterError();
+                }
+                else {
+                    removeCounterError();
+                }
 
             } else {
                 /* MAX ONLY */
-                counterLabel.setText(lengthStr + Integer.toString(this.maxCharacters));
-                if (length > maxCharacters) setCounterError();
+                this.counterLabel.setText(lengthStr + Integer.toString(this.maxCharacters) + "");
+                if (length > this.maxCharacters) setCounterError();
                 else removeCounterError();
             }
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
-                if (length < minCharacters) setCounterError();
+                this.counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
+                if (length < this.minCharacters) setCounterError();
                 else removeCounterError();
 
-            } else counterLabel.setText("");
+            } else this.counterLabel.setText("");
         }
     }
 
@@ -447,8 +473,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected void setCounterError() {
 
         this.onError = true;
-        setHighlightColor(errorColor);
-        counterLabel.setTextColor(this.errorColor);
+        setHighlightColor(this.errorColor);
+        this.counterLabel.setTextColor(this.errorColor);
     }
 
     /**
@@ -461,22 +487,22 @@ public class TextFieldBoxes extends FrameLayout {
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
-        counterLabel.setTextColor(this.DEFAULT_TEXT_COLOR);
+        this.counterLabel.setTextColor(this.DEFAULT_TEXT_COLOR);
     }
 
     /**
      * set highlight color and helperLabel Label text color to error color
      * set helperLabel Label text to error message
      *
-     * @param _errorText error message
+     * @param errorText error message
      */
-    public void setError(String _errorText) {
+    public void setError(String errorText) {
 
-        if (enabled) {
-            onError = true;
-            setHighlightColor(errorColor);
-            helperLabel.setTextColor(this.errorColor);
-            helperLabel.setText(_errorText);
+        if (this.enabled) {
+            this.onError = true;
+            setHighlightColor(this.errorColor);
+            this.helperLabel.setTextColor(this.errorColor);
+            this.helperLabel.setText(errorText);
         }
     }
 
@@ -489,93 +515,94 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeError() {
 
-        onError = false;
+        this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.DEFAULT_TEXT_COLOR);
-        helperLabel.setTextColor(this.helperTextColor);
-        helperLabel.setText(helperText);
+        this.helperLabel.setTextColor(this.helperTextColor);
+        this.helperLabel.setText(this.helperText);
     }
 
     /* Text Setters */
     /**
      * set EditText text, raise the hint hintLabel if there is something
      *
-     * @param _text new text
+     * @param text new text
      */
-    public void setText(String _text) {
+    public void setText(String text) {
 
-        if (_text != null) {
-            this.text = _text;
+        if (text != null) {
+            this.text = text;
             editText.setText(this.text);
-            if (!_text.equals("")) activate(false);
+            if (!text.equals("")) activate(false);
         }
     }
 
-    public void setHint(String _hint) {
+    public void setHint(String hint) {
 
-        this.hint = _hint;
-        hintLabel.setText(this.hint);
+        this.hint = hint;
+        this.hintLabel.setText(this.hint);
     }
 
-    public void setHelperText(String _helperText) {
+    public void setHelperText(String helperText) {
 
-        this.helperText = _helperText;
-        helperLabel.setText(this.helperText);
+        this.helperText = helperText;
+        this.helperLabel.setText(this.helperText);
     }
 
-    public void setPrefix(String _prefix) {
+    public void setPrefix(String prefix) {
 
-        this.prefix = _prefix;
-        editText.setPrefix(this.prefix);
+        this.prefix = prefix;
+        this.editText.setPrefix(this.prefix);
     }
 
-    public void setSuffix(String _suffix) {
+    public void setSuffix(String suffix) {
 
-        this.suffix = _suffix;
-        editText.setSuffix(this.suffix);
+        this.suffix = suffix;
+        this.editText.setSuffix(this.suffix);
     }
 
     /* Color Setters */
-    public void setHelperTextColor(int _colorRes) {
+    public void setHelperTextColor(int colorRes) {
 
-        this.helperTextColor = _colorRes;
-        helperLabel.setTextColor(this.helperTextColor);
+        this.helperTextColor = colorRes;
+        this.helperLabel.setTextColor(this.helperTextColor);
     }
 
-    public void setErrorColor(int _colorRes) {
-        this.errorColor = _colorRes;
+    public void setErrorColor(int colorRes) {
+        this.errorColor = colorRes;
     }
 
     /**
      * <i>NOTE: the color will automatically be made lighter by 20% if it's on the DARK theme</i>
      */
-    public void setPrimaryColor(int _colorRes) {
+    public void setPrimaryColor(int colorRes) {
 
-        this.primaryColor = _colorRes;
-        if (hasFocus) setHighlightColor(this.primaryColor);
+        this.primaryColor = colorRes;
+        if (this.hasFocus) setHighlightColor(this.primaryColor);
     }
 
-    public void setPrefixTextColor(int _colorRes) {
+    public void setPrefixTextColor(int colorRes) {
 
-        this.prefixTextColor = _colorRes;
-        editText.setPrefixTextColor(this.prefixTextColor);
+        this.prefixTextColor = colorRes;
+        this.editText.setPrefixTextColor(this.prefixTextColor);
     }
 
-    public void setSuffixTextColor(int _colorRes) {
+    public void setSuffixTextColor(int colorRes) {
 
-        this.suffixTextColor = _colorRes;
-        editText.setSuffixTextColor(this.suffixTextColor);
+        this.suffixTextColor = colorRes;
+        this.editText.setSuffixTextColor(this.suffixTextColor);
     }
 
-    public void setPanelBackgroundColor(int _colorRes) {
+    public void setPanelBackgroundColor(int colorRes) {
 
-        this.panelBackgroundColor = _colorRes;
-        ((GradientDrawable) ((LayerDrawable) panel.getBackground()).findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
+        this.panelBackgroundColor = colorRes;
+        ((GradientDrawable) ((LayerDrawable) this.panel.getBackground())
+                .findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
     }
 
     /* Characters Counter Setters */
-    public void setMaxCharacters(int _maxCharacters) {
-        this.maxCharacters = _maxCharacters;
+    public void setMaxCharacters(int maxCharacters) {
+        this.maxCharacters = maxCharacters;
     }
 
     /**
@@ -585,8 +612,8 @@ public class TextFieldBoxes extends FrameLayout {
         this.maxCharacters = 0;
     }
 
-    public void setMinCharacters(int _minCharacters) {
-        this.minCharacters = _minCharacters;
+    public void setMinCharacters(int minCharacters) {
+        this.minCharacters = minCharacters;
     }
 
     /**
@@ -597,59 +624,59 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /* Other Setters */
-    public void setEnabled(boolean _enabled) {
+    public void setEnabled(boolean enabled) {
 
-        this.enabled = _enabled;
-        if (enabled) {
-            editText.setEnabled(true);
-            editText.setFocusableInTouchMode(true);
-            editText.setFocusable(true);
-            helperLabel.setVisibility(View.VISIBLE);
-            counterLabel.setVisibility(View.VISIBLE);
-            bottomLine.setVisibility(View.VISIBLE);
-            panel.setEnabled(true);
-            iconImageView.setEnabled(true);
-            iconImageView.setClickable(true);
+        this.enabled = enabled;
+        if (this.enabled) {
+            this.editText.setEnabled(true);
+            this.editText.setFocusableInTouchMode(true);
+            this.editText.setFocusable(true);
+            this.helperLabel.setVisibility(View.VISIBLE);
+            this.counterLabel.setVisibility(View.VISIBLE);
+            this.bottomLine.setVisibility(View.VISIBLE);
+            this.panel.setEnabled(true);
+            this.iconImageView.setEnabled(true);
+            this.iconImageView.setClickable(true);
             setHighlightColor(DEFAULT_TEXT_COLOR);
             updateCounterText();
 
         } else {
             removeError();
             setHasFocus(false);
-            editText.setEnabled(false);
-            editText.setFocusableInTouchMode(false);
-            editText.setFocusable(false);
-            iconImageView.setClickable(false);
-            iconImageView.setEnabled(false);
+            this.editText.setEnabled(false);
+            this.editText.setFocusableInTouchMode(false);
+            this.editText.setFocusable(false);
+            this.iconImageView.setClickable(false);
+            this.iconImageView.setEnabled(false);
+            this.helperLabel.setVisibility(View.INVISIBLE);
+            this.counterLabel.setVisibility(View.INVISIBLE);
+            this.bottomLine.setVisibility(View.INVISIBLE);
+            this.panel.setEnabled(false);
             setHighlightColor(DEFAULT_DISABLED_TEXT_COLOR);
-            helperLabel.setVisibility(View.INVISIBLE);
-            counterLabel.setVisibility(View.INVISIBLE);
-            bottomLine.setVisibility(View.INVISIBLE);
-            panel.setEnabled(false);
         }
     }
 
     /**
      * set if the EditText is single-lined, that scrolls horizontally
      *
-     * @param _singleLine whether is single-lined
+     * @param singleLine whether is single-lined
      */
-    public void setSingleLine(boolean _singleLine) {
+    public void setSingleLine(boolean singleLine) {
 
-        this.singleLine = _singleLine;
-        editText.setSingleLine(singleLine);
+        this.singleLine = singleLine;
+        this.editText.setSingleLine(this.singleLine);
     }
 
     /**
      * set the max line number limit, can be removed by calling removeMaxLines()
      * can scroll vertically if exceeds
      *
-     * @param _maxLines max line number limit
+     * @param maxLines max line number limit
      */
-    public void setMaxLines(int _maxLines) {
+    public void setMaxLines(int maxLines) {
 
-        this.maxLines = _maxLines;
-        editText.setMaxLines(maxLines);
+        this.maxLines = maxLines;
+        this.editText.setMaxLines(this.maxLines);
     }
 
     /**
@@ -658,15 +685,15 @@ public class TextFieldBoxes extends FrameLayout {
     public void removeMaxLines() {
 
         this.maxLines = Integer.MAX_VALUE;
-        editText.setMaxLines(maxLines);
+        this.editText.setMaxLines(this.maxLines);
     }
 
     public void setIconSignifier(int resourceID) {
 
-        iconSignifierResourceId = resourceID;
-        if (iconSignifierResourceId != 0) {
-            iconImageView.setImageResource(iconSignifierResourceId);
-            iconImageView.setVisibility(View.VISIBLE);
+        this.iconSignifierResourceId = resourceID;
+        if (this.iconSignifierResourceId != 0) {
+            this.iconImageView.setImageResource(this.iconSignifierResourceId);
+            this.iconImageView.setVisibility(View.VISIBLE);
         } else removeIconSignifier();
     }
 
@@ -675,28 +702,28 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeIconSignifier() {
 
-        iconSignifierResourceId = 0;
-        iconImageView.setVisibility(View.GONE);
+        this.iconSignifierResourceId = 0;
+        this.iconImageView.setVisibility(View.GONE);
     }
 
     /**
      * set if the EditText is having focus
      *
-     * @param _hasFocus gain focus if true, lose if false
+     * @param hasFocus gain focus if true, lose if false
      */
-    public void setHasFocus(boolean _hasFocus) {
+    public void setHasFocus(boolean hasFocus) {
 
-        this.hasFocus = _hasFocus;
-        if (_hasFocus) {
+        this.hasFocus = hasFocus;
+        if (this.hasFocus) {
             activate(false);
-            editText.requestFocus();
+            this.editText.requestFocus();
             /* if there's an error, keep the error color */
-            if (!onError && enabled) setHighlightColor(primaryColor);
+            if (!this.onError && this.enabled) setHighlightColor(this.primaryColor);
 
         } else {
             deactivate();
             /* if there's an error, keep the error color */
-            if (!onError && enabled) setHighlightColor(DEFAULT_TEXT_COLOR);
+            if (!this.onError && this.enabled) setHighlightColor(DEFAULT_TEXT_COLOR);
         }
     }
 

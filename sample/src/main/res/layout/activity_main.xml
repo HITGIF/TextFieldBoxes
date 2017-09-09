@@ -7,27 +7,32 @@
     android:scrollbarStyle="outsideOverlay"
     tools:context=".MainActivity">
 
-    <!--<LinearLayout-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"-->
     <!--android:layout_gravity="center"-->
     <!--android:gravity="center"-->
     <!--android:orientation="vertical">-->
-
-    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-    <!--android:id="@+id/tfb"-->
-    <!--android:layout_width="250dp"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--app:hint="Email Address"-->
-    <!--app:suffix="\@gmail.com"-->
-    <!--app:text="example" />-->
+        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+            <!--android:id="@+id/tfb"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="200dp"-->
+            <!--app:helperText="@string/app_name"-->
+            <!--app:hint="Email Address"-->
+            <!--app:iconSignifier="@drawable/ic_vpn_key_black_24dp"-->
+            <!--app:maxCharacters="80"-->
+            <!--app:suffix="\@gmail.com\n"-->
+            <!--app:text="examplen\nfecwfduyeuyguccc" />-->
 
     <!--<EditText-->
-    <!--android:layout_width="match_parent"-->
+    <!--android:id="@+id/editText"-->
+    <!--android:layout_width="wrap_content"-->
     <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginTop="100dp" />-->
+        <!--android:text="\@string/app_nameckvsyifvcyeksyfvkzyvfekayvfyvyvcyscjhzcs hjzcs hzjcs zshjzshc " />-->
 
-    <!--</LinearLayout>-->
+<!--</LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
