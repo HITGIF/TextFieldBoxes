@@ -12,7 +12,6 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,14 +47,19 @@ public class TextFieldBoxes extends FrameLayout {
     protected String text;
 
     /**
-     * hint text at the top.
+     * labelText text at the top.
      */
-    protected String hint;
+    protected String labelText;
 
     /**
      * helper Label text at the bottom.
      */
     protected String helperText;
+
+    /**
+     * placeholder text that is shown in the EditText when there is no text and is on focus.
+     */
+    protected String hint;
 
     /**
      * prefix Label text at the start.
@@ -99,7 +103,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int errorColor;
 
     /**
-     * the color for the underline and the hint text. Current theme primary color by default.
+     * the color for the underline and the floating label text. Current theme primary color by default.
      */
     protected int primaryColor;
 
@@ -132,9 +136,9 @@ public class TextFieldBoxes extends FrameLayout {
     protected FrameLayout bottomLine;
     protected ViewGroup editTextLayout;
     protected ExtendedEditText editText;
-    protected AppCompatTextView hintLabel;
     protected AppCompatTextView helperLabel;
     protected AppCompatTextView counterLabel;
+    protected AppCompatTextView floatingLabel;
     protected AppCompatImageView iconImageView;
     protected InputMethodManager inputMethodManager;
     protected RelativeLayout rightShell;
@@ -214,20 +218,20 @@ public class TextFieldBoxes extends FrameLayout {
         this.editText = findViewById(R.id.text_field_boxes_editText);
         this.editText.setBackgroundColor(Color.TRANSPARENT);
         this.editText.setAlpha(0f);
-        this.hintLabel = findViewById(R.id.text_field_boxes_label);
-        this.hintLabel.setPivotX(0f);
-        this.hintLabel.setPivotY(0f);
+        this.floatingLabel = findViewById(R.id.text_field_boxes_label);
+        this.floatingLabel.setPivotX(0f);
+        this.floatingLabel.setPivotY(0f);
         this.bottomLine = findViewById(R.id.bg_bottom_line);
         this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
         this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
         this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
-        this.labelColor = this.hintLabel.getCurrentTextColor();
+        this.labelColor = this.floatingLabel.getCurrentTextColor();
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
         this.iconImageView = findViewById(R.id.text_field_boxes_imageView);
         this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
         this.labelTopMargin = RelativeLayout.LayoutParams.class
-                .cast(this.hintLabel.getLayoutParams()).topMargin;
+                .cast(this.floatingLabel.getLayoutParams()).topMargin;
 
         panel.setOnClickListener(new OnClickListener() {
             @Override
@@ -274,8 +278,9 @@ public class TextFieldBoxes extends FrameLayout {
 
         /* Texts */
         setText(this.text);
-        setHint(this.hint);
+        setLabelText(this.labelText);
         setHelperText(this.helperText);
+        setHint(this.hint);
         setPrefix(this.prefix);
         setSuffix(this.suffix);
 
@@ -343,10 +348,12 @@ public class TextFieldBoxes extends FrameLayout {
             /* Texts */
             this.text = styledAttrs.getString(R.styleable.TextFieldBoxes_text)
                     == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_text);
-            this.hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint)
-                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
+            this.labelText = styledAttrs.getString(R.styleable.TextFieldBoxes_labelText)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_labelText);
             this.helperText = styledAttrs.getString(R.styleable.TextFieldBoxes_helperText)
                     == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_helperText);
+            this.hint = styledAttrs.getString(R.styleable.TextFieldBoxes_hint)
+                    == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_hint);
             this.prefix = styledAttrs.getString(R.styleable.TextFieldBoxes_prefix)
                     == null ? "" : styledAttrs.getString(R.styleable.TextFieldBoxes_prefix);
             this.suffix = styledAttrs.getString(R.styleable.TextFieldBoxes_suffix)
@@ -386,13 +393,13 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * lower the hint hint Label when there is no text at losing focus
+     * lower the labelText labelText Label when there is no text at losing focus
      */
     protected void deactivate() {
 
         if (this.editText.getText().toString().equals("")) {
 
-            ViewCompat.animate(hintLabel)
+            ViewCompat.animate(floatingLabel)
                     .alpha(1)
                     .scaleX(1)
                     .scaleY(1)
@@ -410,9 +417,9 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * raise the hint hint Label when gaining focus
+     * raise the labelText labelText Label when gaining focus
      *
-     * @param animated whether to animate the hint hintLabel or not
+     * @param animated whether to animate the labelText floatingLabel or not
      */
     protected void activate(boolean animated) {
 
@@ -423,16 +430,16 @@ public class TextFieldBoxes extends FrameLayout {
             if (this.editText.getText().toString().equals("") && !isActivated()) {
 
                 this.editText.setAlpha(0f);
-                this.hintLabel.setScaleX(1f);
-                this.hintLabel.setScaleY(1f);
-                this.hintLabel.setTranslationY(0);
+                this.floatingLabel.setScaleX(1f);
+                this.floatingLabel.setScaleY(1f);
+                this.floatingLabel.setTranslationY(0);
             }
 
             ViewCompat.animate(this.editText)
                     .alpha(1f)
                     .setDuration(ANIMATION_DURATION);
 
-            ViewCompat.animate(this.hintLabel)
+            ViewCompat.animate(this.floatingLabel)
                     .scaleX(0.75f)
                     .scaleY(0.75f)
                     .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
@@ -441,21 +448,21 @@ public class TextFieldBoxes extends FrameLayout {
         } else {
 
             this.editText.setAlpha(1f);
-            this.hintLabel.setScaleX(0.75f);
-            this.hintLabel.setScaleY(0.75f);
-            this.hintLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+            this.floatingLabel.setScaleX(0.75f);
+            this.floatingLabel.setScaleY(0.75f);
+            this.floatingLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
         }
         activated = true;
     }
 
     /**
-     * set the color of the hint Label, EditText cursor, icon signifier and the underline
+     * set the color of the labelText Label, EditText cursor, icon signifier and the underline
      *
      * @param colorRes color resource
      */
     protected void setHighlightColor(int colorRes) {
 
-        this.hintLabel.setTextColor(colorRes);
+        this.floatingLabel.setTextColor(colorRes);
         Utils.setCursorDrawableColor(this.editText, colorRes);
 
         this.iconImageView.setColorFilter(colorRes);
@@ -566,7 +573,7 @@ public class TextFieldBoxes extends FrameLayout {
 
     /* Text Setters */
     /**
-     * set EditText text, raise the hint hintLabel if there is something
+     * set EditText text, raise the labelText floatingLabel if there is something
      *
      * @param text new text
      */
@@ -579,16 +586,22 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
-    public void setHint(String hint) {
+    public void setLabelText(String labelText) {
 
-        this.hint = hint;
-        this.hintLabel.setText(this.hint);
+        this.labelText = labelText;
+        this.floatingLabel.setText(this.labelText);
     }
 
     public void setHelperText(String helperText) {
 
         this.helperText = helperText;
         this.helperLabel.setText(this.helperText);
+    }
+
+    public void setHint(String hint) {
+
+        this.hint = hint;
+        this.editText.setHint(hint);
     }
 
     public void setPrefix(String prefix) {
@@ -778,8 +791,8 @@ public class TextFieldBoxes extends FrameLayout {
         return this.text;
     }
 
-    public String getHint() {
-        return this.hint;
+    public String getLabelText() {
+        return this.labelText;
     }
 
     public String getHelperText() {
@@ -787,7 +800,11 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     public String getCounterText() {
-        return counterLabel.getText().toString();
+        return this.counterLabel.getText().toString();
+    }
+
+    public String getHint() {
+        return this.hint;
     }
 
     public String getPrefix() {

@@ -17,19 +17,20 @@
     android:orientation="vertical">
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:id="@+id/tfb"
-            android:layout_width="wrap_content"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:helperText="@string/app_name"
-            app:hint="Email Address"
+            app:helperText="Helper is here"
+            app:labelText="Label"
+            app:hint="Hint"
+            app:iconSignifier="@drawable/ic_location_on_black_24dp"
+            app:hasFocus="true"
             app:singleLine="true"
-            app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
-            app:maxCharacters="80"
-            app:suffix="\@gmail.com"
-            app:text="" />
+            app:maxCharacters="10" />
 
     <EditText
     android:id="@+id/editText"
     android:layout_width="wrap_content"
+        android:layout_marginTop="100dp"
     android:layout_height="wrap_content"
         android:text="\@scyscjhzcs hjzcs hzjcs zshjzshc " />
 
@@ -46,7 +47,7 @@
             <!--android:id="@+id/text_field_boxes1"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--app:hint="Title"-->
+            <!--app:labelText="Title"-->
             <!--app:maxCharacters="20"-->
             <!--app:text="Vintage 50's Dress" />-->
 
@@ -64,7 +65,7 @@
                 <!--android:layout_marginRight="20dp"-->
                 <!--android:layout_weight="0.8"-->
                 <!--app:hasFocus="false"-->
-                <!--app:hint="Price"-->
+                <!--app:labelText="Price"-->
                 <!--app:prefix="$ "-->
                 <!--app:singleLine="true"-->
                 <!--app:text="10.00" />-->
@@ -76,7 +77,7 @@
                 <!--android:layout_gravity="center_horizontal"-->
                 <!--android:layout_weight="2"-->
                 <!--app:hasFocus="true"-->
-                <!--app:hint="Location (optional)"-->
+                <!--app:labelText="Location (optional)"-->
                 <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
                 <!--app:singleLine="true"-->
                 <!--app:text="" />-->
@@ -90,7 +91,7 @@
             <!--android:layout_gravity="center_horizontal"-->
             <!--android:layout_marginTop="15dp"-->
             <!--app:hasFocus="false"-->
-            <!--app:hint="Description"-->
+            <!--app:labelText="Description"-->
             <!--app:maxCharacters="140"-->
             <!--app:singleLine="false"-->
             <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->

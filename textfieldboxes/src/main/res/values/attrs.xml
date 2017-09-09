@@ -4,8 +4,9 @@
 
         <!--Texts-->
         <attr name="text" format="string" />
-        <attr name="hint" format="string" />
+        <attr name="labelText" format="string" />
         <attr name="helperText" format="string" />
+        <attr name="hint" format="string" />
         <attr name="prefix" format="string" />
         <attr name="suffix" format="string" />
 
