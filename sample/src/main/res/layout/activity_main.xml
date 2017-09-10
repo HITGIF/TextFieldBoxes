@@ -1,40 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:scrollbarStyle="outsideOverlay"-->
-    <!--tools:context=".MainActivity">-->
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:scrollbarStyle="outsideOverlay"
+    tools:context=".MainActivity">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
             android:id="@+id/tfb"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             app:helperText="Helper is here"
-            app:labelText="Label"
             app:hint="Hint"
             app:iconSignifier="@drawable/ic_location_on_black_24dp"
-            app:hasFocus="true"
+            app:labelText="Label"
+            app:maxCharacters="10"
             app:singleLine="true"
-            app:maxCharacters="10" />
+            app:hasClearButton="true"
+            app:text="Text" />
 
-    <EditText
-    android:id="@+id/editText"
-    android:layout_width="wrap_content"
-        android:layout_marginTop="100dp"
-    android:layout_height="wrap_content"
-        android:text="\@scyscjhzcs hjzcs hzjcs zshjzshc " />
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="\@scyscjhzcs hjzces hzjcs zshjzshc " />
 
-</LinearLayout>
+    </LinearLayout>
 
     <!--<LinearLayout-->
         <!--android:layout_width="match_parent"-->
@@ -77,8 +79,8 @@
                 <!--android:layout_gravity="center_horizontal"-->
                 <!--android:layout_weight="2"-->
                 <!--app:hasFocus="true"-->
-                <!--app:labelText="Location (optional)"-->
                 <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
+                <!--app:labelText="Location (optional)"-->
                 <!--app:singleLine="true"-->
                 <!--app:text="" />-->
 
@@ -97,12 +99,12 @@
             <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
 
         <!--<Button-->
+            <!--android:id="@+id/dark_button"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:id="@+id/dark_button"-->
             <!--android:layout_marginTop="30dp"-->
-            <!--android:text="DARK SIDE"/>-->
+            <!--android:text="DARK SIDE" />-->
 
     <!--</LinearLayout>-->
 
-<!--</ScrollView>-->
+</ScrollView>

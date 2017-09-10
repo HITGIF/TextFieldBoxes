@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatImageView
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/text_field_boxes_imageView"
         android:layout_width="24dp"
         android:layout_height="24dp"
@@ -61,7 +61,7 @@
                     android:textSize="16sp"
                     tools:text="Label" />
 
-                <FrameLayout
+                <RelativeLayout
                     android:id="@+id/text_field_boxes_editTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -78,7 +78,21 @@
                         android:text="@string/app_name"
                         android:textSize="16sp" />
 
-                </FrameLayout>
+                    <android.support.v7.widget.AppCompatImageButton
+                        android:id="@+id/text_field_boxes_clear_button"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginStart="2dp"
+                        android:paddingTop="2dp"
+                        android:layout_toEndOf="@+id/text_field_boxes_editText"
+                        android:layout_toRightOf="@+id/text_field_boxes_editText"
+                        android:layout_alignBottom="@+id/text_field_boxes_editText"
+                        android:background="?selectableItemBackgroundBorderless"
+                        android:src="@drawable/ic_clear_circle_black_24dp"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
 
             </RelativeLayout>
 

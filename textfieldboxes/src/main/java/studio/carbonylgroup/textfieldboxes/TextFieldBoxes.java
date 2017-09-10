@@ -7,7 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.LayerDrawable;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -128,18 +128,24 @@ public class TextFieldBoxes extends FrameLayout {
     protected int iconSignifierResourceId;
 
     /**
+     * whether to show the clear button at the end of the EditText. False by default.
+     */
+    protected boolean hasClearButton;
+
+    /**
      * whether the EditText is having the focus. False by default.
      */
     protected boolean hasFocus;
 
     protected View panel;
-    protected FrameLayout bottomLine;
+    protected View bottomLine;
     protected ViewGroup editTextLayout;
     protected ExtendedEditText editText;
     protected AppCompatTextView helperLabel;
     protected AppCompatTextView counterLabel;
     protected AppCompatTextView floatingLabel;
-    protected AppCompatImageView iconImageView;
+    protected AppCompatImageButton clearButton;
+    protected AppCompatImageButton iconImageView;
     protected InputMethodManager inputMethodManager;
     protected RelativeLayout rightShell;
     protected RelativeLayout upperPanel;
@@ -226,6 +232,9 @@ public class TextFieldBoxes extends FrameLayout {
         this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
         this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
         this.labelColor = this.floatingLabel.getCurrentTextColor();
+        this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
+        this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.clearButton.setAlpha(0.35f);
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
         this.iconImageView = findViewById(R.id.text_field_boxes_imageView);
@@ -233,7 +242,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
 
-        panel.setOnClickListener(new OnClickListener() {
+        this.panel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
@@ -242,7 +251,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
-        iconImageView.setOnClickListener(new OnClickListener() {
+        this.iconImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
@@ -251,7 +260,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
-        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
+        this.editText.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) setHasFocus(true);
@@ -259,7 +268,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
-        editText.addTextChangedListener(new TextWatcher() {
+        this.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             }
@@ -273,6 +282,13 @@ public class TextFieldBoxes extends FrameLayout {
                 text = editText.getText().toString();
                 removeError();
                 updateCounterText();
+            }
+        });
+
+        this.clearButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setText("");
             }
         });
 
@@ -301,6 +317,7 @@ public class TextFieldBoxes extends FrameLayout {
         setSingleLine(this.singleLine);
         setMaxLines(this.maxLines);
         setIconSignifier(this.iconSignifierResourceId);
+        setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         updateCounterText();
     }
@@ -313,7 +330,15 @@ public class TextFieldBoxes extends FrameLayout {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = MeasureSpec.getMode(heightMeasureSpec);
 
-        if (widthMode == MeasureSpec.AT_MOST) {
+        if (widthMode == MeasureSpec.EXACTLY) {
+
+            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.RIGHT_OF, 0);
+            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.END_OF, 0);
+            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_END);
+            ((RelativeLayout.LayoutParams) this.editText.getLayoutParams()).addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
+
+        } else if (widthMode == MeasureSpec.AT_MOST) {
 
             /* wrap_content */
             this.editText.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -383,6 +408,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.maxLines = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxLines, Integer.MAX_VALUE);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
+            this.hasClearButton = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
 
             styledAttrs.recycle();
@@ -483,6 +509,11 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void updateCounterText() {
 
+        /* Show clear button if there is anything */
+        if (hasClearButton)
+            if (getText().length() == 0) showClearButton(false);
+            else showClearButton(true);
+
         /* Don't Count Space & Line Feed */
         int length = getText().replaceAll(" ", "").replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
@@ -492,12 +523,8 @@ public class TextFieldBoxes extends FrameLayout {
                 /* MAX & MIN */
                 this.counterLabel.setText(lengthStr + Integer.toString(this.minCharacters)
                         + "-" + Integer.toString(this.maxCharacters));
-                if (length < this.minCharacters || length > this.maxCharacters) {
-                    setCounterError();
-                }
-                else {
-                    removeCounterError();
-                }
+                if (length < this.minCharacters || length > this.maxCharacters) setCounterError();
+                else removeCounterError();
 
             } else {
                 /* MAX ONLY */
@@ -571,7 +598,14 @@ public class TextFieldBoxes extends FrameLayout {
         this.helperLabel.setText(this.helperText);
     }
 
+    protected void showClearButton(boolean show) {
+
+        if (show) this.clearButton.setVisibility(View.VISIBLE);
+        else this.clearButton.setVisibility(View.GONE);
+    }
+
     /* Text Setters */
+
     /**
      * set EditText text, raise the labelText floatingLabel if there is something
      *
@@ -761,6 +795,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.iconImageView.setVisibility(View.GONE);
     }
 
+    public void setHasClearButton(boolean hasClearButton) {
+        this.hasClearButton = hasClearButton;
+    }
+
     /**
      * set if the EditText is having focus
      *
@@ -783,10 +821,6 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /* Text Getters */
-    public EditText getEditText() {
-        return this.editText;
-    }
-
     public String getText() {
         return this.text;
     }
@@ -849,6 +883,35 @@ public class TextFieldBoxes extends FrameLayout {
         return this.minCharacters;
     }
 
+    /* View Getters */
+    public View getPanel() {
+        return this.panel;
+    }
+
+    public View getBottomLine() {
+        return this.bottomLine;
+    }
+
+    public EditText getEditText() {
+        return this.editText;
+    }
+
+    public AppCompatTextView getHelperLabel() {
+        return this.helperLabel;
+    }
+
+    public AppCompatTextView getCounterLabel() {
+        return this.counterLabel;
+    }
+
+    public AppCompatTextView getFloatingLabel() {
+        return this.floatingLabel;
+    }
+
+    public AppCompatImageButton getIconImageView() {
+        return iconImageView;
+    }
+
     /* Other Getters */
     public boolean isActivated() {
         return this.activated;
@@ -868,6 +931,10 @@ public class TextFieldBoxes extends FrameLayout {
 
     public int getIconSignifierResourceId() {
         return this.iconSignifierResourceId;
+    }
+
+    public boolean getHasClearButton() {
+        return this.hasClearButton;
     }
 
     public boolean getHasFocus() {
