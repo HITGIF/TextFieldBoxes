@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/tfb"
+            android:id="@+id/text_field_boxes"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             app:helperText="Helper is here"
@@ -26,15 +26,21 @@
             app:labelText="Label"
             app:maxCharacters="10"
             app:singleLine="true"
-            app:hasClearButton="true"
+            app:endIcon="@drawable/ic_mic_black_24dp"
             app:text="Text" />
 
         <EditText
             android:id="@+id/editText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            android:text="\@scyscjhzcs hjzces hzjcs zshjzshc " />
+            android:layout_marginTop="100dp" />
+
+        <Button
+            android:id="@+id/dark_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="DARK SIDE" />
 
     </LinearLayout>
 

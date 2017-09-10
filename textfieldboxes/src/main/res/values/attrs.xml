@@ -27,6 +27,7 @@
         <attr name="singleLine" format="boolean" />
         <attr name="maxLines" format="integer" />
         <attr name="iconSignifier" format="reference" />
+        <attr name="endIcon" format="reference" />
         <attr name="hasClearButton" format="boolean" />
         <attr name="hasFocus" format="boolean" />
 

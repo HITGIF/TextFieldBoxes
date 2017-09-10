@@ -128,6 +128,11 @@ public class TextFieldBoxes extends FrameLayout {
     protected int iconSignifierResourceId;
 
     /**
+     * the resource ID of the icon at the end. 0 by default.
+     */
+    protected int endIconResourceId;
+
+    /**
      * whether to show the clear button at the end of the EditText. False by default.
      */
     protected boolean hasClearButton;
@@ -145,7 +150,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatTextView counterLabel;
     protected AppCompatTextView floatingLabel;
     protected AppCompatImageButton clearButton;
-    protected AppCompatImageButton iconImageView;
+    protected AppCompatImageButton iconImageButton;
+    protected AppCompatImageButton endIconImageButton;
     protected InputMethodManager inputMethodManager;
     protected RelativeLayout rightShell;
     protected RelativeLayout upperPanel;
@@ -235,9 +241,12 @@ public class TextFieldBoxes extends FrameLayout {
         this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
         this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
         this.clearButton.setAlpha(0.35f);
+        this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
+        this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.endIconImageButton.setAlpha(0.54f);
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
-        this.iconImageView = findViewById(R.id.text_field_boxes_imageView);
+        this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
         this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
@@ -251,7 +260,7 @@ public class TextFieldBoxes extends FrameLayout {
             }
         });
 
-        this.iconImageView.setOnClickListener(new OnClickListener() {
+        this.iconImageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
@@ -317,6 +326,7 @@ public class TextFieldBoxes extends FrameLayout {
         setSingleLine(this.singleLine);
         setMaxLines(this.maxLines);
         setIconSignifier(this.iconSignifierResourceId);
+        setEndIcon(this.endIconResourceId);
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         updateCounterText();
@@ -332,11 +342,56 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (widthMode == MeasureSpec.EXACTLY) {
 
-            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.RIGHT_OF, 0);
-            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.END_OF, 0);
-            ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_END);
-            ((RelativeLayout.LayoutParams) this.editText.getLayoutParams()).addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
+            if (this.endIconImageButton.getVisibility() == View.VISIBLE) {
+
+                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                        .addRule(RelativeLayout.RIGHT_OF, 0);
+                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
+
+                if (android.os.Build.VERSION.SDK_INT >= 17) {
+                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                            .addRule(RelativeLayout.END_OF, 0);
+                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                            .addRule(RelativeLayout.START_OF, R.id.text_field_boxes_end_icon_button);
+                }
+
+                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
+                        .addRule(RelativeLayout.RIGHT_OF, 0);
+                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
+                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+                if (android.os.Build.VERSION.SDK_INT >= 17) {
+                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
+                            .addRule(RelativeLayout.END_OF, 0);
+                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
+                            .addRule(RelativeLayout.ALIGN_PARENT_END);
+                }
+
+                if (this.hasClearButton)
+                    ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
+                else
+                    ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
+
+            } else {
+
+                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                        .addRule(RelativeLayout.RIGHT_OF, 0);
+                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+
+                if (android.os.Build.VERSION.SDK_INT >= 17) {
+                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                            .addRule(RelativeLayout.END_OF, 0);
+                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
+                            .addRule(RelativeLayout.ALIGN_PARENT_END);
+                }
+
+                ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
+            }
 
         } else if (widthMode == MeasureSpec.AT_MOST) {
 
@@ -349,11 +404,16 @@ public class TextFieldBoxes extends FrameLayout {
         if (heightMode == MeasureSpec.EXACTLY) {
 
             /* match_parent or specific value */
-            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams()).addRule(RelativeLayout.BELOW, 0);
-            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams()).addRule(RelativeLayout.BELOW, 0);
-            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams()).addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-            ((RelativeLayout.LayoutParams) this.panel.getLayoutParams()).addRule(RelativeLayout.ABOVE, R.id.text_field_boxes_bottom);
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams())
+                    .addRule(RelativeLayout.BELOW, 0);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams())
+                    .addRule(RelativeLayout.BELOW, 0);
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams())
+                    .addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams())
+                    .addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            ((RelativeLayout.LayoutParams) this.panel.getLayoutParams())
+                    .addRule(RelativeLayout.ABOVE, R.id.text_field_boxes_bottom);
 
         } else if (heightMode == MeasureSpec.AT_MOST) {
 
@@ -408,6 +468,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.maxLines = styledAttrs.getInt(R.styleable.TextFieldBoxes_maxLines, Integer.MAX_VALUE);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
+            this.endIconResourceId = styledAttrs.
+                    getResourceId(R.styleable.TextFieldBoxes_endIcon, 0);
             this.hasClearButton = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
 
@@ -491,10 +553,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel.setTextColor(colorRes);
         Utils.setCursorDrawableColor(this.editText, colorRes);
 
-        this.iconImageView.setColorFilter(colorRes);
-        if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageView.setAlpha(0.54f);
-        else this.iconImageView.setAlpha(1f);
-        if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) this.iconImageView.setAlpha(0.35f);
+        this.iconImageButton.setColorFilter(colorRes);
+        if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageButton.setAlpha(0.54f);
+        else this.iconImageButton.setAlpha(1f);
+        if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) this.iconImageButton.setAlpha(0.35f);
 
         this.bottomLine.setBackgroundColor(colorRes);
     }
@@ -724,8 +786,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.counterLabel.setVisibility(View.VISIBLE);
             this.bottomLine.setVisibility(View.VISIBLE);
             this.panel.setEnabled(true);
-            this.iconImageView.setEnabled(true);
-            this.iconImageView.setClickable(true);
+            this.iconImageButton.setEnabled(true);
+            this.iconImageButton.setClickable(true);
             setHighlightColor(DEFAULT_TEXT_COLOR);
             updateCounterText();
 
@@ -735,8 +797,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.editText.setEnabled(false);
             this.editText.setFocusableInTouchMode(false);
             this.editText.setFocusable(false);
-            this.iconImageView.setClickable(false);
-            this.iconImageView.setEnabled(false);
+            this.iconImageButton.setClickable(false);
+            this.iconImageButton.setEnabled(false);
             this.helperLabel.setVisibility(View.INVISIBLE);
             this.counterLabel.setVisibility(View.INVISIBLE);
             this.bottomLine.setVisibility(View.INVISIBLE);
@@ -781,8 +843,8 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.iconSignifierResourceId = resourceID;
         if (this.iconSignifierResourceId != 0) {
-            this.iconImageView.setImageResource(this.iconSignifierResourceId);
-            this.iconImageView.setVisibility(View.VISIBLE);
+            this.iconImageButton.setImageResource(this.iconSignifierResourceId);
+            this.iconImageButton.setVisibility(View.VISIBLE);
         } else removeIconSignifier();
     }
 
@@ -792,7 +854,25 @@ public class TextFieldBoxes extends FrameLayout {
     public void removeIconSignifier() {
 
         this.iconSignifierResourceId = 0;
-        this.iconImageView.setVisibility(View.GONE);
+        this.iconImageButton.setVisibility(View.GONE);
+    }
+
+    public void setEndIcon(int resourceID) {
+
+        this.endIconResourceId = resourceID;
+        if (this.endIconResourceId != 0) {
+            this.endIconImageButton.setImageResource(this.endIconResourceId);
+            this.endIconImageButton.setVisibility(View.VISIBLE);
+        } else removeEndIcon();
+    }
+
+    /**
+     * remove the end icon by setting the visibility of the end image view to View.GONE
+     */
+    public void removeEndIcon() {
+
+        this.endIconResourceId = 0;
+        this.endIconImageButton.setVisibility(View.GONE);
     }
 
     public void setHasClearButton(boolean hasClearButton) {
@@ -908,8 +988,12 @@ public class TextFieldBoxes extends FrameLayout {
         return this.floatingLabel;
     }
 
-    public AppCompatImageButton getIconImageView() {
-        return iconImageView;
+    public AppCompatImageButton getIconImageButton() {
+        return this.iconImageButton;
+    }
+
+    public AppCompatImageButton getEndIconImageButton() {
+        return this.endIconImageButton;
     }
 
     /* Other Getters */
@@ -933,6 +1017,10 @@ public class TextFieldBoxes extends FrameLayout {
         return this.iconSignifierResourceId;
     }
 
+    public int getEndIconResourceId() {
+        return this.endIconResourceId;
+    }
+
     public boolean getHasClearButton() {
         return this.hasClearButton;
     }
@@ -941,4 +1029,3 @@ public class TextFieldBoxes extends FrameLayout {
         return this.hasFocus;
     }
 }
-
