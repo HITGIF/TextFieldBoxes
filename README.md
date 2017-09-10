@@ -18,7 +18,7 @@ A new Material Design text field that comes in a box, based on Google Material D
 
 ​
 ## ***UPDATE NOTICE***
-#### 1.1.1 Release
+#### 1.2.0 Release
 - fix the bug of when height (or width) is set to `wrap_content` yet fills up the whole space.
 
 - old `hint` attribute is **renamed** to `labelText`.
@@ -49,7 +49,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.1.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.2.0'
 }
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -75,7 +75,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.2.0"
 ```
 
 
@@ -84,7 +84,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.1.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.2.0"]]
 ```
 
 ​

@@ -18,7 +18,7 @@
 
 ​
 ## ***更新注意***
-#### 1.1.1 Release
+#### 1.2.0 Release
 - 修复了当高度（或宽度）设置为 `wrap_content` 时仍充满剩余空间的 bug。
 
 - 原 `hint` 属性**更名**为 `labelText`。
@@ -49,7 +49,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.1.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.2.0'
 }
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
@@ -75,7 +75,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.2.0"
 ```
 
 
@@ -84,7 +84,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.1.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.2.0"]]
 ```
 
 ​
