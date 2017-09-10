@@ -20,14 +20,7 @@
             android:id="@+id/text_field_boxes"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:helperText="Helper is here"
-            app:hint="Hint"
-            app:iconSignifier="@drawable/ic_location_on_black_24dp"
-            app:labelText="Label"
-            app:maxCharacters="10"
-            app:singleLine="true"
-            app:endIcon="@drawable/ic_mic_black_24dp"
-            app:text="Text" />
+            app:labelText="Label" />
 
         <EditText
             android:id="@+id/editText"

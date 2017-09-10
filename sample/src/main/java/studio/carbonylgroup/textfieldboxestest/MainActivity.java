@@ -6,7 +6,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -42,6 +46,23 @@ public class MainActivity extends AppCompatActivity {
                     sharedPreferences.edit().putBoolean("dark", true).apply();
                     restart();
                 }
+            }
+        });
+
+        final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+        textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().equals("wrong"))
+                    textFieldBoxes.setError("It's wrong");
             }
         });
     }

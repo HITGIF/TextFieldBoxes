@@ -17,6 +17,19 @@
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ​
+## ***更新注意***
+#### 1.1.1 Release
+- 修复了当高度（或宽度）设置为 `wrap_content` 时仍充满剩余空间的 bug。
+
+- 原 `hint` 属性**更名**为 `labelText`。
+
+- 当前 `hint` 属性为当文本域获得焦点且没有内容时显示的**占位符**。
+
+- 新增**清除按钮**，在 xml 中使用 `app:hasClearButton` 或在 Java 代码中使用 `setHasClearButton(boolean hasClearButton)` 以启用。
+
+- 新增**末图标**, 在 xml 中使用 `app:endIcon` 或在 Java 代码中使用 `setEndIcon(Int resourceID)` 以启用。使用 `getEndIconImageButton()` 来干些有用的事情。
+
+​
 ## 要求
 - Android 4.0.3 IceCreamSandwich (API lv 15) 或更高
 - 你最喜欢的 IDE
@@ -36,7 +49,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.1.0'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.1.1'
 }
 ```
 
@@ -53,7 +66,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1</version>
 </dependency>
 ```
 
@@ -62,7 +75,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.0"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.1"
 ```
 
 
@@ -71,7 +84,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.0"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.1.0"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.1.1"]]
 ```
 
 ​
@@ -87,15 +100,15 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.1.0"
     android:id="@+id/text_field_boxes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:hint="Hint" />
+    android:labelText="Label" />
 ...
 ```
 
-![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/hint.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
 #### 2. 启用 / 禁用
 
-在 xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean _enabled)`。
+在 xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean enabled)`。
 
 ```xml
 app:enabled="false"
@@ -105,7 +118,7 @@ app:enabled="false"
 
 #### 3. 单行
 
-在 xml 中加入 `app:singleLine` 或在 Java 代码中使用 `setSingleLine(boolean _singleLine)` 以设置 EditText 是否为单行，即能够横向滚动。
+在 xml 中加入 `app:singleLine` 或在 Java 代码中使用 `setSingleLine(boolean singleLine)` 以设置 EditText 是否为单行，即能够横向滚动。
 
 ```xml
 app:singleLine="true"
@@ -116,7 +129,7 @@ app:singleLine="true"
 #### 4. 帮助和错误信息
 
 ##### 帮助信息:
-在 xml 中加入 `app:helperText` 或在 Java 代码中使用 `setHelperText(String _helperText)`。
+在 xml 中加入 `app:helperText` 或在 Java 代码中使用 `setHelperText(String helperText)`。
 
 ```xml
 app:helperText="Helper is here"
@@ -125,7 +138,7 @@ app:helperText="Helper is here"
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
 
 ##### 错误信息:
-在 Java 代码中使用 `setError(String _errorText)`。
+在 Java 代码中使用 `setError(String errorText)`。
 
 *注意: 文本改动 (输入或删除) 时会自动清除错误信息。*
 
@@ -135,11 +148,21 @@ setError("Error message");
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
-#### 5. 前缀 & 后缀
+#### 5. Hint (Placeholder)
 
-在 xml 中加入 `app:prefix` 或在 Java 代码中使用 `setPrefix(String _prefix)` 以设置 EditText 前端的前缀。
+在 xml 中加入 `app:hint` 或在 Java 代码中使用 `setHint(String hint)` 以设置当文本域获得焦点且没有内容时显示的占位符。
 
-在 xml 中加入 `app:suffix` 或在 Java 代码中使用 `setSuffix(String _suffix)` 以设置 EditText 尾端的后缀。
+```xml
+app:hint = "Hint"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/hint.png)
+
+#### 6. 前缀 & 后缀
+
+在 xml 中加入 `app:prefix` 或在 Java 代码中使用 `setPrefix(String prefix)` 以设置文本域前端的前缀。
+
+在 xml 中加入 `app:suffix` 或在 Java 代码中使用 `setSuffix(String suffix)` 以设置文本域末端的后缀。
 
 ```xml
 app:prefix="$ "
@@ -155,9 +178,9 @@ app:suffix=" @gmail.com"
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
 
 
-#### 6. 最大行数
+#### 7. 最大行数
 
-在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int _maxlines)` 以设置文本框的最大行数。默认值是 `Integer.MAX_VALUE`。
+在 xml 中加入 `app:maxLines` 或在 Java 代码中使用 `setMaxLines(Int maxlines)` 以设置文本框的最大行数。默认值是 `Integer.MAX_VALUE`。
 
 ```xml
 app:maxLines="3"
@@ -165,9 +188,13 @@ app:maxLines="3"
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxlines.gif)
 
-#### 7. 最大和最小字符数
+#### 8. 最大和最小字符数
 
-在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int _maxCharacters)` 以设置最大字符数, 在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int _minCharacters)` 以设置最小字符数。当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。默认值是 `0`, 表示没有限制。
+在 xml 中加入 `app:maxCharacters` 或在 Java 代码中使用 `setMaxCharacters(int maxCharacters)` 以设置最大字符数。
+
+在 xml 中加入 `app:minCharacters` 或在 Java 代码中使用 `setMinCharacters(int minCharacters)` 以设置最小字符数。
+
+当超出字符数限制时底部的线会变成 `errorColor`（默认为红色）。默认值是 `0`, 表示没有限制。
 
 *注意: 空格和换行不计入字符数。*
 
@@ -184,9 +211,9 @@ app:maxCharacters="5"
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-#### 8. 图标
+#### 9. 图标
 
-在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标。
+在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标（如果你想要有）。
 
 ```xml
 app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
@@ -194,15 +221,49 @@ app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
-#### 9. 自定义颜色
+#### 10. 末图标
 
-*Primary Color* 是底部的线和提示文字的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int _colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
+在 xml 中使用 `app:endIcon` 或在 Java 代码中使用 `setEndIcon(Int resourceID)` 以设置文本域末端的 ImageButton 的图标（如果你想要有）。
 
-*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int _colorRes)` 以设置。默认值是 `A400 red`。
+```xml
+app:endIcon="@drawable/ic_mic_black_24dp"
+```
 
-*Helper Text Color* 是帮助文本的颜色。在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int _colorRes)` 以设置。默认值是 `54% black`。
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/mic.png)
 
-*Panel Background Color* 是文本框背板的颜色。在 xml 中加入 `app:panelBackgroundColor` 或在 Java 代码中使用 `setPanelBackgroundColor(int _colorRes)` 以设置。默认值是 `6% black`。*需要注意的是根据规范，默认的颜色是 6% 透明度的黑色 (`#000000`)，所以如果你要自定义颜色并且仍需让其保持透明，则应同样设置一个带透明度的颜色。*
+为了让它有点用（触发语音输入、下拉事件）, 你需要在 Java 代码中使用 `getEndIconImageButton()` 以设置, 举个例子, 点击时的事件 （`.setOnClickListener()`）, 或者其他的需求。
+
+```java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        // 点击时的事件
+    }
+});
+```
+
+#### 11. 清除按钮
+
+在 xml 中使用 `app:hasClearButton` 或在 Java 代码中使用 `setHasClearButton(boolean hasClearButton)` 以设置是否显示清除按钮。
+
+如果为 `true`, 每当文本域中有字符输入时（**任何**字符）末端将会显示清除按钮。
+
+```xml
+app:hasClearButton="true"
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
+
+#### 12. 自定义颜色
+
+*Primary Color* 是底部的线和标签文字的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
+
+*Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int colorRes)` 以设置。默认值是 `A400 red`。
+
+*Helper Text Color* 是帮助文本的颜色。在 xml 中加入 `app:helperTextColor` 或在 Java 代码中使用 `setHelperTextColor(int colorRes)` 以设置。默认值是 `54% black`。
+
+*Panel Background Color* 是文本框背板的颜色。在 xml 中加入 `app:panelBackgroundColor` 或在 Java 代码中使用 `setPanelBackgroundColor(int colorRes)` 以设置。默认值是 `6% black`。*需要注意的是根据规范，默认的颜色是 6% 透明度的黑色 (`#000000`)，所以如果你要自定义颜色并且仍需让其保持透明，则应同样设置一个带透明度的颜色。*
 
 ```xml
 app:primaryColor="#1B5E20"          <!--绿的-->
@@ -213,7 +274,7 @@ app:panelBackgroundColor="#ffe8e8"  <!--粉的-->
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 10. 自定义 EditText
+#### 13. 自定义 EditText
 
 如果你想要自定义 `TextFieldBoxes` (其实是一个包含 `EditText` 的 `FrameLayout` 继承) 中的 `EditText` , 在 Java 代码中使用 `getEditText()` 就可以随便改 (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
 
@@ -222,12 +283,10 @@ final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
 textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
     }
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
     }
 
     @Override
@@ -240,7 +299,7 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
 
-#### 11. 暗主题
+#### 14. 暗主题
 
 TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以适应暗主题而不需其他设置。
 
@@ -256,8 +315,9 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | 属性 | 描述 |
 | --- | --- |
 | `app:text` | EditText 文本 |
-| `app:hint` | 顶部的提示文本 |
+| `app:label` | 顶部的标签文本 |
 | `app:helperText` | 底部的帮助文本 |
+| `app:hint` | 当文本域获得焦点且没有内容时显示的占位符 |
 | `app:prefix` | 前缀文本 |
 | `app:suffix` | 后缀文本 |
 
@@ -267,10 +327,10 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | --- | --- | --- |
 | `app:helperTextColor` | 帮助文本颜色 | 目前主题 `textColorTertiary` |
 | `app:errorColor` | 错误时的显示颜色 (e.g. 超出字符限制, `setError()`) | `A400 red` |
-| `app:primaryColor` | 底部的线和提示文字的颜色 | 目前主题 `colorPrimary` |
+| `app:primaryColor` | 底部的线和标签文字的颜色 | 目前主题 `colorPrimary` |
 | `app:prefixTextColor` | 前缀文本颜色 | 目前主题 `textColorTertiary` |
 | `app:suffixTextColor` | 后缀文本颜色 | 目前主题 `textColorTertiary` |
-| `app:panelBackgroundColor` | 文本框背板的颜色 | 6% `colorForeground` |
+| `app:panelBackgroundColor` | 文本框背板的颜色 | 6% 目前主题 `colorForeground` |
 
 #### 字符统计
 
@@ -287,6 +347,8 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | `app:singleLine` | EditText 是否为单行 | `False` |
 | `app:maxLines` | 文本框最大行数 | `Integer.MAX_VALUE` |
 | `app:iconSignifier` | TextFieldBoxes 前边的图标的资源 ID | `0` |
+| `app:endIcon` | 文本域末端的图标的资源 ID | `0` |
+| `app:hasClearButton` | 是否在文本域末端显示清除按钮 | `False` |
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
 
 ​
@@ -294,8 +356,9 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 + [X] 前缀 & 后缀
 + [X] 图标
 + [X] 暗主题
-+ [ ] 删除按钮
-+ [ ] 占位符 (真 · "hint")
++ [X] 清除按钮
++ [X] 末图标
++ [X] 占位符 (真 · "hint")
 
 ​
 ## 开源许可

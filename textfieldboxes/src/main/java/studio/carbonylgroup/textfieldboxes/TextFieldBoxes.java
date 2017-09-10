@@ -494,7 +494,7 @@ public class TextFieldBoxes extends FrameLayout {
                     .translationY(0)
                     .setDuration(ANIMATION_DURATION);
 
-            this.editText.setVisibility(View.GONE);
+            this.editTextLayout.setVisibility(View.GONE);
 
             if (this.editText.hasFocus()) {
                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
@@ -511,7 +511,7 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected void activate(boolean animated) {
 
-        this.editText.setVisibility(View.VISIBLE);
+        this.editTextLayout.setVisibility(View.VISIBLE);
 
         if (animated) {
 
