@@ -215,6 +215,9 @@ app:maxCharacters="5"
 
 Use `app:iconSignifier` in xml or `setIconSignifier(Int resourceID)` to set the icon that is shown in front of the TextFieldBoxes if you want there to be one.
 
+You can use `setIsResponsiveIconColor(boolean isrResponsiveIconColor)` in Java code to set whether the icon will change its color when gaining or losing focus as the label text and the bottomLine do.
+_**NOTE that if `true`, the icon's color will always be `HighlightColor` (the same as the bottomLine) that will turn gray when losing focus. If `false`, the icon will always be in `primaryColor`.**_
+
 ```xml
 app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
 ```

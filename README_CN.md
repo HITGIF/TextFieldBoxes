@@ -218,6 +218,9 @@ app:maxCharacters="5"
 
 在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标（如果你想要有）。
 
+你可以在 Java 代码中使用 `setIsResponsiveIconColor(boolean isrResponsiveIconColor)` 以设置图标是否会和标签文本与底部的线一样在获得或失去焦点时改变颜色。
+_**注意：如果值为 `true`，图标颜色将始终为 `HighlightColor` (与底部的线一样)，即在失去焦点时将会变灰。如果为 `false`，图标颜色将始终为 `primaryColor`。**_
+
 ```xml
 app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
 ```
