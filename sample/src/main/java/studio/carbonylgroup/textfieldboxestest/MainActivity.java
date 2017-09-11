@@ -48,23 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-        final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
-        textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (editable.toString().equals("wrong"))
-                    textFieldBoxes.setError("It's wrong");
-            }
-        });
     }
 
     public void restart() {

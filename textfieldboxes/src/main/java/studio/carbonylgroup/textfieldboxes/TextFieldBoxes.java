@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,6 +162,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
+    protected boolean isResponsiveIconColor = true;
     protected String TAG = "[][][";
 
     public TextFieldBoxes(Context context) {
@@ -254,7 +256,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.panel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isActivated()) activate(true);
+                if (!isActivated()) activate();
                 setHasFocus(true);
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
             }
@@ -263,7 +265,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.iconImageButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isActivated()) activate(true);
+                if (!isActivated()) activate();
                 setHasFocus(true);
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
             }
@@ -342,6 +344,12 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (widthMode == MeasureSpec.EXACTLY) {
 
+            /* match_parent or specific value */
+            this.editText.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+
+            Log.d(TAG, "onMeasure: 3");
             if (this.endIconImageButton.getVisibility() == View.VISIBLE) {
 
                 ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
@@ -376,7 +384,6 @@ public class TextFieldBoxes extends FrameLayout {
                             .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
 
             } else {
-
                 ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
                         .addRule(RelativeLayout.RIGHT_OF, 0);
                 ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
@@ -404,6 +411,10 @@ public class TextFieldBoxes extends FrameLayout {
         if (heightMode == MeasureSpec.EXACTLY) {
 
             /* match_parent or specific value */
+            this.panel.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.rightShell.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.upperPanel.getLayoutParams().height = ViewGroup.LayoutParams.MATCH_PARENT;
+
             ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams())
                     .addRule(RelativeLayout.BELOW, 0);
             ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams())
@@ -506,40 +517,29 @@ public class TextFieldBoxes extends FrameLayout {
 
     /**
      * raise the labelText labelText Label when gaining focus
-     *
-     * @param animated whether to animate the labelText floatingLabel or not
      */
-    protected void activate(boolean animated) {
+    protected void activate() {
 
         this.editTextLayout.setVisibility(View.VISIBLE);
 
-        if (animated) {
+        if (this.editText.getText().toString().equals("") && !isActivated()) {
 
-            if (this.editText.getText().toString().equals("") && !isActivated()) {
-
-                this.editText.setAlpha(0f);
-                this.floatingLabel.setScaleX(1f);
-                this.floatingLabel.setScaleY(1f);
-                this.floatingLabel.setTranslationY(0);
-            }
-
-            ViewCompat.animate(this.editText)
-                    .alpha(1f)
-                    .setDuration(ANIMATION_DURATION);
-
-            ViewCompat.animate(this.floatingLabel)
-                    .scaleX(0.75f)
-                    .scaleY(0.75f)
-                    .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
-                    .setDuration(ANIMATION_DURATION);
-
-        } else {
-
-            this.editText.setAlpha(1f);
-            this.floatingLabel.setScaleX(0.75f);
-            this.floatingLabel.setScaleY(0.75f);
-            this.floatingLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+            this.editText.setAlpha(0f);
+            this.floatingLabel.setScaleX(1f);
+            this.floatingLabel.setScaleY(1f);
+            this.floatingLabel.setTranslationY(0);
         }
+
+        ViewCompat.animate(this.editText)
+                .alpha(1f)
+                .setDuration(ANIMATION_DURATION);
+
+        ViewCompat.animate(this.floatingLabel)
+                .scaleX(0.75f)
+                .scaleY(0.75f)
+                .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
+                .setDuration(ANIMATION_DURATION);
+
         activated = true;
     }
 
@@ -553,9 +553,12 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel.setTextColor(colorRes);
         Utils.setCursorDrawableColor(this.editText, colorRes);
 
-        this.iconImageButton.setColorFilter(colorRes);
-        if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageButton.setAlpha(0.54f);
-        else this.iconImageButton.setAlpha(1f);
+        if (getIsResponsiveIconColor()) {
+            this.iconImageButton.setColorFilter(colorRes);
+            if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageButton.setAlpha(0.54f);
+            else this.iconImageButton.setAlpha(1f);
+        }
+
         if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) this.iconImageButton.setAlpha(0.35f);
 
         this.bottomLine.setBackgroundColor(colorRes);
@@ -678,7 +681,7 @@ public class TextFieldBoxes extends FrameLayout {
         if (text != null) {
             this.text = text;
             editText.setText(this.text);
-            if (!text.equals("")) activate(false);
+            if (!text.equals("")) activate();
         }
     }
 
@@ -888,8 +891,25 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.hasFocus = hasFocus;
         if (this.hasFocus) {
-            activate(false);
+
+            activate();
             this.editText.requestFocus();
+
+            /* make the cursor blink */
+            int cursorPos = this.editText.getSelectionStart();
+            if (cursorPos == 0)
+                if (getText().equals("")) {
+                    setText(" ");
+                    setText("");
+                } else {
+                    this.editText.setSelection(1);
+                    this.editText.setSelection(0);
+                }
+            else {
+                this.editText.setSelection(0);
+                this.editText.setSelection(cursorPos);
+            }
+
             /* if there's an error, keep the error color */
             if (!this.onError && this.enabled) setHighlightColor(this.primaryColor);
 
@@ -897,6 +917,31 @@ public class TextFieldBoxes extends FrameLayout {
             deactivate();
             /* if there's an error, keep the error color */
             if (!this.onError && this.enabled) setHighlightColor(DEFAULT_TEXT_COLOR);
+        }
+    }
+
+    /**
+     * set whether the icon will change its color when gaining or losing focus
+     * as the label and the bottomLine do.
+     *
+     * @param isrResponsiveIconColor if true, the icon's color will always be HighlightColor
+     *                               (the same as the bottomLine)
+     *                               if false, the icon will always be in primaryColor
+     */
+    public void setIsResponsiveIconColor(boolean isrResponsiveIconColor) {
+
+        this.isResponsiveIconColor = isrResponsiveIconColor;
+        if (this.isResponsiveIconColor) {
+            if (this.hasFocus) {
+                this.iconImageButton.setColorFilter(primaryColor);
+                this.iconImageButton.setAlpha(1f);
+            } else {
+                this.iconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+                this.iconImageButton.setAlpha(0.54f);
+            }
+        } else {
+            this.iconImageButton.setColorFilter(primaryColor);
+            this.iconImageButton.setAlpha(1f);
         }
     }
 
@@ -1027,5 +1072,9 @@ public class TextFieldBoxes extends FrameLayout {
 
     public boolean getHasFocus() {
         return this.hasFocus;
+    }
+
+    public boolean getIsResponsiveIconColor() {
+        return this.isResponsiveIconColor;
     }
 }

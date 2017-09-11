@@ -20,20 +20,26 @@
             android:id="@+id/text_field_boxes"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
-            app:labelText="Label" />
+            app:iconSignifier="@drawable/ic_location_on_black_24dp"
+            app:maxCharacters="4"
+            app:labelText="Label"
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="8dp" />
 
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp" />
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="8dp" />
 
         <Button
             android:id="@+id/dark_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="DARK SIDE" />
+            android:text="DARK SIDE"
+            tools:layout_editor_absoluteY="25dp"
+            tools:layout_editor_absoluteX="8dp" />
 
     </LinearLayout>
 
