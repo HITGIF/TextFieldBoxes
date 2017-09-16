@@ -7,109 +7,137 @@
     android:scrollbarStyle="outsideOverlay"
     tools:context=".MainActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-            android:id="@+id/text_field_boxes"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            app:iconSignifier="@drawable/ic_location_on_black_24dp"
-            app:maxCharacters="4"
-            app:labelText="Label"
-            tools:layout_editor_absoluteY="25dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteY="25dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-        <Button
-            android:id="@+id/dark_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="DARK SIDE"
-            tools:layout_editor_absoluteY="25dp"
-            tools:layout_editor_absoluteX="8dp" />
-
-    </LinearLayout>
-
-    <!--<LinearLayout-->
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content"-->
-        <!--android:gravity="center_horizontal"-->
-        <!--android:orientation="vertical"-->
-        <!--android:padding="20dp">-->
+        <!--android:layout_gravity="center"-->
+        <!--android:gravity="center"-->
+        <!--android:orientation="vertical">-->
 
         <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes1"-->
+            <!--android:id="@+id/text_field_boxes"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--app:labelText="Title"-->
-            <!--app:maxCharacters="20"-->
-            <!--app:text="Vintage 50's Dress" />-->
+            <!--app:labelText="Label">-->
 
-        <!--<LinearLayout-->
+            <!--<studio.carbonylgroup.textfieldboxes.ExtendedEditText-->
+                <!--android:id="@+id/extended_edit_text"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+
+        <!--</studio.carbonylgroup.textfieldboxes.TextFieldBoxes>-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/editText"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="15dp">-->
-
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/text_field_boxes2"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_marginEnd="20dp"-->
-                <!--android:layout_marginRight="20dp"-->
-                <!--android:layout_weight="0.8"-->
-                <!--app:hasFocus="false"-->
-                <!--app:labelText="Price"-->
-                <!--app:prefix="$ "-->
-                <!--app:singleLine="true"-->
-                <!--app:text="10.00" />-->
-
-            <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-                <!--android:id="@+id/text_field_boxes3"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_horizontal"-->
-                <!--android:layout_weight="2"-->
-                <!--app:hasFocus="true"-->
-                <!--app:iconSignifier="@drawable/ic_location_on_black_24dp"-->
-                <!--app:labelText="Location (optional)"-->
-                <!--app:singleLine="true"-->
-                <!--app:text="" />-->
-
-        <!--</LinearLayout>-->
-
-        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="150dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginTop="15dp"-->
-            <!--app:hasFocus="false"-->
-            <!--app:labelText="Description"-->
-            <!--app:maxCharacters="140"-->
-            <!--app:singleLine="false"-->
-            <!--app:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />-->
+            <!--tools:layout_editor_absoluteX="8dp"-->
+            <!--tools:layout_editor_absoluteY="25dp" />-->
 
         <!--<Button-->
             <!--android:id="@+id/dark_button"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--android:text="DARK SIDE" />-->
+            <!--android:text="DARK SIDE"-->
+            <!--tools:layout_editor_absoluteX="8dp"-->
+            <!--tools:layout_editor_absoluteY="25dp" />-->
 
     <!--</LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/text_field_boxes1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:labelText="Title"
+            app:maxCharacters="20">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Vintage 50's Dress" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/text_field_boxes2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="0.8"
+                app:hasFocus="false"
+                app:helperText=" "
+                app:labelText="Price">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="10.00"
+                    app:prefix="$ " />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/text_field_boxes3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="2"
+                app:hasFocus="true"
+                app:helperText=" "
+                app:iconSignifier="@drawable/ic_location_on_black_24dp"
+                app:labelText="Location (optional)">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="" />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        </LinearLayout>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/text_field_boxes4"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            app:hasFocus="false"
+            app:labelText="Description"
+            app:maxCharacters="140">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <Button
+            android:id="@+id/dark_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="DARK SIDE" />
+
+    </LinearLayout>
 
 </ScrollView>
