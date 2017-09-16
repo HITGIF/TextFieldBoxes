@@ -309,7 +309,7 @@ public class TextFieldBoxes extends FrameLayout {
         if (widthMode == MeasureSpec.EXACTLY) {
 
             /* match_parent or specific value */
-            this.editText.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
+            this.inputLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -359,14 +359,14 @@ public class TextFieldBoxes extends FrameLayout {
                             .addRule(RelativeLayout.ALIGN_PARENT_END);
                 }
 
-                ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
                         .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
             }
 
         } else if (widthMode == MeasureSpec.AT_MOST) {
 
             /* wrap_content */
-            this.editText.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
+            this.inputLayout.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
             this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
             this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.WRAP_CONTENT;
         }

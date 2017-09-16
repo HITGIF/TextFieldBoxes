@@ -101,6 +101,7 @@
                 android:layout_weight="2"
                 app:hasFocus="true"
                 app:helperText=" "
+                app:endIcon="@drawable/ic_mic_black_24dp"
                 app:iconSignifier="@drawable/ic_location_on_black_24dp"
                 app:labelText="Location (optional)">
 
@@ -125,6 +126,7 @@
             app:maxCharacters="140">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/extendedEditText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
