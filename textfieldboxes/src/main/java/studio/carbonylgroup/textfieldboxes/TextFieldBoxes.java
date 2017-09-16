@@ -340,10 +340,10 @@ public class TextFieldBoxes extends FrameLayout {
                 }
 
                 if (this.hasClearButton)
-                    ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
                             .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
                 else
-                    ((RelativeLayout.LayoutParams) this.editText.getLayoutParams())
+                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
                             .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
 
             } else {
