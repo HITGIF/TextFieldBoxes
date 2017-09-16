@@ -18,19 +18,15 @@ A new Material Design text field that comes in a box, based on Google Material D
 
 ​
 ## ***UPDATE NOTICE***
-#### 1.2.1 Release
-- fix issues #11 #12 #13 #14
 
-#### 1.2.0 Release
-- fix the bug of when height (or width) is set to `wrap_content` yet fills up the whole space.
+#### 1.3.0 Release
+- the "EditText" part is now **seperated** from the TextFieldBoxes. TextFieldBoxes is now a **container** (just like a `TextInputLayout`) that should and should only contain **one** `ExtendedEditText` that inherents the `TextInputEditText`.
 
-- old `hint` attribute is **renamed** to `labelText`.
+- `Prefix` and `Suffix` attributes are now belonging to the `ExtendedEditText`.
 
-- current `hint` attribute is for the **placeholder** text that is shown in the field when there is no text and is on focus.
+- `Text`, `hint`, `SingleLine` and `MaxLines` attributes are now removed. Instead, one should set them in the `ExtendedEditText` with original `android:` attributes.
 
-- add **Clear Button**, can be activated with `app:hasClearButton` in xml or `setHasClearButton(boolean hasClearButton)` in Java code.
-
-- add **End Icon**, can be activated with `app:endIcon` in xml or `setEndIcon(Int resourceID)` in Java code. Use `getEndIconImageButton()` to do something useful with it.
+- the bottom view which contains helper and counter labels will now be hidden when it's empty.
 
 ​
 ## Requirements
@@ -52,7 +48,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.2.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.0'
 }
 ```
 
@@ -69,7 +65,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
 </dependency>
 ```
 
@@ -78,7 +74,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.2.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.0"
 ```
 
 
@@ -87,7 +83,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.2.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.2.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.0"]]
 ```
 
 ​
@@ -95,7 +91,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.2.1"
 
 #### 1. Basic
 
-Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
+Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio.carbonylgroup.textfieldboxes.ExtendedEditText` to your layout:
 
 ```xml
 ...
@@ -103,7 +99,14 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
     android:id="@+id/text_field_boxes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:labelText="Label" />
+    app:labelText="Label">
+
+    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+        android:id="@+id/extended_edit_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 ...
 ```
 
@@ -114,27 +117,24 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` to your layout:
 `app:enabled` in xml or `setEnabled(boolean enabled)` in Java.
 
 ```xml
-app:enabled="false"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:enabled="false">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
-#### 3. SingleLine
+#### 3. Helper Text and Error Text
 
-Use `app:singleLine` in xml or `setSingleLine(boolean singleLine)` in Java to set whether the EditText is single-lined, that scrolls horizontally.
-
-```xml
-app:singleLine="true"
-```
-
-![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/singleline.gif)
-
-#### 4. Helper Text and Error Text
+_**NOTE:** setting helper or error text to anything **not empty** will make the bottom view (which contains the helper label) visible and increase the height of the TextFieldBoxes. So if you want to always keep the bottom view visible (height increased), set the helper text to `" "` when there should be nothing._
 
 helper text: `app:helperText` in xml or `setHelperText(String helperText)` in Java.
 
+
 ```xml
-app:helperText="Helper is here"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:helperText="Helper is here">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
@@ -149,69 +149,61 @@ setError("Error message");
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
-#### 5. Hint (Placeholder)
+#### 4. Prefix & Suffix
 
-Use `app:hint` in xml or `setHint(String hint)` in Java to set the placeholder text that is shown in the field when there is no text and is on focus.
-
-```xml
-app:hint = "Hint"
-```
-
-![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/hint.png)
-
-#### 6. Prefix & Suffix
+_**! NOTE:** Prifix and Suffix attributes should be set to `ExtendedEditText`._
 
 Use `app:prefix` in xml or `setPrefix(String prefix)` in Java to set the unselectable prefix text at the start of the field.
 
 Use `app:suffix` in xml or `setSuffix(String suffix)` in Java to set the unselectable suffix text at the end of the field.
 
 ```xml
-app:prefix="$ "
+<studio.carbonylgroup.textfieldboxes.ExtendedEditText
+    ...
+    app:prefix="$ ">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/prefix.png)
 
 
 ```xml
-app:suffix="\@gmail.com"
+<studio.carbonylgroup.textfieldboxes.ExtendedEditText
+    ...
+    app:suffix="\@gmail.com">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
 
-#### 7. Maxlines
+#### 5. Max & Min Characters
 
-Use `app:maxLines` in xml or `setMaxLines(Int maxlines)` to set the number of maximum lines allowed in the text field. `Integer.MAX_VALUE` by default.
+_**NOTE:** setting max or min character will make the bottom view (which contains the counter label) visible and increase the height of the TextFieldBoxes._
 
-```xml
-app:maxLines="3"
-```
+Use `app:maxCharacters` in xml or `setMaxCharacters(int maxCharacters)` in java code to set the max characters count. Use `removeMaxCharacters()` in java code to remove the limit.
 
-![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxlines.gif)
+Use `app:minCharacters` in xml or `setMinCharacters(int minCharacters)` in java code to set the min characters count. Use `removeMinCharacters()` in java code to remove the limit.
 
-#### 8. Max & Min Characters
-
-Use `app:maxCharacters` in xml or `setMaxCharacters(int maxCharacters)` in java code to set the max characters count.
-
-Use `app:minCharacters` in xml or `setMinCharacters(int minCharacters)` in java code to set the min characters count.
-
-The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters.
+The color of the bottom line will turn to `errorColor` (red by default) when exceeding max or min characters limit. `0`, as default, means no max or min characters limit.
 
 *NOTE: Space and line feed will NOT count.*
 
 ```xml
-app:maxCharacters="10"
-app:minCharacters="5"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:maxCharacters="10"
+    app:minCharacters="5">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxMinChar.gif)
 
 ```xml
-app:maxCharacters="5"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:maxCharacters="5">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-#### 9. Icon Signifier
+#### 6. Icon Signifier
 
 Use `app:iconSignifier` in xml or `setIconSignifier(Int resourceID)` to set the icon that is shown in front of the TextFieldBoxes if you want there to be one.
 
@@ -219,17 +211,21 @@ You can use `setIsResponsiveIconColor(boolean isrResponsiveIconColor)` in Java c
 _**NOTE that if `true`, the icon's color will always be `HighlightColor` (the same as the bottomLine) that will turn gray when losing focus. If `false`, the icon will always be in `primaryColor`.**_
 
 ```xml
-app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:iconSignifier="@drawable/ic_vpn_key_black_24dp">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
-#### 10. End Icon
+#### 7. End Icon
 
 Use `app:endIcon` in xml or `setEndIcon(Int resourceID)` to set the icon of the ImageButton that is shown at the end of the field if you want there to be one.
 
 ```xml
-app:endIcon="@drawable/ic_mic_black_24dp"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:endIcon="@drawable/ic_mic_black_24dp">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/mic.png)
@@ -246,19 +242,21 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 });
 ```
 
-#### 11. Clear Button
+#### 8. Clear Button
 
 Use `app:hasClearButton` in xml or `setHasClearButton(boolean hasClearButton)` to set whether to show the clear button.
 
 If `true`, a clear button will be shown at the end when there are characters (**ANY** character) entered in the field.
 
 ```xml
-app:hasClearButton="true"
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:hasClearButton="true">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
 
-#### 12. Custom Colors
+#### 9. Custom Colors
 
 *Primary Color* will be used for the color of the underline and the floating label text. You can use `app:primaryColor` in xml or `setPrimaryColor(int colorRes)` in Java. Current theme `Primary Color` by default.
 
@@ -269,21 +267,24 @@ app:hasClearButton="true"
 *Panel Background Color* will be used for the color of panel at the back. You can use `app:panelBackgroundColor` in xml or `setPanelBackgroundColor(int colorRes)` in Java. `6% black` by default. *NOTE that the default color, as in the guideline, is the black (`#000000`) color with the transparency of 6%, so when you're customizing and want it to still be transparent you have to set a color with transparency.*
 
 ```xml
-app:primaryColor="#1B5E20"          <!--Green-->
-app:errorColor="#ddaa00"            <!--Yellow-->
-app:helperTextColor="#795548"       <!--Brown-->
-app:panelBackgroundColor="#ffe8e8"  <!--Pink-->
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:primaryColor="#1B5E20"
+    app:errorColor="#ddaa00"
+    app:helperTextColor="#795548"
+    app:panelBackgroundColor="#ffe8e8">
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 13. Customize EditText
+#### 10. Customize EditText
 
-If you want to customize the `EditText` in the `TextFieldBoxes` (which is a inherited `FrameLayout` that contains a `EditText` for input), use the `getEditText()` methond in Java and do whatever you like (e.g. `setOnKeyListener()`, `addTextChangedListener()`)
+**From release 1.3.0**, just do what you want to the `ExtendedEditText` inside the TextFieldBoxes.
 
 ```java
 final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
-textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
+final ExtendedEditText extendedEditText = findViewById(R.id.extended_edit_text);
+extendedEditText.addTextChangedListener(new TextWatcher() {
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
     }
@@ -294,15 +295,15 @@ textFieldBoxes.getEditText().addTextChangedListener(new TextWatcher() {
 
     @Override
     public void afterTextChanged(Editable editable) {
-    if (editable.toString().equals("wrong"))
-        textFieldBoxes.setError("It's wrong");
+        if (editable.toString().equals("wrong"))
+            textFieldBoxes.setError("It's wrong");
     }
 });
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
 
-#### 14. Dark Theme
+#### 11. Dark Theme
 
 TextFieldBoxes use the color attributes within the current theme and will automatically change its color to fit the dark theme without additional settings.
 
@@ -313,47 +314,56 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 ​
 ## All Attributes
 
-#### Texts
+### ExtendedEditText
+
+##### Texts
 
 | Attribute | Description |
 | --- | --- |
-| `app:text` | EditText text |
-| `app:labelText` | Floating label text at the top |
-| `app:helperText` | Helper text at the bottom |
-| `app:hint` | Placeholder text that is shown in the EditText when there is no text and is on focus |
 | `app:prefix` | Prefix Text |
 | `app:suffix` | Suffix Text |
 
-#### Colors
+##### Colors
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `app:prefixTextColor` | Prefix text color | Current theme `textColorTertiary` |
+| `app:suffixTextColor` | Suffix text color | Current theme `textColorTertiary` |
+
+### TextFieldBoxes
+
+##### Texts
+
+| Attribute | Description |
+| --- | --- |
+| `app:labelText` | Floating label text at the top |
+| `app:helperText` | Helper text at the bottom |
+
+##### Colors
 
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:helperTextColor` | Helper text color | Current theme `textColorTertiary` |
 | `app:errorColor` | The color that is used to indicate error (e.g. exceeding max characters, `setError()`) | `A400 red` |
 | `app:primaryColor` | The color for the underline and the floating label text | Current theme `colorPrimary` |
-| `app:prefixTextColor` | Prefix text color | Current theme `textColorTertiary` |
-| `app:suffixTextColor` | Suffix text color | Current theme `textColorTertiary` |
 | `app:panelBackgroundColor` | The color for the panel at the back | 6% Current theme `colorForeground` |
 
-#### Characters counter
+##### Characters counter
 
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:maxCharacters` | Max characters count limit. `0` means no limit | `0` |
 | `app:minCharacters` | Min characters count limit. `0` means no limit | `0` |
 
-#### Others
+##### Others
 
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:enabled` | Whether the text field is enabled | `True` |
-| `app:singleLine` | Whether the EditText is single-lined | `False` |
-| `app:maxLines` | The number of maximum lines allowed in the text field | `Integer.MAX_VALUE` |
 | `app:iconSignifier` | The resource ID of the icon before the TextFieldBoxes | `0` |
 | `app:endIcon` | The resource ID of the icon at the end of the field | `0` |
 | `app:hasClearButton` | Whether to show the clear button at the end of the EditText | `False` |
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
-
 ​
 ## TODO
 + [X] Prefix & Suffix
@@ -362,6 +372,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 + [X] Delete Button
 + [X] End Icon
 + [X] Placeholder (real "hint")
++ [X] Move the EditText out
 
 ​
 ## License
