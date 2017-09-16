@@ -69,11 +69,14 @@
                     android:layout_marginBottom="8dp"
                     android:layout_marginTop="32dp">
 
-                    <RelativeLayout
-                        android:id="@+id/text_field_boxes_input_layout"
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/text_field_boxes_editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="0dp" />
+                        android:inputType="none"
+                        android:padding="0dp"
+                        android:text="@string/app_name"
+                        android:textSize="16sp" />
 
                     <android.support.v7.widget.AppCompatImageButton
                         android:id="@+id/text_field_boxes_clear_button"
@@ -82,9 +85,9 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginStart="2dp"
                         android:paddingTop="2dp"
-                        android:layout_toEndOf="@+id/text_field_boxes_input_layout"
-                        android:layout_toRightOf="@+id/text_field_boxes_input_layout"
-                        android:layout_alignBottom="@+id/text_field_boxes_input_layout"
+                        android:layout_toEndOf="@+id/text_field_boxes_editText"
+                        android:layout_toRightOf="@+id/text_field_boxes_editText"
+                        android:layout_alignBottom="@+id/text_field_boxes_editText"
                         android:background="?selectableItemBackgroundBorderless"
                         android:src="@drawable/ic_clear_circle_black_24dp"
                         android:visibility="gone" />
@@ -98,7 +101,7 @@
                         android:paddingTop="2dp"
                         android:layout_toEndOf="@+id/text_field_boxes_clear_button"
                         android:layout_toRightOf="@+id/text_field_boxes_clear_button"
-                        android:layout_alignBottom="@+id/text_field_boxes_input_layout"
+                        android:layout_alignBottom="@+id/text_field_boxes_editText"
                         android:background="?selectableItemBackgroundBorderless"
                         android:visibility="gone" />
 

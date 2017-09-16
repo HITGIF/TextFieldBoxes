@@ -1,13 +1,22 @@
 package studio.carbonylgroup.textfieldboxestest;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
+import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
+
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         final SharedPreferences sharedPreferences = this.getSharedPreferences("theme", Context.MODE_PRIVATE);
         final boolean dark = sharedPreferences.getBoolean("dark", false);
+
         if (dark) setTheme(R.style.AppThemeDark);
         else setTheme(R.style.AppTheme);
 
