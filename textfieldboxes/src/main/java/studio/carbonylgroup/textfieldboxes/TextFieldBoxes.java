@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
-import android.graphics.drawable.LayerDrawable;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -16,14 +18,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import java.lang.reflect.Field;
 
 
 /**
  * Text Field Boxes
  * Created by CarbonylGroup on 2017/08/25
  */
+@SuppressWarnings("unused")
 public class TextFieldBoxes extends FrameLayout {
 
     /**
@@ -155,16 +162,16 @@ public class TextFieldBoxes extends FrameLayout {
         TypedArray themeArray;
 
         /* Get Default Error Color From Theme */
-        DEFAULT_ERROR_COLOR = getContext().getResources().getColor(R.color.A400red);
+        DEFAULT_ERROR_COLOR = ContextCompat.getColor(getContext(), R.color.A400red);
 
         /* Get Default Background Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorForeground});
-        DEFAULT_BG_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), 0.06f);
+        DEFAULT_BG_COLOR = adjustAlpha(themeArray.getColor(0, 0), 0.06f);
 
         /* Get Default Primary Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
-        if (Utils.isLight(DEFAULT_BG_COLOR))
-            DEFAULT_PRIMARY_COLOR = Utils.lighter(themeArray.getColor(0, 0), 0.2f);
+        if (isLight(DEFAULT_BG_COLOR))
+            DEFAULT_PRIMARY_COLOR = lighter(themeArray.getColor(0, 0), 0.2f);
         else DEFAULT_PRIMARY_COLOR = themeArray.getColor(0, 0);
 
         /* Get Default Text Color From Theme */
@@ -175,7 +182,7 @@ public class TextFieldBoxes extends FrameLayout {
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.disabledAlpha});
         float disabledAlpha = themeArray.getFloat(0, 0);
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.textColorTertiary});
-        DEFAULT_DISABLED_TEXT_COLOR = Utils.adjustAlpha(themeArray.getColor(0, 0), disabledAlpha);
+        DEFAULT_DISABLED_TEXT_COLOR = adjustAlpha(themeArray.getColor(0, 0), disabledAlpha);
 
         themeArray.recycle();
     }
@@ -526,7 +533,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected void setHighlightColor(int colorRes) {
 
         this.floatingLabel.setTextColor(colorRes);
-        Utils.setCursorDrawableColor(this.editText, colorRes);
+        setCursorDrawableColor(this.editText, colorRes);
 
         if (getIsResponsiveIconColor()) {
             this.iconImageButton.setColorFilter(colorRes);
@@ -555,7 +562,8 @@ public class TextFieldBoxes extends FrameLayout {
             else showClearButton(true);
 
         /* Don't Count Space & Line Feed */
-        int length = this.editText.getText().toString().replaceAll(" ", "").replaceAll("\n", "").length();
+        int length = this.editText.getText().toString()
+                .replaceAll(" ", "").replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
 
         if (this.maxCharacters > 0) {
@@ -694,8 +702,8 @@ public class TextFieldBoxes extends FrameLayout {
     public void setPanelBackgroundColor(int colorRes) {
 
         this.panelBackgroundColor = colorRes;
-        ((GradientDrawable) ((LayerDrawable) this.panel.getBackground())
-                .findDrawableByLayerId(R.id.bg_cover)).setColor(panelBackgroundColor);
+        this.panel.getBackground()
+                .setColorFilter(new PorterDuffColorFilter(colorRes, PorterDuff.Mode.SRC_IN));
     }
 
     /* Characters Counter Setters */
@@ -938,5 +946,64 @@ public class TextFieldBoxes extends FrameLayout {
 
     public boolean getIsResponsiveIconColor() {
         return this.isResponsiveIconColor;
+    }
+
+    /**
+     * set EditText cursor color
+     */
+    protected static void setCursorDrawableColor(EditText _editText, int _colorRes) {
+
+        try {
+            Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
+            fCursorDrawableRes.setAccessible(true);
+            int mCursorDrawableRes = fCursorDrawableRes.getInt(_editText);
+            Field fEditor = TextView.class.getDeclaredField("mEditor");
+            fEditor.setAccessible(true);
+            Object editor = fEditor.get(_editText);
+            Class<?> clazz = editor.getClass();
+            Field fCursorDrawable = clazz.getDeclaredField("mCursorDrawable");
+            fCursorDrawable.setAccessible(true);
+            Drawable[] drawables = new Drawable[2];
+            drawables[0] = ContextCompat.getDrawable(_editText.getContext(), mCursorDrawableRes);
+            drawables[1] = ContextCompat.getDrawable(_editText.getContext(), mCursorDrawableRes);
+            drawables[0].setColorFilter(_colorRes, PorterDuff.Mode.SRC_IN);
+            drawables[1].setColorFilter(_colorRes, PorterDuff.Mode.SRC_IN);
+            fCursorDrawable.set(editor, drawables);
+        } catch (Throwable ignored) {
+        }
+    }
+
+    /**
+     * return a lighter color
+     *
+     * @param _factor percentage of light applied
+     */
+    protected static int lighter(int color, float _factor) {
+
+        int red = (int) ((Color.red(color) * (1 - _factor) / 255 + _factor) * 255);
+        int green = (int) ((Color.green(color) * (1 - _factor) / 255 + _factor) * 255);
+        int blue = (int) ((Color.blue(color) * (1 - _factor) / 255 + _factor) * 255);
+        return Color.argb(Color.alpha(color), red, green, blue);
+    }
+
+    protected static boolean isLight(int color) {
+        return Math.sqrt(
+                Color.red(color) * Color.red(color) * .241 +
+                        Color.green(color) * Color.green(color) * .691 +
+                        Color.blue(color) * Color.blue(color) * .068) > 130;
+    }
+
+    /**
+     * adjust the alpha value of the color
+     *
+     * @return the color after adjustment
+     */
+    protected static int adjustAlpha(int color, float _toAlpha) {
+
+        int alpha = Math.round(255 * _toAlpha);
+        int red = Color.red(color);
+        int green = Color.green(color);
+        int blue = Color.blue(color);
+        return Color.argb(alpha, red, green, blue);
     }
 }

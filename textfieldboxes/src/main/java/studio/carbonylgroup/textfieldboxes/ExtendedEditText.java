@@ -8,6 +8,7 @@ import android.graphics.ColorFilter;
 import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
 
@@ -16,6 +17,7 @@ import android.util.AttributeSet;
  * Text Field Boxes
  * Created by CarbonylGroup on 2017/09/01
  */
+@SuppressWarnings("unused")
 public class ExtendedEditText extends TextInputEditText {
 
     public int DEFAULT_TEXT_COLOR;
@@ -119,7 +121,7 @@ public class ExtendedEditText extends TextInputEditText {
         }
 
         @Override
-        public void draw(Canvas canvas) {
+        public void draw(@NonNull Canvas canvas) {
 
             final int lineBase = getLineBounds(0, null);
             final int lineBottom = getLineBounds(getLineCount() - 1, null);

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TextFieldBoxes</string>
+    <string name="title">Vintage 50\'s Dress</string>
+    <string name="price">10.00</string>
+    <string name="description">Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures.</string>
+    <string name="dark_side">DARK SIDE</string>
 </resources>

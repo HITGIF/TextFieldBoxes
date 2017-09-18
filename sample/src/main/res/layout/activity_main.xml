@@ -60,10 +60,11 @@
             app:maxCharacters="20">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="Vintage 50's Dress" />
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@string/title" />
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -85,10 +86,11 @@
                 app:labelText="Price">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="10.00"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:text="@string/price"
                     app:prefix="$ " />
 
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -106,9 +108,10 @@
                 app:labelText="Location (optional)">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:text="" />
 
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -127,9 +130,9 @@
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:id="@+id/extendedEditText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Unique and rare dress from 1952. Made out of washed cotton with front pockets. Sleeveless with button closures." />
+                android:text="@string/description" />
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -138,7 +141,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="DARK SIDE" />
+            android:text="@string/dark_side" />
 
     </LinearLayout>
 
