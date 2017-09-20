@@ -52,7 +52,7 @@ public class ClipToBoundsView extends RelativeLayout {
         rectF.set(rect);
         clipPath.reset();
         clipPath.addRoundRect(rectF, cornerRadius, cornerRadius, Path.Direction.CW);
-        canvas.clipPath(clipPath);
+        //canvas.clipPath(clipPath);
         super.onDraw(canvas);
     }
 }
