@@ -6,6 +6,7 @@ import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 /**
@@ -42,6 +43,7 @@ public class ClipToBoundsView extends RelativeLayout {
     }
 
     protected void init() {
+        this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         cornerRadius = context.getResources().getDimension(R.dimen.text_field_boxes_corner_radius);
     }
 

@@ -402,6 +402,17 @@ public class TextFieldBoxes extends FrameLayout {
             this.panel.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             this.rightShell.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
             this.upperPanel.getLayoutParams().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams())
+                    .addRule(RelativeLayout.BELOW, R.id.text_field_boxes_panel);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams())
+                    .addRule(RelativeLayout.BELOW, R.id.text_field_boxes_upper_panel);
+            ((RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams())
+                    .addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            ((RelativeLayout.LayoutParams) this.bottomLine.getLayoutParams())
+                    .addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0);
+            ((RelativeLayout.LayoutParams) this.panel.getLayoutParams())
+                    .addRule(RelativeLayout.ABOVE, 0);
         }
     }
 
