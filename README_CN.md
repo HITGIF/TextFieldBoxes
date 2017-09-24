@@ -19,10 +19,8 @@
 ​
 ## ***更新注意***
 
-#### 1.3.1 Release
-- 修复渲染错误
-- 性能优化
-- 重构示例代码
+#### 1.3.2 Release
+- 修复 issues #9 #19 #21
 
 #### 1.3.0 Release
 - "EditText" 部分现已与 TextFieldBoxes **分开**。 TextFieldBoxes 将作为一个**容器**（就像 `TextInputLayout`)，应且只应包含**一个** `ExtendedEditText`（继承于 `TextInputEditText`）。
@@ -53,7 +51,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.2'
 }
 ```
 
@@ -70,7 +68,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </dependency>
 ```
 
@@ -79,7 +77,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.2"
 ```
 
 
@@ -88,7 +86,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.2"]]
 ```
 
 ​
