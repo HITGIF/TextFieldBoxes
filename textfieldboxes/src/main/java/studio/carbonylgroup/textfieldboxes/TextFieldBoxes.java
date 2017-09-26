@@ -782,6 +782,14 @@ public class TextFieldBoxes extends FrameLayout {
         } else removeIconSignifier();
     }
 
+    public void setIconSignifier(Drawable drawable) {
+
+        removeIconSignifier();
+        this.iconImageButton.setImageDrawable(drawable);
+        this.iconImageButton.setVisibility(View.VISIBLE);
+
+    }
+
     /**
      * remove the icon by setting the visibility of the image view to View.GONE
      */
@@ -798,6 +806,12 @@ public class TextFieldBoxes extends FrameLayout {
             this.endIconImageButton.setImageResource(this.endIconResourceId);
             this.endIconImageButton.setVisibility(View.VISIBLE);
         } else removeEndIcon();
+    }
+
+    public void setEndIcon(Drawable drawable) {
+        removeEndIcon();
+        this.endIconImageButton.setImageDrawable(drawable);
+        this.endIconImageButton.setVisibility(View.VISIBLE);
     }
 
     /**
