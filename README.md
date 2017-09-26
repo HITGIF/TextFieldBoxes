@@ -359,7 +359,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | --- | --- | --- |
 | `app:iconSignifier` | The resource ID of the icon before the TextFieldBoxes | `0` |
 | `app:endIcon` | The resource ID of the icon at the end of the field | `0` |
-| `app:isResponsiveIconColor` | whether the icon signifier will change its color when gaining or losing focus as the label and the bottomLine do. | `True` |
+| `app:isResponsiveIconColor` | whether the icon signifier will change its color when gaining or losing focus as the label and the bottomLine do | `True` |
 
 ##### Characters counter
 
