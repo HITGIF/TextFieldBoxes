@@ -101,10 +101,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
+                app:endIcon="@drawable/ic_mic_black_24dp"
                 app:hasFocus="true"
                 app:helperText=" "
-                app:endIcon="@drawable/ic_mic_black_24dp"
                 app:iconSignifier="@drawable/ic_location_on_black_24dp"
+                app:isResponsiveIconColor="true"
                 app:labelText="Location (optional)">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText

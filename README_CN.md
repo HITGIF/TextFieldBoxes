@@ -19,8 +19,10 @@
 ​
 ## ***更新注意***
 
-#### 1.3.2 Release
-- 修复 issues #9 #19 #21
+#### 1.3.3 Release
+- 增加 `app:isResponsiveIconColor` 属性以在 xml 中设置首图标是否会在获得或失去焦点时改变颜色。
+
+- 可使用 Drawable 设置首／末图标 (PR #23)。
 
 #### 1.3.0 Release
 - "EditText" 部分现已与 TextFieldBoxes **分开**。 TextFieldBoxes 将作为一个**容器**（就像 `TextInputLayout`)，应且只应包含**一个** `ExtendedEditText`（继承于 `TextInputEditText`）。
@@ -51,7 +53,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.2'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.3'
 }
 ```
 
@@ -68,7 +70,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
 </dependency>
 ```
 
@@ -77,7 +79,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.2"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.3"
 ```
 
 
@@ -86,7 +88,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.2"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.2"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.3"]]
 ```
 
 ​
@@ -207,11 +209,11 @@ _**注意:** 设置最大或最小字符数将会使底部 View (包含了计数
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-#### 6. 图标
+#### 6. 首图标
 
 在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标（如果你想要有）。
 
-你可以在 Java 代码中使用 `setIsResponsiveIconColor(boolean isrResponsiveIconColor)` 以设置图标是否会和标签文本与底部的线一样在获得或失去焦点时改变颜色。
+你可以在 Java 代码中使用 `setIsResponsiveIconColor(boolean isrResponsiveIconColor)` 以设置首图标是否会和标签文本与底部的线一样在获得或失去焦点时改变颜色。
 _**注意：如果值为 `true`，图标颜色将始终为 `HighlightColor` (与底部的线一样)，即在失去焦点时将会变灰。如果为 `false`，图标颜色将始终为 `primaryColor`。**_
 
 ```xml
@@ -352,6 +354,14 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | `app:primaryColor` | 底部的线和标签文字的颜色 | 目前主题 `colorPrimary` |
 | `app:panelBackgroundColor` | 文本框背板的颜色 | 6% 目前主题 `colorForeground` |
 
+##### 图标
+
+| 属性 | 描述 | 默认值 |
+| --- | --- | --- |
+| `app:iconSignifier` | TextFieldBoxes 前边的图标的资源 ID | `0` |
+| `app:endIcon` | 文本域末端的图标的资源 ID | `0` |
+| `app:isResponsiveIconColor` | 首图标是否会和标签文本与底部的线一样在获得或失去焦点时改变颜色 | `True` |
+
 ##### 字符统计
 
 | 属性 | 描述 | 默认值 |
@@ -364,8 +374,6 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | 属性 | 描述 | 默认值 |
 | --- | --- | --- |
 | `app:enabled` | 文本框是否启用 | `True` |
-| `app:iconSignifier` | TextFieldBoxes 前边的图标的资源 ID | `0` |
-| `app:endIcon` | 文本域末端的图标的资源 ID | `0` |
 | `app:hasClearButton` | 是否在文本域末端显示清除按钮 | `False` |
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
 

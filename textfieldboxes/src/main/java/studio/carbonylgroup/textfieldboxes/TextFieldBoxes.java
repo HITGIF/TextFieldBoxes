@@ -99,6 +99,12 @@ public class TextFieldBoxes extends FrameLayout {
     protected int endIconResourceId;
 
     /**
+     * whether the icon signifier will change its color when gaining or losing focus
+     * as the label and the bottomLine do. True by default.
+     */
+    protected boolean isResponsiveIconColor;
+
+    /**
      * whether to show the clear button at the end of the EditText. False by default.
      */
     protected boolean hasClearButton;
@@ -128,7 +134,6 @@ public class TextFieldBoxes extends FrameLayout {
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
-    protected boolean isResponsiveIconColor = true;
 
     public TextFieldBoxes(Context context) {
 
@@ -299,6 +304,7 @@ public class TextFieldBoxes extends FrameLayout {
         setEnabled(this.enabled);
         setIconSignifier(this.iconSignifierResourceId);
         setEndIcon(this.endIconResourceId);
+        setIsResponsiveIconColor(this.isResponsiveIconColor);
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         updateCounterText();
@@ -448,7 +454,10 @@ public class TextFieldBoxes extends FrameLayout {
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
             this.endIconResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_endIcon, 0);
-            this.hasClearButton = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
+            this.isResponsiveIconColor = styledAttrs
+                    .getBoolean(R.styleable.TextFieldBoxes_isResponsiveIconColor, true);
+            this.hasClearButton = styledAttrs
+                    .getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
 
             styledAttrs.recycle();
@@ -809,6 +818,7 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     public void setEndIcon(Drawable drawable) {
+
         removeEndIcon();
         this.endIconImageButton.setImageDrawable(drawable);
         this.endIconImageButton.setVisibility(View.VISIBLE);
@@ -821,10 +831,6 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.endIconResourceId = 0;
         this.endIconImageButton.setVisibility(View.GONE);
-    }
-
-    public void setHasClearButton(boolean hasClearButton) {
-        this.hasClearButton = hasClearButton;
     }
 
     /**
@@ -852,16 +858,16 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set whether the icon will change its color when gaining or losing focus
+     * set whether the icon signifier will change its color when gaining or losing focus
      * as the label and the bottomLine do.
      *
-     * @param isrResponsiveIconColor if true, the icon's color will always be HighlightColor
+     * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor
      *                               (the same as the bottomLine)
      *                               if false, the icon will always be in primaryColor
      */
-    public void setIsResponsiveIconColor(boolean isrResponsiveIconColor) {
+    public void setIsResponsiveIconColor(boolean isResponsiveIconColor) {
 
-        this.isResponsiveIconColor = isrResponsiveIconColor;
+        this.isResponsiveIconColor = isResponsiveIconColor;
         if (this.isResponsiveIconColor) {
             if (this.hasFocus) {
                 this.iconImageButton.setColorFilter(primaryColor);
@@ -874,6 +880,10 @@ public class TextFieldBoxes extends FrameLayout {
             this.iconImageButton.setColorFilter(primaryColor);
             this.iconImageButton.setAlpha(1f);
         }
+    }
+
+    public void setHasClearButton(boolean hasClearButton) {
+        this.hasClearButton = hasClearButton;
     }
 
     /* Text Getters */
@@ -961,16 +971,16 @@ public class TextFieldBoxes extends FrameLayout {
         return this.endIconResourceId;
     }
 
+    public boolean getIsResponsiveIconColor() {
+        return this.isResponsiveIconColor;
+    }
+
     public boolean getHasClearButton() {
         return this.hasClearButton;
     }
 
     public boolean getHasFocus() {
         return this.hasFocus;
-    }
-
-    public boolean getIsResponsiveIconColor() {
-        return this.isResponsiveIconColor;
     }
 
     /**

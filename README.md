@@ -19,8 +19,10 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
-#### 1.3.2 Release
-- fix issues #9 #19 #21
+#### 1.3.3 Release
+- add `app:isResponsiveIconColor` attribute for setting, in xml, whether the icon signifier will change its color when gaining or losing focus in.
+
+- set icon signifier and end icon with drawable (PR #23).
 
 #### 1.3.0 Release
 - the "EditText" part is now **seperated** from the TextFieldBoxes. TextFieldBoxes is now a **container** (just like a `TextInputLayout`) that should and should only contain **one** `ExtendedEditText` that inherents the `TextInputEditText`.
@@ -51,7 +53,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.2'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.3'
 }
 ```
 
@@ -68,7 +70,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.2</version>
+    <version>1.3.3</version>
 </dependency>
 ```
 
@@ -77,7 +79,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.2"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.3"
 ```
 
 
@@ -86,7 +88,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.2"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.2"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.3"]]
 ```
 
 ​
@@ -351,6 +353,14 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | `app:primaryColor` | The color for the underline and the floating label text | Current theme `colorPrimary` |
 | `app:panelBackgroundColor` | The color for the panel at the back | 6% Current theme `colorForeground` |
 
+##### Icons
+
+| Attribute | Description | Default |
+| --- | --- | --- |
+| `app:iconSignifier` | The resource ID of the icon before the TextFieldBoxes | `0` |
+| `app:endIcon` | The resource ID of the icon at the end of the field | `0` |
+| `app:isResponsiveIconColor` | whether the icon signifier will change its color when gaining or losing focus as the label and the bottomLine do. | `True` |
+
 ##### Characters counter
 
 | Attribute | Description | Default |
@@ -363,8 +373,6 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:enabled` | Whether the text field is enabled | `True` |
-| `app:iconSignifier` | The resource ID of the icon before the TextFieldBoxes | `0` |
-| `app:endIcon` | The resource ID of the icon at the end of the field | `0` |
 | `app:hasClearButton` | Whether to show the clear button at the end of the EditText | `False` |
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
 ​

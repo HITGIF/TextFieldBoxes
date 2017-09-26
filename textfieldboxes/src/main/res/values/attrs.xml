@@ -21,6 +21,7 @@
         <attr name="enabled" format="boolean" />
         <attr name="iconSignifier" format="reference" />
         <attr name="endIcon" format="reference" />
+        <attr name="isResponsiveIconColor" format="boolean" />
         <attr name="hasClearButton" format="boolean" />
         <attr name="hasFocus" format="boolean" />
 

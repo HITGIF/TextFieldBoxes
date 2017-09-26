@@ -28,8 +28,6 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg"
             android:clickable="true"
-            android:clipChildren="true"
-            android:clipToPadding="true"
             android:foreground="?attr/selectableItemBackground"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
