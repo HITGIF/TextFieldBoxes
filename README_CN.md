@@ -19,10 +19,10 @@
 ​
 ## ***更新注意***
 
-#### 1.3.3 Release
-- 增加 `app:isResponsiveIconColor` 属性以在 xml 中设置首图标是否会在获得或失去焦点时改变颜色。
+#### 1.3.4 Release
+- 修复 issue #25。
 
-- 可使用 Drawable 设置首／末图标 (PR #23)。
+- 在 `setError()` 中新增参数 `giveFocus` 以设置是否在被设置错误时令文本域获得焦点。
 
 #### 1.3.0 Release
 - "EditText" 部分现已与 TextFieldBoxes **分开**。 TextFieldBoxes 将作为一个**容器**（就像 `TextInputLayout`)，应且只应包含**一个** `ExtendedEditText`（继承于 `TextInputEditText`）。
@@ -53,7 +53,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.3'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.4'
 }
 ```
 
@@ -70,7 +70,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.3</version>
+    <version>1.3.4</version>
 </dependency>
 ```
 
@@ -79,7 +79,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.3"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.4"
 ```
 
 
@@ -88,7 +88,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.3"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.3"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.4"]]
 ```
 
 ​
@@ -145,7 +145,9 @@ _**注意:** 将帮助或错误信息设置为任何**不为空**的字符将会
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
 
 ##### 错误信息:
-在 Java 代码中使用 `setError(String errorText)`。
+在 Java 代码中使用 `setError(String errorText, boolean giveFocus)`。
+
+`giveFocus` 参数决定被设置错误的文本域是否获得焦点。如果为 `true`，则该文本域立即获得焦点。
 
 *注意: 文本改动 (输入或删除) 时会自动清除错误信息。*
 

@@ -134,6 +134,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
+    protected boolean doNotRemoveError = false;
 
     public TextFieldBoxes(Context context) {
 
@@ -272,8 +273,10 @@ public class TextFieldBoxes extends FrameLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                removeError();
-                updateCounterText();
+                if (!doNotRemoveError) {
+                    removeError();
+                    updateCounterText();
+                }
             }
         });
 
@@ -533,8 +536,12 @@ public class TextFieldBoxes extends FrameLayout {
         int cursorPos = this.editText.getSelectionStart();
         if (cursorPos == 0)
             if (this.editText.getText().toString().isEmpty()) {
-                this.editText.setText(" ");
-                this.editText.setText("");
+                if (this.onError) {
+                    this.doNotRemoveError = true;
+                    this.editText.setText(" ");
+                    this.editText.setText("");
+                    this.doNotRemoveError = false;
+                }
             } else {
                 this.editText.setSelection(1);
                 this.editText.setSelection(0);
@@ -652,14 +659,17 @@ public class TextFieldBoxes extends FrameLayout {
      * set helperLabel Label text to error message
      *
      * @param errorText error message
+     * @param giveFocus whether the field will gain focus when set error on
      */
-    public void setError(String errorText) {
+    public void setError(String errorText, boolean giveFocus) {
 
         if (this.enabled) {
             this.onError = true;
+            activate(true);
             setHighlightColor(this.errorColor);
             this.helperLabel.setTextColor(this.errorColor);
             this.helperLabel.setText(errorText);
+            if (giveFocus) setHasFocus(true);
             makeCursorBlink();
         }
     }
