@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final Button darkButton = findViewById(R.id.dark_button);
+//        final ExtendedEditText t = findViewById(R.id.extendedEditText);
+
         darkButton.setText(dark ? "LIGHT SIDE" : "DARK SIDE");
         darkButton.setOnClickListener(new View.OnClickListener() {
             @Override

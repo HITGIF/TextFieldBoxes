@@ -273,6 +273,9 @@ public class TextFieldBoxes extends FrameLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
+
+                if (!activated && !editable.toString().isEmpty())   activate(true);
+                if (activated && editable.toString().isEmpty())   deactivate();
                 if (!doNotRemoveError) {
                     removeError();
                     updateCounterText();
