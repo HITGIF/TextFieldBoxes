@@ -20,7 +20,7 @@ A new Material Design text field that comes in a box, based on Google Material D
 ## ***UPDATE NOTICE***
 
 #### 1.3.5 Release
-- fix issue #31.
+- fix issue #31 #32.
 
 - add `giveFocus` param in `setError()` for setting whether the field will gain focus when set error on.
 

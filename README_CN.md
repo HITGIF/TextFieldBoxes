@@ -20,7 +20,7 @@
 ## ***更新注意***
 
 #### 1.3.5 Release
-- 修复 issue #31。
+- 修复 issue #31 #32。
 
 - 增加 `secondaryColor` 属性以设置底部的线、标签文字和首图标在**失去焦点**时的颜色(与 `primaryColor` 相对)。
 
