@@ -218,6 +218,8 @@ public class TextFieldBoxes extends FrameLayout {
 
         super.onFinishInflate();
 
+
+
         this.editText = findEditTextChild();
         if (editText == null) return;
         this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
@@ -249,12 +251,15 @@ public class TextFieldBoxes extends FrameLayout {
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
 
+        final FrameLayout mainBody = this;
+
         this.panel.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
                 setHasFocus(true);
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                mainBody.performClick();
             }
         });
 
@@ -264,6 +269,7 @@ public class TextFieldBoxes extends FrameLayout {
                 if (!isActivated()) activate(true);
                 setHasFocus(true);
                 inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                mainBody.performClick();
             }
         });
 
@@ -288,7 +294,7 @@ public class TextFieldBoxes extends FrameLayout {
             public void afterTextChanged(Editable editable) {
 
                 if (!activated && !editable.toString().isEmpty())   activate(true);
-                if (activated && editable.toString().isEmpty())   deactivate();
+                if (activated && editable.toString().isEmpty() && !hasFocus)   deactivate();
                 if (!doNotRemoveError) {
                     removeError();
                     updateCounterText();

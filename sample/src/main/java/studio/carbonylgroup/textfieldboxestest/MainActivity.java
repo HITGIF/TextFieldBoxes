@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 //        final ExtendedEditText t = findViewById(R.id.extendedEditText);
-//        final TextFieldBoxes tfb = findViewById(R.id.text_field_boxes3);
+//        final TextFieldBoxes tfb = findViewById(R.id.text_field_boxes2);
 
         final Button darkButton = findViewById(R.id.dark_button);
 
