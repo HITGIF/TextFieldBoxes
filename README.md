@@ -19,10 +19,14 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
-#### 1.3.4 Release
-- fix issue #25.
+#### 1.3.5 Release
+- fix issue #31.
 
 - add `giveFocus` param in `setError()` for setting whether the field will gain focus when set error on.
+
+- add `secondaryColor` for setting the color of the underline, the floating label text and the icon signifier **when NOT HAVING** focus (opposite to `primaryColor`).
+
+- add `counterColor` for setting the color of the counter text.
 
 #### 1.3.0 Release
 - the "EditText" part is now **seperated** from the TextFieldBoxes. TextFieldBoxes is now a **container** (just like a `TextInputLayout`) that should and should only contain **one** `ExtendedEditText` that inherents the `TextInputEditText`.
@@ -53,7 +57,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.4'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.5'
 }
 ```
 
@@ -70,7 +74,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.4</version>
+    <version>1.3.5</version>
 </dependency>
 ```
 
@@ -79,7 +83,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.4"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
 ```
 
 
@@ -88,7 +92,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.4"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.4"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.5"]]
 ```
 
 ​
@@ -265,7 +269,9 @@ If `true`, a clear button will be shown at the end when there are characters (**
 
 #### 9. Custom Colors
 
-*Primary Color* will be used for the color of the underline and the floating label text. You can use `app:primaryColor` in xml or `setPrimaryColor(int colorRes)` in Java. Current theme `Primary Color` by default.
+*Primary Color* will be used for the color of the underline, the floating label text and the icon signifier **when HAVING focus**. You can use `app:primaryColor` in xml or `setPrimaryColor(int colorRes)` in Java. Current theme `Primary Color` by default.
+
+*Secondary Color* will be used for the color of the underline, the floating label text and the icon signifier **when NOT HAVING focus**. You can use `app:secondaryColor` in xml or `setSecondaryColor(int colorRes)` in Java. Current theme `textColorTertiary` by default.
 
 *Error Color* will be used for the color that indicates error (e.g. exceeding max characters, `setError()`). You can use `app:errorColor` in xml or `setErrorColor(int colorRes)` in Java. `A400 red` by default.
 
@@ -351,8 +357,10 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:helperTextColor` | Helper text color | Current theme `textColorTertiary` |
+| `app:counterTextColor` | Counter text color | Current theme `textColorTertiary` |
 | `app:errorColor` | The color that is used to indicate error (e.g. exceeding max characters, `setError()`) | `A400 red` |
-| `app:primaryColor` | The color for the underline and the floating label text | Current theme `colorPrimary` |
+| `app:primaryColor` | The color for the underline, the floating label text and the icon signifier **when HAVING FOCUS** | Current theme `colorPrimary` |
+| `app:secondaryColor` | The color for the underline, the floating label text and the icon signifier **when NOT HAVING FOCUS** | Current theme `textColorTertiary` |
 | `app:panelBackgroundColor` | The color for the panel at the back | 6% Current theme `colorForeground` |
 
 ##### Icons
@@ -378,16 +386,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | `app:hasClearButton` | Whether to show the clear button at the end of the EditText | `False` |
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
 ​
-## TODO
-+ [X] Prefix & Suffix
-+ [X] Icon signifier
-+ [X] Dark theme
-+ [X] Delete Button
-+ [X] End Icon
-+ [X] Placeholder (real "hint")
-+ [X] Move the EditText out
 
-​
 ## License
 
     Copyright 2017 Carbonylgroup Studio

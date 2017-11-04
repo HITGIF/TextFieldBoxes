@@ -73,15 +73,27 @@ public class TextFieldBoxes extends FrameLayout {
     protected int helperTextColor;
 
     /**
+     * the text color for the counterLabel text. DEFAULT_TEXT_COLOR by default.
+     */
+    protected int counterTextColor;
+
+    /**
      * the text color for when something is wrong (e.g. exceeding max characters, setError()).
      * DEFAULT_ERROR_COLOR by default.
      */
     protected int errorColor;
 
     /**
-     * the color for the underline and the floating label text. Current theme primary color by default.
+     * the color for the underline, the floating label text and the icon signifier tint when HAVING focus.
+     * Current theme primary color by default.
      */
     protected int primaryColor;
+
+    /**
+     * the color for the underline, the floating label text and the icon signifier tints when NOT HAVING focus.
+     * DEFAULT_TEXT_COLOR by default.
+     */
+    protected int secondaryColor;
 
     /**
      * the color for panel at the back. DEFAULT_BG_COLOR by default.
@@ -114,10 +126,21 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected boolean hasFocus;
 
+    protected int labelColor = -1;
+    protected int labelTopMargin = -1;
+    protected int ANIMATION_DURATION = 100;
+    protected boolean onError = false;
+    protected boolean activated = false;
+    protected boolean doNotRemoveError = false;
+
     protected View panel;
     protected View bottomLine;
     protected ViewGroup editTextLayout;
     protected ExtendedEditText editText;
+    protected RelativeLayout rightShell;
+    protected RelativeLayout upperPanel;
+    protected RelativeLayout bottomPart;
+    protected RelativeLayout inputLayout;
     protected AppCompatTextView helperLabel;
     protected AppCompatTextView counterLabel;
     protected AppCompatTextView floatingLabel;
@@ -125,16 +148,6 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatImageButton iconImageButton;
     protected AppCompatImageButton endIconImageButton;
     protected InputMethodManager inputMethodManager;
-    protected RelativeLayout rightShell;
-    protected RelativeLayout upperPanel;
-    protected RelativeLayout bottomPart;
-    protected RelativeLayout inputLayout;
-    protected int labelColor = -1;
-    protected int labelTopMargin = -1;
-    protected int ANIMATION_DURATION = 100;
-    protected boolean onError = false;
-    protected boolean activated = false;
-    protected boolean doNotRemoveError = false;
 
     public TextFieldBoxes(Context context) {
 
@@ -298,8 +311,10 @@ public class TextFieldBoxes extends FrameLayout {
 
         /* Colors */
         setHelperTextColor(this.helperTextColor);
+        setCounterTextColor(this.counterTextColor);
         setErrorColor(this.errorColor);
         setPrimaryColor(this.primaryColor);
+        setSecondaryColor(this.secondaryColor);
         setPanelBackgroundColor(this.panelBackgroundColor);
 
         /* Characters counter */
@@ -443,10 +458,14 @@ public class TextFieldBoxes extends FrameLayout {
             /* Colors */
             this.helperTextColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
+            this.counterTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_counterTextColor, DEFAULT_TEXT_COLOR);
             this.errorColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             this.primaryColor = styledAttrs
                     .getColor(R.styleable.TextFieldBoxes_primaryColor, DEFAULT_PRIMARY_COLOR);
+            this.secondaryColor = styledAttrs
+                    .getColor(R.styleable.TextFieldBoxes_secondaryColor, DEFAULT_TEXT_COLOR);
             this.panelBackgroundColor = styledAttrs
                     .getColor(R.styleable.TextFieldBoxes_panelBackgroundColor, DEFAULT_BG_COLOR);
 
@@ -567,7 +586,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (getIsResponsiveIconColor()) {
             this.iconImageButton.setColorFilter(colorRes);
-            if (colorRes == DEFAULT_TEXT_COLOR) this.iconImageButton.setAlpha(0.54f);
+            if (colorRes == secondaryColor) this.iconImageButton.setAlpha(0.54f);
             else this.iconImageButton.setAlpha(1f);
         }
 
@@ -646,19 +665,19 @@ public class TextFieldBoxes extends FrameLayout {
 
     /**
      * set highlight color to primary color if having focus,
-     * otherwise set to DEFAULT_TEXT_COLOR
+     * otherwise set to secondaryColor
      * set counterLabel Label text color to DEFAULT_TEXT_COLOR
      */
     protected void removeCounterError() {
 
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
-        else setHighlightColor(this.DEFAULT_TEXT_COLOR);
-        this.counterLabel.setTextColor(this.DEFAULT_TEXT_COLOR);
+        else setHighlightColor(this.secondaryColor);
+        this.counterLabel.setTextColor(this.counterTextColor);
     }
 
     /**
-     * set highlight color and helperLabel Label text color to error color
+     * set highlight color and helperLabel Label text color to errorColor
      * set helperLabel Label text to error message
      *
      * @param errorText error message
@@ -678,8 +697,8 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set highlight to primary color if having focus,
-     * otherwise set to DEFAULT_TEXT_COLOR
+     * set highlight to primaryColor if having focus,
+     * otherwise set to secondaryColor
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
      * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES</i>
@@ -688,7 +707,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
-        else setHighlightColor(this.DEFAULT_TEXT_COLOR);
+        else setHighlightColor(this.secondaryColor);
         this.helperLabel.setTextColor(this.helperTextColor);
         this.helperLabel.setText(this.helperText);
     }
@@ -719,6 +738,12 @@ public class TextFieldBoxes extends FrameLayout {
         this.helperLabel.setTextColor(this.helperTextColor);
     }
 
+    public void setCounterTextColor(int colorRes) {
+
+        this.counterTextColor = colorRes;
+        this.counterLabel.setTextColor(this.counterTextColor);
+    }
+
     public void setErrorColor(int colorRes) {
         this.errorColor = colorRes;
     }
@@ -730,6 +755,12 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.primaryColor = colorRes;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
+    }
+
+    public void setSecondaryColor(int colorRes) {
+
+        this.secondaryColor = colorRes;
+        if (!this.hasFocus) setHighlightColor(this.secondaryColor);
     }
 
     public void setPanelBackgroundColor(int colorRes) {
@@ -776,7 +807,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.panel.setEnabled(true);
             this.iconImageButton.setEnabled(true);
             this.iconImageButton.setClickable(true);
-            setHighlightColor(DEFAULT_TEXT_COLOR);
+            setHighlightColor(secondaryColor);
             updateCounterText();
 
         } else {
@@ -866,7 +897,7 @@ public class TextFieldBoxes extends FrameLayout {
             deactivate();
 
             /* if there's an error, keep the error color */
-            if (!this.onError && this.enabled) setHighlightColor(DEFAULT_TEXT_COLOR);
+            if (!this.onError && this.enabled) setHighlightColor(this.secondaryColor);
         }
     }
 
@@ -886,7 +917,7 @@ public class TextFieldBoxes extends FrameLayout {
                 this.iconImageButton.setColorFilter(primaryColor);
                 this.iconImageButton.setAlpha(1f);
             } else {
-                this.iconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+                this.iconImageButton.setColorFilter(secondaryColor);
                 this.iconImageButton.setAlpha(0.54f);
             }
         } else {
@@ -917,12 +948,20 @@ public class TextFieldBoxes extends FrameLayout {
         return this.helperTextColor;
     }
 
+    public int getCounterTextColor() {
+        return this.counterTextColor;
+    }
+
     public int getErrorColor() {
         return this.errorColor;
     }
 
     public int getPrimaryColor() {
         return this.primaryColor;
+    }
+
+    public int getSecondaryColor() {
+        return this.secondaryColor;
     }
 
     public int getPanelBackgroundColor() {

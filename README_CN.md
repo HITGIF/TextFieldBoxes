@@ -19,10 +19,12 @@
 ​
 ## ***更新注意***
 
-#### 1.3.4 Release
-- 修复 issue #25。
+#### 1.3.5 Release
+- 修复 issue #31。
 
-- 在 `setError()` 中新增参数 `giveFocus` 以设置是否在被设置错误时令文本域获得焦点。
+- 增加 `secondaryColor` 属性以设置底部的线、标签文字和首图标在**失去焦点**时的颜色(与 `primaryColor` 相对)。
+
+- 增加 `counterColor` 属性以设置计数文本的颜色。
 
 #### 1.3.0 Release
 - "EditText" 部分现已与 TextFieldBoxes **分开**。 TextFieldBoxes 将作为一个**容器**（就像 `TextInputLayout`)，应且只应包含**一个** `ExtendedEditText`（继承于 `TextInputEditText`）。
@@ -53,7 +55,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.4'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.5'
 }
 ```
 
@@ -70,7 +72,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.4</version>
+    <version>1.3.5</version>
 </dependency>
 ```
 
@@ -79,7 +81,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.4"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
 ```
 
 
@@ -88,7 +90,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.4"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.4"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.5"]]
 ```
 
 ​
@@ -266,7 +268,9 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 
 #### 9. 自定义颜色
 
-*Primary Color* 是底部的线和标签文字的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
+*Primary Color* 是底部的线、标签文字和首图标在**获得焦点**时的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
+
+*Secondary Color* 是底部的线、标签文字和首图标在**失去焦点**时的颜色。在 xml 中加入 `app:secondaryColor` 或在 Java 代码中使用 `setSecondaryColor(int colorRes)` 以设置。默认值为目前主题的 `textColorTertiary`。
 
 *Error Color* 是出现错误时显示的颜色 (e.g. 超出字符数限制, `setError()`)。在 xml 中加入 `app:errorColor` 或在 Java 代码中使用 `setErrorColor(int colorRes)` 以设置。默认值是 `A400 red`。
 
@@ -352,8 +356,10 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | 属性 | 描述 | 默认值 |
 | --- | --- | --- |
 | `app:helperTextColor` | 帮助文本颜色 | 目前主题 `textColorTertiary` |
+| `app:counterTextColor` | 计数文本颜色 | 目前主题 `textColorTertiary` |
 | `app:errorColor` | 错误时的显示颜色 (e.g. 超出字符限制, `setError()`) | `A400 red` |
-| `app:primaryColor` | 底部的线和标签文字的颜色 | 目前主题 `colorPrimary` |
+| `app:primaryColor` | 底部的线、标签文字和首图标在**获得焦点时**的颜色 | 目前主题 `colorPrimary` |
+| `app:secondaryColor` | 底部的线、标签文字和首图标在**失去焦点时**的颜色 | 目前主题 `textColorTertiary` |
 | `app:panelBackgroundColor` | 文本框背板的颜色 | 6% 目前主题 `colorForeground` |
 
 ##### 图标
@@ -378,16 +384,6 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | `app:enabled` | 文本框是否启用 | `True` |
 | `app:hasClearButton` | 是否在文本域末端显示清除按钮 | `False` |
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
-
-​
-## TODO
-+ [X] 前缀 & 后缀
-+ [X] 图标
-+ [X] 暗主题
-+ [X] 清除按钮
-+ [X] 末图标
-+ [X] 占位符 (真 · "hint")
-+ [X] 移出 EditText
 
 ​
 ## 开源许可
