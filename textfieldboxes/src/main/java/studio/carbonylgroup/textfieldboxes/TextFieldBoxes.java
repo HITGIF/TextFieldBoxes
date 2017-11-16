@@ -1044,6 +1044,10 @@ public class TextFieldBoxes extends FrameLayout {
         return this.enabled;
     }
 
+    public boolean isOnError() {
+        return this.onError;
+    }
+
     public int getIconSignifierResourceId() {
         return this.iconSignifierResourceId;
     }
