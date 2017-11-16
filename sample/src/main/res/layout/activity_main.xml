@@ -105,8 +105,7 @@
                 app:hasFocus="true"
                 app:helperText=" "
                 app:iconSignifier="@drawable/ic_location_on_black_24dp"
-                app:isResponsiveIconColor="true"
-                app:labelText="Location (optional)">
+                app:isResponsiveIconColor="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:layout_width="match_parent"

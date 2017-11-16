@@ -64,7 +64,7 @@
 
                 <android.support.v4.widget.Space
                     android:layout_width="wrap_content"
-                    android:layout_height="32dp"
+                    android:layout_height="24dp"
                     android:layout_alignParentTop="true"
                     android:id="@+id/text_field_boxes_label_space"/>
 
@@ -74,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_field_boxes_label_space"
                     android:layout_gravity="bottom"
+                    android:paddingTop="8dp"
                     android:paddingBottom="8dp">
 
                     <RelativeLayout
