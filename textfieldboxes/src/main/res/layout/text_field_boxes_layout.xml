@@ -28,6 +28,7 @@
             android:layout_height="match_parent"
             android:background="@drawable/bg"
             android:clickable="true"
+            android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -63,8 +64,8 @@
                     tools:text="Label" />
 
                 <android.support.v4.widget.Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="24dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
                     android:layout_alignParentTop="true"
                     android:id="@+id/text_field_boxes_label_space"/>
 
@@ -74,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_field_boxes_label_space"
                     android:layout_gravity="bottom"
-                    android:paddingTop="8dp"
+                    android:layout_marginTop="20dp"
                     android:paddingBottom="8dp">
 
                     <RelativeLayout
@@ -111,6 +112,15 @@
                         android:visibility="gone" />
 
                 </RelativeLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="@color/A400red"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@+id/text_field_boxes_editTextLayout"
+                    android:visibility="gone"
+                    android:id="@+id/text_field_boxes_label_space_below"/>
 
             </RelativeLayout>
 

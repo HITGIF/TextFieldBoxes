@@ -19,6 +19,13 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.3.6 Release
+- fix issue #34 and reoccurring #14.
+
+- add getter for onError (#33).
+
+- the space for the floating label at the top will be removed when `labelText` is empty (#35).
+
 #### 1.3.5 Release
 - fix issue #31 #32.
 
@@ -27,15 +34,6 @@ A new Material Design text field that comes in a box, based on Google Material D
 - add `secondaryColor` for setting the color of the underline, the floating label text and the icon signifier **when NOT HAVING** focus (opposite to `primaryColor`).
 
 - add `counterColor` for setting the color of the counter text.
-
-#### 1.3.0 Release
-- the "EditText" part is now **seperated** from the TextFieldBoxes. TextFieldBoxes is now a **container** (just like a `TextInputLayout`) that should and should only contain **one** `ExtendedEditText` that inherents the `TextInputEditText`.
-
-- `Prefix` and `Suffix` attributes are now belonging to the `ExtendedEditText`.
-
-- `Text`, `hint`, `SingleLine` and `MaxLines` attributes are now removed. Instead, one should set them in the `ExtendedEditText` with original `android:` attributes.
-
-- the bottom view which contains helper and counter labels will now be hidden when it's empty.
 
 ​
 ## Requirements
@@ -57,7 +55,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.5'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.6'
 }
 ```
 
@@ -74,7 +72,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.5</version>
+    <version>1.3.6</version>
 </dependency>
 ```
 
@@ -83,7 +81,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.6"
 ```
 
 
@@ -92,7 +90,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.5"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.6"]]
 ```
 
 ​
@@ -118,6 +116,8 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 ...
 ```
+
+*NOTE that `app:labelText` is optional from release 1.3.6.*
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 

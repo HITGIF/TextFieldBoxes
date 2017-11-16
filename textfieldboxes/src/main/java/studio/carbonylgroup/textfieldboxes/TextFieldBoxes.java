@@ -137,6 +137,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected View panel;
     protected View bottomLine;
     protected Space labelSpace;
+    protected Space labelSpaceBelow;
     protected ViewGroup editTextLayout;
     protected ExtendedEditText editText;
     protected RelativeLayout rightShell;
@@ -234,6 +235,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel.setPivotX(0f);
         this.floatingLabel.setPivotY(0f);
         this.labelSpace = findViewById(R.id.text_field_boxes_label_space);
+        this.labelSpaceBelow = findViewById(R.id.text_field_boxes_label_space_below);
         this.bottomLine = findViewById(R.id.bg_bottom_line);
         this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
         this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
@@ -740,9 +742,11 @@ public class TextFieldBoxes extends FrameLayout {
         if (labelText.isEmpty()) {
             this.floatingLabel.setVisibility(View.GONE);
             this.labelSpace.setVisibility(View.GONE);
+            this.labelSpaceBelow.setVisibility(View.VISIBLE);
         } else {
             this.floatingLabel.setVisibility(View.VISIBLE);
             this.labelSpace.setVisibility(View.VISIBLE);
+            this.labelSpaceBelow.setVisibility(View.GONE);
         }
     }
 

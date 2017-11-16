@@ -19,21 +19,19 @@
 ​
 ## ***更新注意***
 
+#### 1.3.6 Release
+- 修复 issue #34 与再次出现的 #14。
+
+- 增加了对 onError 的获取器（#33）。
+
+- 当顶部标签文本（`labelText`）为空时，其所占的空间将被移除（#35）。
+
 #### 1.3.5 Release
 - 修复 issue #31 #32。
 
-- 增加 `secondaryColor` 属性以设置底部的线、标签文字和首图标在**失去焦点**时的颜色(与 `primaryColor` 相对)。
+- 增加 `secondaryColor` 属性以设置底部的线、标签文字和首图标在**失去焦点**时的颜色（与 `primaryColor` 相对）。
 
 - 增加 `counterColor` 属性以设置计数文本的颜色。
-
-#### 1.3.0 Release
-- "EditText" 部分现已与 TextFieldBoxes **分开**。 TextFieldBoxes 将作为一个**容器**（就像 `TextInputLayout`)，应且只应包含**一个** `ExtendedEditText`（继承于 `TextInputEditText`）。
-
-- `Prefix` 与 `Suffix` 属性现属于 `ExtendedEditText`。
-
-- `Text`， `hint`， `SingleLine` 与 `MaxLines` 属性已被移除。现在应在 `ExtendedEditText` 使用原生 `android:` 属性以设置。
-
-- 包含帮助标签与计数标签的底部 View 在为空时将被隐藏。
 
 ​
 ## 要求
@@ -55,7 +53,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.5'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.6'
 }
 ```
 
@@ -72,7 +70,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.5</version>
+    <version>1.3.6</version>
 </dependency>
 ```
 
@@ -81,7 +79,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.6"
 ```
 
 
@@ -90,7 +88,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.5"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.6"]]
 ```
 
 ​
@@ -116,6 +114,8 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.5"
 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 ...
 ```
+
+*注意： 自 release 1.3.6 起，`app:labelText` 是可选项。*
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
