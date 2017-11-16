@@ -9,6 +9,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.Space;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -135,6 +136,7 @@ public class TextFieldBoxes extends FrameLayout {
 
     protected View panel;
     protected View bottomLine;
+    protected Space labelSpace;
     protected ViewGroup editTextLayout;
     protected ExtendedEditText editText;
     protected RelativeLayout rightShell;
@@ -218,8 +220,6 @@ public class TextFieldBoxes extends FrameLayout {
 
         super.onFinishInflate();
 
-
-
         this.editText = findEditTextChild();
         if (editText == null) return;
         this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
@@ -233,6 +233,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel = findViewById(R.id.text_field_boxes_label);
         this.floatingLabel.setPivotX(0f);
         this.floatingLabel.setPivotY(0f);
+        this.labelSpace = findViewById(R.id.text_field_boxes_label_space);
         this.bottomLine = findViewById(R.id.bg_bottom_line);
         this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
         this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
@@ -569,6 +570,9 @@ public class TextFieldBoxes extends FrameLayout {
                     this.editText.setText(" ");
                     this.editText.setText("");
                     this.doNotRemoveError = false;
+                } else {
+                    this.editText.setText(" ");
+                    this.editText.setText("");
                 }
             } else {
                 this.editText.setSelection(1);
@@ -732,6 +736,14 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.labelText = labelText;
         this.floatingLabel.setText(this.labelText);
+
+        if (labelText.isEmpty()) {
+            this.floatingLabel.setVisibility(View.GONE);
+            this.labelSpace.setVisibility(View.GONE);
+        } else {
+            this.floatingLabel.setVisibility(View.VISIBLE);
+            this.labelSpace.setVisibility(View.VISIBLE);
+        }
     }
 
     public void setHelperText(String helperText) {
