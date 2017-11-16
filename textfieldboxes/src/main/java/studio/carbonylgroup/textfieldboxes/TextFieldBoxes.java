@@ -642,7 +642,10 @@ public class TextFieldBoxes extends FrameLayout {
                 if (length < this.minCharacters) setCounterError();
                 else removeCounterError();
 
-            } else this.counterLabel.setText("");
+            } else {
+                this.counterLabel.setText("");
+                removeCounterError();
+            }
         }
     }
 
@@ -778,25 +781,33 @@ public class TextFieldBoxes extends FrameLayout {
 
     /* Characters Counter Setters */
     public void setMaxCharacters(int maxCharacters) {
+
         this.maxCharacters = maxCharacters;
+        updateCounterText();
     }
 
     /**
      * remove the max character count limit by setting it to 0
      */
     public void removeMaxCharacters() {
+
         this.maxCharacters = 0;
+        updateCounterText();
     }
 
     public void setMinCharacters(int minCharacters) {
+
         this.minCharacters = minCharacters;
+        updateCounterText();
     }
 
     /**
      * remove the min character count limit by setting it to 0
      */
     public void removeMinCharacters() {
+
         this.minCharacters = 0;
+        updateCounterText();
     }
 
     /* Other Setters */
