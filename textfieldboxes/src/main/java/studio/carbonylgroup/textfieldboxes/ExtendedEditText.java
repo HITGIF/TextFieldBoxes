@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.util.AttributeSet;
+import android.view.View;
 
 
 /**
@@ -21,6 +22,8 @@ import android.util.AttributeSet;
 public class ExtendedEditText extends TextInputEditText {
 
     public int DEFAULT_TEXT_COLOR;
+    private OnFocusChangeListener defaultFocusListener;
+    private CompositeListener focusListener = new CompositeListener();
 
     /**
      * prefix Label text at the start.
@@ -45,12 +48,14 @@ public class ExtendedEditText extends TextInputEditText {
     public ExtendedEditText(Context context) {
 
         this(context, null);
+        super.setOnFocusChangeListener(focusListener);
         initDefaultColor();
     }
 
     public ExtendedEditText(Context context, AttributeSet attrs) {
 
         this(context, attrs, android.R.attr.editTextStyle);
+        super.setOnFocusChangeListener(focusListener);
         initDefaultColor();
         handleAttributes(context, attrs);
     }
@@ -58,6 +63,7 @@ public class ExtendedEditText extends TextInputEditText {
     public ExtendedEditText(Context context, AttributeSet attrs, int defStyle) {
 
         super(context, attrs, defStyle);
+        super.setOnFocusChangeListener(focusListener);
         initDefaultColor();
         handleAttributes(context, attrs);
     }
@@ -88,6 +94,19 @@ public class ExtendedEditText extends TextInputEditText {
         setSuffixTextColor(this.suffixTextColor);
     }
 
+    @Override
+    public void setOnFocusChangeListener(OnFocusChangeListener l) {
+
+        focusListener.clearListeners();
+        focusListener.registerListener(defaultFocusListener);
+        focusListener.registerListener(l);
+    }
+
+    void setDefaultOnFocusChangeListener(OnFocusChangeListener l) {
+
+        defaultFocusListener = l;
+        focusListener.registerListener(l);
+    }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
         try {

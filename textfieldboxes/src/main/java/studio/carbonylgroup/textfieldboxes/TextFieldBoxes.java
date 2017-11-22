@@ -220,125 +220,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected void onFinishInflate() {
 
         super.onFinishInflate();
-
-        this.editText = findEditTextChild();
-        if (editText == null) return;
-        this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
-        removeView(this.editText);
-
-        this.editText.setBackgroundColor(Color.TRANSPARENT);
-        this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
-        this.inputLayout.addView(this.editText);
-        this.inputLayout.setAlpha(0f);
-        this.panel = findViewById(R.id.text_field_boxes_panel);
-        this.floatingLabel = findViewById(R.id.text_field_boxes_label);
-        this.floatingLabel.setPivotX(0f);
-        this.floatingLabel.setPivotY(0f);
-        this.labelSpace = findViewById(R.id.text_field_boxes_label_space);
-        this.labelSpaceBelow = findViewById(R.id.text_field_boxes_label_space_below);
-        this.bottomLine = findViewById(R.id.bg_bottom_line);
-        this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
-        this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
-        this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
-        this.labelColor = this.floatingLabel.getCurrentTextColor();
-        this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
-        this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
-        this.clearButton.setAlpha(0.35f);
-        this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
-        this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
-        this.endIconImageButton.setAlpha(0.54f);
-        this.helperLabel = findViewById(R.id.text_field_boxes_helper);
-        this.counterLabel = findViewById(R.id.text_field_boxes_counter);
-        this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
-        this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
-        this.labelTopMargin = RelativeLayout.LayoutParams.class
-                .cast(this.floatingLabel.getLayoutParams()).topMargin;
-
-        final FrameLayout mainBody = this;
-
-        this.panel.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isActivated()) activate(true);
-                setHasFocus(true);
-                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                mainBody.performClick();
-            }
-        });
-
-        this.iconImageButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isActivated()) activate(true);
-                setHasFocus(true);
-                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                mainBody.performClick();
-            }
-        });
-
-        this.editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) setHasFocus(true);
-                else setHasFocus(false);
-            }
-        });
-
-        this.editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-                if (!activated && !editable.toString().isEmpty())   activate(true);
-                if (activated && editable.toString().isEmpty() && !hasFocus)   deactivate();
-                if (!doNotRemoveError) {
-                    removeError();
-                    updateCounterText();
-                }
-            }
-        });
-
-        this.clearButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                editText.setText("");
-            }
-        });
-
-        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
-
-        /* Texts */
-        setLabelText(this.labelText);
-        setHelperText(this.helperText);
-
-        /* Colors */
-        setHelperTextColor(this.helperTextColor);
-        setCounterTextColor(this.counterTextColor);
-        setErrorColor(this.errorColor);
-        setPrimaryColor(this.primaryColor);
-        setSecondaryColor(this.secondaryColor);
-        setPanelBackgroundColor(this.panelBackgroundColor);
-
-        /* Characters counter */
-        setMaxCharacters(this.maxCharacters);
-        setMinCharacters(this.minCharacters);
-
-        /* Others */
-        setEnabled(this.enabled);
-        setIconSignifier(this.iconSignifierResourceId);
-        setEndIcon(this.endIconResourceId);
-        setIsResponsiveIconColor(this.isResponsiveIconColor);
-        setHasClearButton(this.hasClearButton);
-        setHasFocus(this.hasFocus);
-        updateCounterText();
-        updateBottomViewVisibility();
+        initViews();
+        triggerSetters();
     }
 
     @Override
@@ -450,6 +333,102 @@ public class TextFieldBoxes extends FrameLayout {
             ((RelativeLayout.LayoutParams) this.panel.getLayoutParams())
                     .addRule(RelativeLayout.ABOVE, 0);
         }
+    }
+
+    private void initViews(){
+
+        this.editText = findEditTextChild();
+        if (editText == null) return;
+        this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
+        removeView(this.editText);
+
+        this.editText.setBackgroundColor(Color.TRANSPARENT);
+        this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
+        this.inputLayout.addView(this.editText);
+        this.inputLayout.setAlpha(0f);
+        this.panel = findViewById(R.id.text_field_boxes_panel);
+        this.floatingLabel = findViewById(R.id.text_field_boxes_label);
+        this.floatingLabel.setPivotX(0f);
+        this.floatingLabel.setPivotY(0f);
+        this.labelSpace = findViewById(R.id.text_field_boxes_label_space);
+        this.labelSpaceBelow = findViewById(R.id.text_field_boxes_label_space_below);
+        this.bottomLine = findViewById(R.id.bg_bottom_line);
+        this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
+        this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
+        this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
+        this.labelColor = this.floatingLabel.getCurrentTextColor();
+        this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
+        this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.clearButton.setAlpha(0.35f);
+        this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
+        this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.endIconImageButton.setAlpha(0.54f);
+        this.helperLabel = findViewById(R.id.text_field_boxes_helper);
+        this.counterLabel = findViewById(R.id.text_field_boxes_counter);
+        this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
+        this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
+        this.labelTopMargin = RelativeLayout.LayoutParams.class
+                .cast(this.floatingLabel.getLayoutParams()).topMargin;
+
+        final FrameLayout mainBody = this;
+
+        this.panel.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isActivated()) activate(true);
+                setHasFocus(true);
+                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                mainBody.performClick();
+            }
+        });
+
+        this.iconImageButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isActivated()) activate(true);
+                setHasFocus(true);
+                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                mainBody.performClick();
+            }
+        });
+
+        this.editText.setDefaultOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                if (b) setHasFocus(true);
+                else setHasFocus(false);
+            }
+        });
+
+        this.editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+                if (!activated && !editable.toString().isEmpty()) activate(true);
+                if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
+                if (!doNotRemoveError) {
+                    removeError();
+                    updateCounterText();
+                }
+            }
+        });
+
+        this.clearButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                editText.setText("");
+            }
+        });
+
+        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
     }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
@@ -733,6 +712,35 @@ public class TextFieldBoxes extends FrameLayout {
         else this.clearButton.setVisibility(View.GONE);
     }
 
+    private void triggerSetters() {
+
+        /* Texts */
+        setLabelText(this.labelText);
+        setHelperText(this.helperText);
+
+        /* Colors */
+        setHelperTextColor(this.helperTextColor);
+        setCounterTextColor(this.counterTextColor);
+        setErrorColor(this.errorColor);
+        setPrimaryColor(this.primaryColor);
+        setSecondaryColor(this.secondaryColor);
+        setPanelBackgroundColor(this.panelBackgroundColor);
+
+        /* Characters counter */
+        setMaxCharacters(this.maxCharacters);
+        setMinCharacters(this.minCharacters);
+
+        /* Others */
+        setEnabled(this.enabled);
+        setIconSignifier(this.iconSignifierResourceId);
+        setEndIcon(this.endIconResourceId);
+        setIsResponsiveIconColor(this.isResponsiveIconColor);
+        setHasClearButton(this.hasClearButton);
+        setHasFocus(this.hasFocus);
+        updateCounterText();
+        updateBottomViewVisibility();
+    }
+
     /* Text Setters */
     public void setLabelText(String labelText) {
 
@@ -939,8 +947,8 @@ public class TextFieldBoxes extends FrameLayout {
      * as the label and the bottomLine do.
      *
      * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor
-     *                               (the same as the bottomLine)
-     *                               if false, the icon will always be in primaryColor
+     *                              (the same as the bottomLine)
+     *                              if false, the icon will always be in primaryColor
      */
     public void setIsResponsiveIconColor(boolean isResponsiveIconColor) {
 
