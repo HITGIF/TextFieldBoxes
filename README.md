@@ -1,7 +1,6 @@
 # TextFieldBoxes
 
 [![Build Status](https://travis-ci.org/HITGIF/TextFieldBoxes.svg?branch=master)](https://travis-ci.org/HITGIF/TextFieldBoxes)
-[![Code Climate](https://codeclimate.com/github/HITGIF/TextFieldBoxes/badges/gpa.svg)](https://codeclimate.com/github/HITGIF/TextFieldBoxes)
 [![JitPack](https://jitpack.io/v/HITGIF/TextFieldBoxes.svg)](https://jitpack.io/#HITGIF/TextFieldBoxes)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-TextFieldBoxes-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/6158)
 [![API](https://img.shields.io/badge/API-15%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=15)
@@ -19,21 +18,15 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.3.7 Release
+- fix issue #37 #38.
+
 #### 1.3.6 Release
 - fix issue #34 and reoccurring #14.
 
 - add getter for onError (#33).
 
 - the space for the floating label at the top will be removed when `labelText` is empty (#35).
-
-#### 1.3.5 Release
-- fix issue #31 #32.
-
-- add `giveFocus` param in `setError()` for setting whether the field will gain focus when set error on.
-
-- add `secondaryColor` for setting the color of the underline, the floating label text and the icon signifier **when NOT HAVING** focus (opposite to `primaryColor`).
-
-- add `counterColor` for setting the color of the counter text.
 
 ​
 ## Requirements
@@ -55,7 +48,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.6'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.7'
 }
 ```
 
@@ -72,7 +65,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.6</version>
+    <version>1.3.7</version>
 </dependency>
 ```
 
@@ -81,7 +74,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.6"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.7"
 ```
 
 
@@ -90,7 +83,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.6"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.6"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.7"]]
 ```
 
 ​
