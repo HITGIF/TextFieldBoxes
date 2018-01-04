@@ -34,12 +34,8 @@
 
             <FrameLayout
                 android:id="@+id/bg_bottom_line"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_alignEnd="@+id/text_field_boxes_upper_panel"
-                android:layout_alignLeft="@+id/text_field_boxes_upper_panel"
-                android:layout_alignRight="@+id/text_field_boxes_upper_panel"
-                android:layout_alignStart="@+id/text_field_boxes_upper_panel"
                 android:layout_below="@+id/text_field_boxes_upper_panel" />
 
             <RelativeLayout
