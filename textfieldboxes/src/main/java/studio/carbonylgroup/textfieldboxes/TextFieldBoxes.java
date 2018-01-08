@@ -494,6 +494,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (this.editText.getText().toString().isEmpty()) {
 
+            this.editText.setAlpha(0);
             ViewCompat.animate(floatingLabel)
                     .alpha(1)
                     .scaleX(1)
@@ -513,6 +514,8 @@ public class TextFieldBoxes extends FrameLayout {
      * raise the labelText labelText Label when gaining focus
      */
     protected void activate(boolean animated) {
+
+        this.editText.setAlpha(1);
 
         if (this.editText.getText().toString().isEmpty() && !isActivated()) {
 
