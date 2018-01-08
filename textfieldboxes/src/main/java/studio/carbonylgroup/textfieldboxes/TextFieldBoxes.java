@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
@@ -42,6 +43,7 @@ public class TextFieldBoxes extends FrameLayout {
     public int DEFAULT_TEXT_COLOR;
     public int DEFAULT_DISABLED_TEXT_COLOR;
     public int DEFAULT_BG_COLOR;
+    public int DEFAULT_FG_COLOR;
 
     /**
      * whether the text field is enabled. True by default.
@@ -190,6 +192,10 @@ public class TextFieldBoxes extends FrameLayout {
         themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorForeground});
         DEFAULT_BG_COLOR = adjustAlpha(themeArray.getColor(0, 0), 0.06f);
 
+        /* Get Default Foreground Color From Theme */
+        themeArray = theme.obtainStyledAttributes(new int[]{android.R.attr.colorBackground});
+        DEFAULT_FG_COLOR = themeArray.getColor(0, 0);
+
         /* Get Default Primary Color From Theme */
         themeArray = theme.obtainStyledAttributes(new int[]{R.attr.colorPrimary});
         if (isLight(DEFAULT_BG_COLOR))
@@ -335,7 +341,7 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
-    private void initViews(){
+    private void initViews() {
 
         this.editText = findEditTextChild();
         if (editText == null) return;
@@ -343,6 +349,7 @@ public class TextFieldBoxes extends FrameLayout {
         removeView(this.editText);
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
+        this.editText.setDropDownBackgroundDrawable(new ColorDrawable(DEFAULT_FG_COLOR));
         this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
         this.inputLayout.addView(this.editText);
         this.inputLayout.setAlpha(0f);
@@ -609,21 +616,33 @@ public class TextFieldBoxes extends FrameLayout {
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                this.counterLabel.setText(lengthStr + Integer.toString(this.minCharacters)
-                        + "-" + Integer.toString(this.maxCharacters));
+                this.counterLabel.setText(String.format(
+                        getResources().getString(R.string.counter_label_text_constructor),
+                        lengthStr,
+                        Integer.toString(this.minCharacters),
+                        "-",
+                        Integer.toString(this.maxCharacters)));
                 if (length < this.minCharacters || length > this.maxCharacters) setCounterError();
                 else removeCounterError();
 
             } else {
                 /* MAX ONLY */
-                this.counterLabel.setText(lengthStr + Integer.toString(this.maxCharacters) + "");
+                this.counterLabel.setText(String.format(
+                        getResources().getString(R.string.counter_label_text_constructor),
+                        lengthStr,
+                        Integer.toString(this.maxCharacters),
+                        "", ""));
                 if (length > this.maxCharacters) setCounterError();
                 else removeCounterError();
             }
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                this.counterLabel.setText(lengthStr + Integer.toString(this.minCharacters) + "+");
+                this.counterLabel.setText(String.format(
+                        getResources().getString(R.string.counter_label_text_constructor),
+                        lengthStr,
+                        Integer.toString(this.minCharacters),
+                        "+", ""));
                 if (length < this.minCharacters) setCounterError();
                 else removeCounterError();
 

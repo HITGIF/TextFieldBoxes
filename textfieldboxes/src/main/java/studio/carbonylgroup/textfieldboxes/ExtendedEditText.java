@@ -19,7 +19,7 @@ import android.view.View;
  * Created by CarbonylGroup on 2017/09/01
  */
 @SuppressWarnings("unused")
-public class ExtendedEditText extends TextInputEditText {
+public class ExtendedEditText extends TextInputAutoCompleteTextView {
 
     public int DEFAULT_TEXT_COLOR;
     private OnFocusChangeListener defaultFocusListener;

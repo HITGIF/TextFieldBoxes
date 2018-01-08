@@ -8,40 +8,40 @@
     tools:context=".MainActivity">
 
     <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="vertical">-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:gravity="center"-->
+    <!--android:orientation="vertical">-->
 
-        <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
-            <!--android:id="@+id/text_field_boxes"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:labelText="Label">-->
+    <!--<studio.carbonylgroup.textfieldboxes.TextFieldBoxes-->
+    <!--android:id="@+id/text_field_boxes"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--app:labelText="Label">-->
 
-            <!--<studio.carbonylgroup.textfieldboxes.ExtendedEditText-->
-                <!--android:id="@+id/extended_edit_text"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
+    <!--<studio.carbonylgroup.textfieldboxes.ExtendedEditText-->
+    <!--android:id="@+id/extended_edit_text"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content" />-->
 
-        <!--</studio.carbonylgroup.textfieldboxes.TextFieldBoxes>-->
+    <!--</studio.carbonylgroup.textfieldboxes.TextFieldBoxes>-->
 
-        <!--<EditText-->
-            <!--android:id="@+id/editText"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--tools:layout_editor_absoluteX="8dp"-->
-            <!--tools:layout_editor_absoluteY="25dp" />-->
+    <!--<EditText-->
+    <!--android:id="@+id/editText"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--tools:layout_editor_absoluteX="8dp"-->
+    <!--tools:layout_editor_absoluteY="25dp" />-->
 
-        <!--<Button-->
-            <!--android:id="@+id/dark_button"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="DARK SIDE"-->
-            <!--tools:layout_editor_absoluteX="8dp"-->
-            <!--tools:layout_editor_absoluteY="25dp" />-->
+    <!--<Button-->
+    <!--android:id="@+id/dark_button"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="DARK SIDE"-->
+    <!--tools:layout_editor_absoluteX="8dp"-->
+    <!--tools:layout_editor_absoluteY="25dp" />-->
 
     <!--</LinearLayout>-->
 
@@ -108,10 +108,13 @@
                 app:isResponsiveIconColor="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/extendedEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:ems="10"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:popupElevation="5dp"
                     android:text="" />
 
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
@@ -129,7 +132,6 @@
             app:maxCharacters="140">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                android:id="@+id/extendedEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/description" />
