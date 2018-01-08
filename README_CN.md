@@ -18,15 +18,12 @@
 ​
 ## ***更新注意***
 
+#### 1.3.8 Release
+- 修复 #41。
+- 添加在 #43 中提到的 autocompletion 支持。 (`ExtendedEditText` 现在继承一个继承  `AppCompatAutoCompleteTextView` 的  `TextInputAutoCompleteTextView`).
+
 #### 1.3.7 Release
 - 修复 issue #37 #38。
-
-#### 1.3.6 Release
-- 修复 issue #34 与再次出现的 #14。
-
-- 增加了对 onError 的获取器（#33）。
-
-- 当顶部标签文本（`labelText`）为空时，其所占的空间将被移除（#35）。
 
 ​
 ## 要求
@@ -48,7 +45,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.7'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.8'
 }
 ```
 
@@ -65,7 +62,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.7</version>
+    <version>1.3.8</version>
 </dependency>
 ```
 
@@ -74,7 +71,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.7"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.8"
 ```
 
 
@@ -83,7 +80,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.7"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.7"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.8"]]
 ```
 
 ​

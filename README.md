@@ -18,15 +18,12 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.3.8 Release
+- Fix issue #41.
+- Add autocompletion support as addressed in #43. (`ExtendedEditText` now extends a built-in `TextInputAutoCompleteTextView`, which extends `AppCompatAutoCompleteTextView`).
+
 #### 1.3.7 Release
-- fix issue #37 #38.
-
-#### 1.3.6 Release
-- fix issue #34 and reoccurring #14.
-
-- add getter for onError (#33).
-
-- the space for the floating label at the top will be removed when `labelText` is empty (#35).
+- Fix issue #37 #38.
 
 ​
 ## Requirements
@@ -48,7 +45,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.7'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.8'
 }
 ```
 
@@ -65,7 +62,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.7</version>
+    <version>1.3.8</version>
 </dependency>
 ```
 
@@ -74,7 +71,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.7"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.8"
 ```
 
 
@@ -83,7 +80,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.7"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.7"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.8"]]
 ```
 
 ​
