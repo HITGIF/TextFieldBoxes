@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">TextFieldBoxes</string>
     <string name="icon">icon</string>
-    <string name="counter_label_text_constructor">%s%s%s%s</string>
+    <string name="counter_label_text_constructor" formatted="false">%s%s%s%s</string>
 </resources>
