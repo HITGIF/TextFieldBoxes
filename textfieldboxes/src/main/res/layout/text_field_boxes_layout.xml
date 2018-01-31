@@ -64,9 +64,13 @@
 
                 <android.support.v4.widget.Space
                     android:id="@+id/text_field_boxes_label_space"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="10dp"
-                    android:layout_alignParentTop="true" />
+                    android:layout_alignEnd="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignLeft="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignStart="@+id/text_field_boxes_editTextLayout" />
 
                 <RelativeLayout
                     android:id="@+id/text_field_boxes_editTextLayout"
@@ -114,9 +118,12 @@
 
                 <android.support.v4.widget.Space
                     android:id="@+id/text_field_boxes_label_space_below"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="10dp"
-                    android:layout_alignParentBottom="true"
+                    android:layout_alignEnd="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignLeft="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignRight="@+id/text_field_boxes_editTextLayout"
+                    android:layout_alignStart="@+id/text_field_boxes_editTextLayout"
                     android:layout_below="@+id/text_field_boxes_editTextLayout"
                     android:background="@color/A400red"
                     android:visibility="gone" />
