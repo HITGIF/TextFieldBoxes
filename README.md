@@ -18,12 +18,13 @@ A new Material Design text field that comes in a box, based on Google Material D
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.3.9 Release
+- Fix issue #49.
+- Fix the compiling issue in #50.
+
 #### 1.3.8 Release
 - Fix issue #41.
 - Add autocompletion support as addressed in #43. (`ExtendedEditText` now extends a built-in `TextInputAutoCompleteTextView`, which extends `AppCompatAutoCompleteTextView`).
-
-#### 1.3.7 Release
-- Fix issue #37 #38.
 
 ​
 ## Requirements
@@ -45,7 +46,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.8'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.3.9'
 }
 ```
 
@@ -62,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.8</version>
+    <version>1.3.9</version>
 </dependency>
 ```
 
@@ -71,7 +72,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.8"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
 ```
 
 
@@ -80,7 +81,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.8"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.8"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.3.9"]]
 ```
 
 ​
