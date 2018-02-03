@@ -11,7 +11,7 @@
 
 ![Animation](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/tfb1.gif)
 
-新的 Material Design 文本框，遵循 Google Material Design 规范。
+新的 Material Design 文本框，遵循 [Google Material Design 规范](https://material.io/guidelines/components/text-fields.html#text-fields-text-field-boxes)。
 
 <a href='https://ko-fi.com/A3343PAW' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
