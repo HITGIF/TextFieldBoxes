@@ -141,6 +141,20 @@
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:hasFocus="false"
+            app:labelText="Read only field">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cannot change this value"/>
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
         <Button
             android:id="@+id/dark_button"
             android:layout_width="match_parent"

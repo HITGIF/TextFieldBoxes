@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 
 
@@ -17,7 +18,7 @@ import android.util.AttributeSet;
  * Created by CarbonylGroup on 2017/09/01
  */
 @SuppressWarnings("unused")
-public class ExtendedEditText extends TextInputAutoCompleteTextView implements EmbeddedTextField {
+public class ExtendedTextView extends AppCompatTextView implements EmbeddedTextField {
 
     public int DEFAULT_TEXT_COLOR;
     private OnFocusChangeListener defaultFocusListener;
@@ -43,22 +44,22 @@ public class ExtendedEditText extends TextInputAutoCompleteTextView implements E
      */
     protected int suffixTextColor;
 
-    public ExtendedEditText(Context context) {
+    public ExtendedTextView(Context context) {
 
         this(context, null);
         super.setOnFocusChangeListener(focusListener);
         initDefaultColor();
     }
 
-    public ExtendedEditText(Context context, AttributeSet attrs) {
+    public ExtendedTextView(Context context, AttributeSet attrs) {
 
-        this(context, attrs, android.R.attr.editTextStyle);
+        this(context, attrs, android.R.attr.textViewStyle);
         super.setOnFocusChangeListener(focusListener);
         initDefaultColor();
         handleAttributes(context, attrs);
     }
 
-    public ExtendedEditText(Context context, AttributeSet attrs, int defStyle) {
+    public ExtendedTextView(Context context, AttributeSet attrs, int defStyle) {
 
         super(context, attrs, defStyle);
         super.setOnFocusChangeListener(focusListener);
@@ -110,19 +111,19 @@ public class ExtendedEditText extends TextInputAutoCompleteTextView implements E
     protected void handleAttributes(Context context, AttributeSet attrs) {
         try {
 
-            TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ExtendedEditText);
+            TypedArray styledAttrs = context.obtainStyledAttributes(attrs, R.styleable.ExtendedTextView);
 
             /* Texts */
-            this.prefix = styledAttrs.getString(R.styleable.ExtendedEditText_prefix)
-                    == null ? "" : styledAttrs.getString(R.styleable.ExtendedEditText_prefix);
-            this.suffix = styledAttrs.getString(R.styleable.ExtendedEditText_suffix)
-                    == null ? "" : styledAttrs.getString(R.styleable.ExtendedEditText_suffix);
+            this.prefix = styledAttrs.getString(R.styleable.ExtendedTextView_prefix)
+                    == null ? "" : styledAttrs.getString(R.styleable.ExtendedTextView_prefix);
+            this.suffix = styledAttrs.getString(R.styleable.ExtendedTextView_suffix)
+                    == null ? "" : styledAttrs.getString(R.styleable.ExtendedTextView_suffix);
 
             /* Colors */
             this.prefixTextColor = styledAttrs
-                    .getInt(R.styleable.ExtendedEditText_prefixTextColor, DEFAULT_TEXT_COLOR);
+                    .getInt(R.styleable.ExtendedTextView_prefixTextColor, DEFAULT_TEXT_COLOR);
             this.suffixTextColor = styledAttrs
-                    .getInt(R.styleable.ExtendedEditText_suffixTextColor, DEFAULT_TEXT_COLOR);
+                    .getInt(R.styleable.ExtendedTextView_suffixTextColor, DEFAULT_TEXT_COLOR);
             styledAttrs.recycle();
 
         } catch (Exception e) {

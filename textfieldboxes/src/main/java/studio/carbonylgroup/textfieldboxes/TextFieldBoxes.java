@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -141,7 +142,7 @@ public class TextFieldBoxes extends FrameLayout {
     protected Space labelSpace;
     protected Space labelSpaceBelow;
     protected ViewGroup editTextLayout;
-    protected ExtendedEditText editText;
+    protected TextView editText;
     protected RelativeLayout rightShell;
     protected RelativeLayout upperPanel;
     protected RelativeLayout bottomPart;
@@ -215,11 +216,12 @@ public class TextFieldBoxes extends FrameLayout {
         themeArray.recycle();
     }
 
-    protected ExtendedEditText findEditTextChild() {
+    protected TextView findEditTextChild() {
 
-        if (getChildCount() > 0 && getChildAt(0) instanceof ExtendedEditText)
-            return (ExtendedEditText) getChildAt(0);
-        return null;
+        if (getChildCount() > 0 && getChildAt(0) instanceof TextView)
+            return (TextView) getChildAt(0);
+        throw new IllegalArgumentException(getClass().getSimpleName()
+                + " must be used with one child view that extends TextView");
     }
 
     @Override
@@ -349,7 +351,9 @@ public class TextFieldBoxes extends FrameLayout {
         removeView(this.editText);
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
-        this.editText.setDropDownBackgroundDrawable(new ColorDrawable(DEFAULT_FG_COLOR));
+        if (this.editText instanceof AutoCompleteTextView) {
+            ((AutoCompleteTextView) this.editText).setDropDownBackgroundDrawable(new ColorDrawable(DEFAULT_FG_COLOR));
+        }
         this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
         this.inputLayout.addView(this.editText);
         this.inputLayout.setAlpha(0f);
@@ -384,7 +388,11 @@ public class TextFieldBoxes extends FrameLayout {
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
                 setHasFocus(true);
-                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                if (editText instanceof EditText) {
+                    inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                } else {
+                    inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                }
                 mainBody.performClick();
             }
         });
@@ -394,18 +402,24 @@ public class TextFieldBoxes extends FrameLayout {
             public void onClick(View v) {
                 if (!isActivated()) activate(true);
                 setHasFocus(true);
-                inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                if (editText instanceof EditText) {
+                    inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                } else {
+                    inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                }
                 mainBody.performClick();
             }
         });
 
-        this.editText.setDefaultOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) setHasFocus(true);
-                else setHasFocus(false);
-            }
-        });
+        if (this.editText instanceof EmbeddedTextField) {
+            ((EmbeddedTextField) this.editText).setDefaultOnFocusChangeListener(new OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean b) {
+                    if (b) setHasFocus(true);
+                    else setHasFocus(false);
+                }
+            });
+        }
 
         this.editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -562,12 +576,16 @@ public class TextFieldBoxes extends FrameLayout {
                     this.editText.setText("");
                 }
             } else {
-                this.editText.setSelection(1);
-                this.editText.setSelection(0);
+                if (this.editText instanceof EditText) {
+                    ((EditText) this.editText).setSelection(1);
+                    ((EditText) this.editText).setSelection(0);
+                }
             }
         else {
-            this.editText.setSelection(0);
-            this.editText.setSelection(cursorPos);
+            if (this.editText instanceof EditText) {
+                ((EditText) this.editText).setSelection(0);
+                ((EditText) this.editText).setSelection(cursorPos);
+            }
         }
     }
 
@@ -1101,7 +1119,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * set EditText cursor color
      */
-    protected static void setCursorDrawableColor(EditText _editText, int _colorRes) {
+    protected static void setCursorDrawableColor(TextView _editText, int _colorRes) {
 
         try {
             Field fCursorDrawableRes = TextView.class.getDeclaredField("mCursorDrawableRes");
