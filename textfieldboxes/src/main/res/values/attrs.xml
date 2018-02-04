@@ -29,15 +29,35 @@
 
     </declare-styleable>
 
+    <!--Texts-->
+    <attr name="prefix" format="string" />
+    <attr name="suffix" format="string" />
+
+    <!--Colors-->
+    <attr name="prefixTextColor" format="color" />
+    <attr name="suffixTextColor" format="color" />
+
     <declare-styleable name="ExtendedEditText">
 
         <!--Texts-->
-        <attr name="prefix" format="string" />
-        <attr name="suffix" format="string" />
+        <attr name="prefix" />
+        <attr name="suffix" />
 
         <!--Colors-->
-        <attr name="prefixTextColor" format="color" />
-        <attr name="suffixTextColor" format="color" />
+        <attr name="prefixTextColor" />
+        <attr name="suffixTextColor" />
+
+    </declare-styleable>
+
+    <declare-styleable name="ExtendedTextView">
+
+        <!--Texts-->
+        <attr name="prefix" />
+        <attr name="suffix" />
+
+        <!--Colors-->
+        <attr name="prefixTextColor" />
+        <attr name="suffixTextColor" />
 
     </declare-styleable>
 
