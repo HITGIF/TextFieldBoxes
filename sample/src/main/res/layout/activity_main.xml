@@ -62,8 +62,8 @@
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
                 android:imeOptions="actionNext"
+                android:inputType="text"
                 android:maxLines="1"
                 android:text="@string/title" />
 
@@ -83,15 +83,14 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="0.8"
                 app:hasFocus="false"
-                app:helperText=" "
                 app:labelText="Price">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:imeOptions="actionNext"
                     android:text="@string/price"
                     app:prefix="$ " />
 
@@ -103,17 +102,20 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
+                app:alwaysShowHint="true"
                 app:endIcon="@drawable/ic_mic_black_24dp"
                 app:hasFocus="true"
                 app:helperText=" "
                 app:iconSignifier="@drawable/ic_location_on_black_24dp"
-                app:isResponsiveIconColor="true">
+                app:isResponsiveIconColor="true"
+                app:labelText="Location">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                     android:id="@+id/extendedEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
+                    android:hint="Placeholder"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"

@@ -129,6 +129,18 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected boolean hasFocus;
 
+    /**
+     * whether the EditText is always visible if there's a hint
+     * (instead of being blocked by the label). False by default.
+     */
+    protected boolean alwaysShowHint;
+
+    /**
+     * whether the EditText uses a dense spacing between its elements.
+     * Usually useful in a multi-field form. False by default.
+     */
+    protected boolean useDenseSpacing;
+
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
     protected int ANIMATION_DURATION = 100;
@@ -479,6 +491,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.hasClearButton = styledAttrs
                     .getBoolean(R.styleable.TextFieldBoxes_hasClearButton, false);
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
+            this.alwaysShowHint = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_alwaysShowHint, false);
+            this.useDenseSpacing = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_useDenseSpacing, false);
 
             styledAttrs.recycle();
 
@@ -494,13 +508,26 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (this.editText.getText().toString().isEmpty()) {
 
-            this.editText.setAlpha(0);
-            ViewCompat.animate(floatingLabel)
-                    .alpha(1)
-                    .scaleX(1)
-                    .scaleY(1)
-                    .translationY(0)
-                    .setDuration(ANIMATION_DURATION);
+            if (this.alwaysShowHint && !this.editText.getHint().toString().isEmpty()) {
+
+                // If alwaysShowHint, and the hint is not empty,
+                // keep the label on the top and EditText visible.
+                this.inputLayout.setAlpha(1f);
+                this.floatingLabel.setScaleX(0.75f);
+                this.floatingLabel.setScaleY(0.75f);
+                this.floatingLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+
+            } else {
+
+                // If not, animate the label and hide the EditText.
+                this.editText.setAlpha(0);
+                ViewCompat.animate(floatingLabel)
+                        .alpha(1)
+                        .scaleX(1)
+                        .scaleY(1)
+                        .translationY(0)
+                        .setDuration(ANIMATION_DURATION);
+            }
 
             if (this.editText.hasFocus()) {
                 inputMethodManager.hideSoftInputFromWindow(editText.getWindowToken(), 0);
@@ -525,7 +552,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.floatingLabel.setTranslationY(0);
         }
 
-        if (animated) {
+        final boolean keepHint = this.alwaysShowHint && !this.editText.getHint().toString().isEmpty();
+        if (animated && !keepHint) {
 
             ViewCompat.animate(this.inputLayout)
                     .alpha(1f)
@@ -755,6 +783,8 @@ public class TextFieldBoxes extends FrameLayout {
         setIsResponsiveIconColor(this.isResponsiveIconColor);
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
+        setAlwaysShowHint(this.alwaysShowHint);
+        setUseDenseSpacing(this.useDenseSpacing);
         updateCounterText();
         updateBottomViewVisibility();
     }
@@ -937,30 +967,6 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
-     * set if the EditText is having focus
-     *
-     * @param hasFocus gain focus if true, lose if false
-     */
-    public void setHasFocus(boolean hasFocus) {
-
-        this.hasFocus = hasFocus;
-        if (this.hasFocus) {
-            activate(true);
-            this.editText.requestFocus();
-            makeCursorBlink();
-
-            /* if there's an error, keep the error color */
-            if (!this.onError && this.enabled) setHighlightColor(this.primaryColor);
-
-        } else {
-            deactivate();
-
-            /* if there's an error, keep the error color */
-            if (!this.onError && this.enabled) setHighlightColor(this.secondaryColor);
-        }
-    }
-
-    /**
      * set whether the icon signifier will change its color when gaining or losing focus
      * as the label and the bottomLine do.
      *
@@ -987,6 +993,38 @@ public class TextFieldBoxes extends FrameLayout {
 
     public void setHasClearButton(boolean hasClearButton) {
         this.hasClearButton = hasClearButton;
+    }
+
+    /**
+     * set if the EditText is having focus
+     *
+     * @param hasFocus gain focus if true, lose if false
+     */
+    public void setHasFocus(boolean hasFocus) {
+
+        this.hasFocus = hasFocus;
+        if (this.hasFocus) {
+            activate(true);
+            this.editText.requestFocus();
+            makeCursorBlink();
+
+            /* if there's an error, keep the error color */
+            if (!this.onError && this.enabled) setHighlightColor(this.primaryColor);
+
+        } else {
+            deactivate();
+
+            /* if there's an error, keep the error color */
+            if (!this.onError && this.enabled) setHighlightColor(this.secondaryColor);
+        }
+    }
+
+    public void setAlwaysShowHint(boolean alwaysShowHint) {
+        this.alwaysShowHint = alwaysShowHint;
+    }
+
+    public void setUseDenseSpacing(boolean useDenseSpacing) {
+        this.useDenseSpacing = useDenseSpacing;
     }
 
     /* Text Getters */
@@ -1098,6 +1136,14 @@ public class TextFieldBoxes extends FrameLayout {
         return this.hasFocus;
     }
 
+    public boolean getAlwaysShowHint() {
+        return this.alwaysShowHint;
+    }
+
+    public boolean getUseDenseSpacing() {
+        return this.useDenseSpacing;
+    }
+
     /**
      * set EditText cursor color
      */
@@ -1126,13 +1172,13 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * return a lighter color
      *
-     * @param _factor percentage of light applied
+     * @param factor percentage of light applied
      */
-    protected static int lighter(int color, float _factor) {
+    protected static int lighter(int color, float factor) {
 
-        int red = (int) ((Color.red(color) * (1 - _factor) / 255 + _factor) * 255);
-        int green = (int) ((Color.green(color) * (1 - _factor) / 255 + _factor) * 255);
-        int blue = (int) ((Color.blue(color) * (1 - _factor) / 255 + _factor) * 255);
+        int red = (int) ((Color.red(color) * (1 - factor) / 255 + factor) * 255);
+        int green = (int) ((Color.green(color) * (1 - factor) / 255 + factor) * 255);
+        int blue = (int) ((Color.blue(color) * (1 - factor) / 255 + factor) * 255);
         return Color.argb(Color.alpha(color), red, green, blue);
     }
 
