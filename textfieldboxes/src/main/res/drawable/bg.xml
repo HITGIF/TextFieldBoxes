@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/bg_cover">
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/text_field_boxes_corner_radius" />
+            <corners android:radius="@dimen/corner_radius" />
         </shape>
     </item>
 </layer-list>

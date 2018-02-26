@@ -44,7 +44,7 @@ class ClipToBoundsView extends RelativeLayout {
 
     protected void init() {
         this.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-        cornerRadius = context.getResources().getDimension(R.dimen.text_field_boxes_corner_radius);
+        cornerRadius = context.getResources().getDimension(R.dimen.corner_radius);
     }
 
     @Override

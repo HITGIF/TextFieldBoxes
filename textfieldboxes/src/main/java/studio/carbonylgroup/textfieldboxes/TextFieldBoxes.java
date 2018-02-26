@@ -16,6 +16,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -362,32 +363,44 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
         this.editText.setDropDownBackgroundDrawable(new ColorDrawable(DEFAULT_FG_COLOR));
+
         this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
-        this.inputLayout.addView(this.editText);
-        this.inputLayout.setAlpha(0f);
-        this.panel = findViewById(R.id.text_field_boxes_panel);
         this.floatingLabel = findViewById(R.id.text_field_boxes_label);
-        this.floatingLabel.setPivotX(0f);
-        this.floatingLabel.setPivotY(0f);
+        this.panel = findViewById(R.id.text_field_boxes_panel);
         this.labelSpace = findViewById(R.id.text_field_boxes_label_space);
         this.labelSpaceBelow = findViewById(R.id.text_field_boxes_label_space_below);
         this.bottomLine = findViewById(R.id.bg_bottom_line);
         this.rightShell = findViewById(R.id.text_field_boxes_right_shell);
         this.upperPanel = findViewById(R.id.text_field_boxes_upper_panel);
         this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
-        this.labelColor = this.floatingLabel.getCurrentTextColor();
         this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
-        this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
-        this.clearButton.setAlpha(0.35f);
         this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
-        this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
-        this.endIconImageButton.setAlpha(0.54f);
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
         this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
         this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
+
+        this.inputLayout.addView(this.editText);
+        this.editTextLayout.setAlpha(0f);
+        this.floatingLabel.setPivotX(0f);
+        this.floatingLabel.setPivotY(0f);
+        this.labelColor = this.floatingLabel.getCurrentTextColor();
+        this.clearButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.clearButton.setAlpha(0.35f);
+        this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.endIconImageButton.setAlpha(0.54f);
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
+
+        initOnClick();
+
+        // Have to update useDenseSpacing then the dimensions before the first activation
+        setUseDenseSpacing(this.useDenseSpacing);
+        updateDimens(this.useDenseSpacing);
+        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
+    }
+
+    private void initOnClick() {
 
         final FrameLayout mainBody = this;
 
@@ -446,8 +459,6 @@ public class TextFieldBoxes extends FrameLayout {
                 editText.setText("");
             }
         });
-
-        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
     }
 
     protected void handleAttributes(Context context, AttributeSet attrs) {
@@ -512,15 +523,16 @@ public class TextFieldBoxes extends FrameLayout {
 
                 // If alwaysShowHint, and the hint is not empty,
                 // keep the label on the top and EditText visible.
-                this.inputLayout.setAlpha(1f);
+                this.editTextLayout.setAlpha(1f);
                 this.floatingLabel.setScaleX(0.75f);
                 this.floatingLabel.setScaleY(0.75f);
-                this.floatingLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+                this.floatingLabel.setTranslationY(-labelTopMargin +
+                        getContext().getResources().getDimensionPixelOffset(R.dimen.label_active_margin_top));
 
             } else {
 
                 // If not, animate the label and hide the EditText.
-                this.editText.setAlpha(0);
+                this.editTextLayout.setAlpha(0);
                 ViewCompat.animate(floatingLabel)
                         .alpha(1)
                         .scaleX(1)
@@ -546,7 +558,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         if (this.editText.getText().toString().isEmpty() && !isActivated()) {
 
-            this.inputLayout.setAlpha(0f);
+            this.editTextLayout.setAlpha(0f);
             this.floatingLabel.setScaleX(1f);
             this.floatingLabel.setScaleY(1f);
             this.floatingLabel.setTranslationY(0);
@@ -555,21 +567,23 @@ public class TextFieldBoxes extends FrameLayout {
         final boolean keepHint = this.alwaysShowHint && !this.editText.getHint().toString().isEmpty();
         if (animated && !keepHint) {
 
-            ViewCompat.animate(this.inputLayout)
+            ViewCompat.animate(this.editTextLayout)
                     .alpha(1f)
                     .setDuration(ANIMATION_DURATION);
 
             ViewCompat.animate(this.floatingLabel)
                     .scaleX(0.75f)
                     .scaleY(0.75f)
-                    .translationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top))
+                    .translationY(-labelTopMargin +
+                            getContext().getResources().getDimensionPixelOffset(R.dimen.label_active_margin_top))
                     .setDuration(ANIMATION_DURATION);
         } else {
 
-            this.inputLayout.setAlpha(1f);
+            this.editTextLayout.setAlpha(1f);
             this.floatingLabel.setScaleX(0.75f);
             this.floatingLabel.setScaleY(0.75f);
-            this.floatingLabel.setTranslationY(-labelTopMargin + getContext().getResources().getDimensionPixelOffset(R.dimen.text_field_boxes_margin_top));
+            this.floatingLabel.setTranslationY(-labelTopMargin +
+                    getContext().getResources().getDimensionPixelOffset(R.dimen.label_active_margin_top));
         }
 
         activated = true;
@@ -618,6 +632,58 @@ public class TextFieldBoxes extends FrameLayout {
         if (colorRes == DEFAULT_DISABLED_TEXT_COLOR) this.iconImageButton.setAlpha(0.35f);
 
         this.bottomLine.setBackgroundColor(colorRes);
+    }
+
+    /**
+     * check if the TextFieldBox should use a dense spacing,
+     * then change the layout dimens accordingly
+     */
+    protected void updateDimens(boolean useDenseSpacing) {
+
+        final Resources res = getContext().getResources();
+        if (useDenseSpacing) {
+            /* Floating Label */
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_label_idle_margin_top);
+            this.floatingLabel.setLayoutParams(lp);
+
+            /* EditText Layout */
+            this.editTextLayout.setPadding(
+                    0, res.getDimensionPixelOffset(R.dimen.dense_editTextLayout_padding_top),
+                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+
+            /* Bottom View */
+            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
+            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_bottom_marginTop);
+            this.bottomPart.setLayoutParams(lp);
+
+            /* EditText */
+            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.dense_edittext_text_size));
+
+        } else {
+
+            /* Floating Label */
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+            lp.topMargin = res.getDimensionPixelOffset(R.dimen.label_idle_margin_top);
+            this.floatingLabel.setLayoutParams(lp);
+
+            /* EditText Layout */
+            this.editTextLayout.setPadding(
+                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_top),
+                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+
+            /* Bottom View */
+            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
+            lp.topMargin = res.getDimensionPixelOffset(R.dimen.bottom_marginTop);
+            this.bottomPart.setLayoutParams(lp);
+
+            /* EditText */
+            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.edittext_text_size));
+        }
+
+        this.labelTopMargin = RelativeLayout.LayoutParams.class
+                .cast(this.floatingLabel.getLayoutParams()).topMargin;
+        this.requestLayout();
     }
 
     /**
@@ -784,7 +850,6 @@ public class TextFieldBoxes extends FrameLayout {
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         setAlwaysShowHint(this.alwaysShowHint);
-        setUseDenseSpacing(this.useDenseSpacing);
         updateCounterText();
         updateBottomViewVisibility();
     }

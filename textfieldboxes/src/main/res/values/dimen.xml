@@ -1,5 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="text_field_boxes_margin_top">8dp</dimen>
-    <dimen name="text_field_boxes_corner_radius">4dp</dimen>
+
+    <!-- Normal Spacing -->
+    <dimen name="label_idle_margin_top">20dp</dimen>
+    <dimen name="editTextLayout_padding_top">20dp</dimen>
+    <dimen name="bottom_marginTop">8dp</dimen>
+    <dimen name="edittext_text_size">18sp</dimen>
+
+    <!-- Dense Spacing -->
+    <dimen name="dense_label_idle_margin_top">16dp</dimen>
+    <dimen name="dense_editTextLayout_padding_top">16dp</dimen>
+    <dimen name="dense_bottom_marginTop">4dp</dimen>
+    <dimen name="dense_edittext_text_size">16sp</dimen>
+
+    <dimen name="label_text_size">16sp</dimen>
+    <dimen name="helper_text_size">12sp</dimen>
+    <dimen name="counter_text_size">12sp</dimen>
+    <dimen name="corner_radius">4dp</dimen>
+    <dimen name="label_active_margin_top">8dp</dimen>
+    <dimen name="upper_panel_paddingStart">16dp</dimen>
+    <dimen name="upper_panel_paddingEnd">16dp</dimen>
+    <dimen name="editTextLayout_padding_bottom">8dp</dimen>
+    <dimen name="helper_marginEnd">8dp</dimen>
+    <dimen name="bottom_line_height">2dp</dimen>
+    <dimen name="label_space_height">10dp</dimen>
+    <dimen name="icon_signifier_width">24dp</dimen>
+    <dimen name="icon_signifier_height">24dp</dimen>
+    <dimen name="icon_signifier_marginEnd">16dp</dimen>
+    <dimen name="icon_signifier_marginTop">20dp</dimen>
+    <dimen name="end_icon_width">24dp</dimen>
+    <dimen name="end_icon_height">24dp</dimen>
+    <dimen name="end_icon_marginStart">2dp</dimen>
+    <dimen name="end_icon_paddingTop">2dp</dimen>
+    <dimen name="clear_button_width">24dp</dimen>
+    <dimen name="clear_button_height">24dp</dimen>
+    <dimen name="clear_button_marginStart">2dp</dimen>
+    <dimen name="clear_button_paddingTop">2dp</dimen>
+
 </resources>
