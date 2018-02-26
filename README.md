@@ -20,13 +20,13 @@ A new Material Design text field that comes in a box, based on [Google Material 
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.4.0 Release
+- Support Dense Layout (Dense Spacing) with `app:useDenseSpacing` attribute.
+- Label can be fixed at the top when hint is present, with `app:alwaysShowHint` attribute.
+
 #### 1.3.9 Release
 - Fix issue #49.
 - Fix the compiling issue in #50.
-
-#### 1.3.8 Release
-- Fix issue #41.
-- Add autocompletion support as addressed in #43. (`ExtendedEditText` now extends a built-in `TextInputAutoCompleteTextView`, which extends `AppCompatAutoCompleteTextView`).
 
 ​
 ## Requirements
@@ -48,7 +48,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.9'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.0'
 }
 ```
 
@@ -65,7 +65,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.9</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -74,7 +74,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.0"
 ```
 
 
@@ -83,7 +83,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.9"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.0"]]
 ```
 
 ​
@@ -99,12 +99,14 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
     android:id="@+id/text_field_boxes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:labelText="Label">
+    app:labelText="Label"
+    >
 
     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
         android:id="@+id/extended_edit_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        />
 
 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 ...
@@ -121,7 +123,8 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:enabled="false">
+    app:enabled="false"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
@@ -136,7 +139,8 @@ helper text: `app:helperText` in xml or `setHelperText(String helperText)` in Ja
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:helperText="Helper is here">
+    app:helperText="Helper is here"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
@@ -164,7 +168,8 @@ Use `app:suffix` in xml or `setSuffix(String suffix)` in Java to set the unselec
 ```xml
 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
     ...
-    app:prefix="$ ">
+    app:prefix="$ "
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/prefix.png)
@@ -173,7 +178,8 @@ Use `app:suffix` in xml or `setSuffix(String suffix)` in Java to set the unselec
 ```xml
 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
     ...
-    app:suffix="\@gmail.com">
+    app:suffix="\@gmail.com"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
@@ -194,7 +200,8 @@ The color of the bottom line will turn to `errorColor` (red by default) when exc
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
     app:maxCharacters="10"
-    app:minCharacters="5">
+    app:minCharacters="5"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxMinChar.gif)
@@ -202,7 +209,8 @@ The color of the bottom line will turn to `errorColor` (red by default) when exc
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:maxCharacters="5">
+    app:maxCharacters="5"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
@@ -217,7 +225,8 @@ _**NOTE that if `true`, the icon's color will always be `HighlightColor` (the sa
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:iconSignifier="@drawable/ic_vpn_key_black_24dp">
+    app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
@@ -229,7 +238,8 @@ Use `app:endIcon` in xml or `setEndIcon(Int resourceID)` to set the icon of the 
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:endIcon="@drawable/ic_mic_black_24dp">
+    app:endIcon="@drawable/ic_mic_black_24dp"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/mic.png)
@@ -255,7 +265,8 @@ If `true`, a clear button will be shown at the end when there are characters (**
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:hasClearButton="true">
+    app:hasClearButton="true"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
@@ -278,38 +289,45 @@ If `true`, a clear button will be shown at the end when there are characters (**
     app:primaryColor="#1B5E20"
     app:errorColor="#ddaa00"
     app:helperTextColor="#795548"
-    app:panelBackgroundColor="#ffe8e8">
+    app:panelBackgroundColor="#ffe8e8"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 10. Customize EditText
+#### 10. Dense Spacing
 
-**From release 1.3.0**, just do what you want to the `ExtendedEditText` inside the TextFieldBoxes.
+You can make the layout compact by using a dense verticle spacing to improve user experience in some cases.
 
-```java
-final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
-final ExtendedEditText extendedEditText = findViewById(R.id.extended_edit_text);
-extendedEditText.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/denseSpacing.png)
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+Use `app:useDenseSpacing` in xml or `setUseDenseSpacing(boolean useDenseSpacing)` to set whether the field uses a dense spacing between its elements.
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (editable.toString().equals("wrong"))
-            textFieldBoxes.setError("It's wrong");
-    }
-});
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:useDenseSpacing="true"
+    >
 ```
 
-![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/dense.png)
 
-#### 11. Dark Theme
+#### 11. Always Show Hint
+
+Sometimes you may want the label and the hint to show different messages, but need the hint to always be shown (instead being blocked by the label when losing focus).
+
+Use `app:alwaysShowHint` in xml or `setAlwaysShowHint(boolean alwaysShowHint)` to set whether the label is fixed at top when there's a hint in the EditText.
+
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:alwaysShowHint="true"
+    >
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/alwaysHint.png)
+
+#### 12. Dark Theme
 
 TextFieldBoxes use the color attributes within the current theme and will automatically change its color to fit the dark theme without additional settings.
 
@@ -378,6 +396,8 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | `app:enabled` | Whether the text field is enabled | `True` |
 | `app:hasClearButton` | Whether to show the clear button at the end of the EditText | `False` |
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
+| `app:alwaysShowHint` | Whether the label is fixed at top when there's a hint in the EditText | `False` |
+| `app:useDenseSpacing` | Whether the field uses a dense spacing between its elements | `False` |
 ​
 
 ## License

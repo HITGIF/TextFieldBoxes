@@ -131,13 +131,12 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean hasFocus;
 
     /**
-     * whether the EditText is always visible if there's a hint
-     * (instead of being blocked by the label). False by default.
+     * Whether the label is fixed at top when there's a hint. False by default.
      */
     protected boolean alwaysShowHint;
 
     /**
-     * whether the EditText uses a dense spacing between its elements.
+     * whether the field uses a dense spacing between its elements.
      * Usually useful in a multi-field form. False by default.
      */
     protected boolean useDenseSpacing;

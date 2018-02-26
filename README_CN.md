@@ -18,13 +18,13 @@
 ​
 ## ***更新注意***
 
+#### 1.4.0 Release
+- 支持 Dense Layout (紧凑布局)，使用 `app:useDenseSpacing` 属性以设置。
+- 当设置了 hint 时，标签可以一直被挂在顶部以显示 hint，使用 `app:alwaysShowHint` 属性以设置。
+
 #### 1.3.9 Release
 - 修复 #49。
 - 修复 #50 中的编译问题。
-
-#### 1.3.8 Release
-- 修复 #41。
-- 添加在 #43 中提到的 autocompletion 支持。 (`ExtendedEditText` 现在继承一个继承  `AppCompatAutoCompleteTextView` 的  `TextInputAutoCompleteTextView`).
 
 ​
 ## 要求
@@ -46,7 +46,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.3.9'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.0'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.3.9</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -72,7 +72,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.0"
 ```
 
 
@@ -81,7 +81,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.3.9"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.0"]]
 ```
 
 ​
@@ -97,12 +97,14 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
     android:id="@+id/text_field_boxes"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:labelText="Label">
+    app:labelText="Label"
+    >
 
     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
         android:id="@+id/extended_edit_text"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        />
 
 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 ...
@@ -119,7 +121,8 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.3.9"
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:enabled="false">
+    app:enabled="false"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
@@ -134,7 +137,8 @@ _**注意:** 将帮助或错误信息设置为任何**不为空**的字符将会
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:helperText="Helper is here">
+    app:helperText="Helper is here"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/helper.png)
@@ -163,7 +167,8 @@ _**！注意:** 前缀与后缀应在 `ExtendedEditText` 中设置。_
 ```xml
 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
     ...
-    app:prefix="$ ">
+    app:prefix="$ "
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/prefix.png)
@@ -172,7 +177,8 @@ _**！注意:** 前缀与后缀应在 `ExtendedEditText` 中设置。_
 ```xml
 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
     ...
-    app:suffix="\@gmail.com">
+    app:suffix="\@gmail.com"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
@@ -193,7 +199,8 @@ _**注意:** 设置最大或最小字符数将会使底部 View (包含了计数
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
     app:maxCharacters="10"
-    app:minCharacters="5">
+    app:minCharacters="5"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxMinChar.gif)
@@ -201,7 +208,8 @@ _**注意:** 设置最大或最小字符数将会使底部 View (包含了计数
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:maxCharacters="5">
+    app:maxCharacters="5"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
@@ -216,7 +224,8 @@ _**注意：如果值为 `true`，图标颜色将始终为 `HighlightColor` (与
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:iconSignifier="@drawable/ic_vpn_key_black_24dp">
+    app:iconSignifier="@drawable/ic_vpn_key_black_24dp"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
@@ -228,7 +237,8 @@ _**注意：如果值为 `true`，图标颜色将始终为 `HighlightColor` (与
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:endIcon="@drawable/ic_mic_black_24dp">
+    app:endIcon="@drawable/ic_mic_black_24dp"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/mic.png)
@@ -254,7 +264,8 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
     ...
-    app:hasClearButton="true">
+    app:hasClearButton="true"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
@@ -277,38 +288,45 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
     app:primaryColor="#1B5E20"
     app:errorColor="#ddaa00"
     app:helperTextColor="#795548"
-    app:panelBackgroundColor="#ffe8e8">
+    app:panelBackgroundColor="#ffe8e8"
+    >
 ```
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
-#### 10. 自定义 EditText
+#### 10. 紧凑布局
 
-**自 release 1.3.0 起**，可以直接自定义 TextFieldBoxes 中的 `ExtendedEditText`。
+你可以使用更小的元素纵向间距，让文本框的布局更加紧凑，以在某些情况下改善用户体验。
 
-```java
-final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
-final ExtendedEditText extendedEditText = findViewById(R.id.extended_edit_text);
-extendedEditText.addTextChangedListener(new TextWatcher() {
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/denseSpacing.png)
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-    }
+在 xml 中加入 `app:useDenseSpacing` 或在 Java 代码中使用 `setUseDenseSpacing(boolean useDenseSpacing)`，以设置是否使用更小的间距。
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-        if (editable.toString().equals("wrong"))
-            textFieldBoxes.setError("It's wrong");
-    }
-});
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:useDenseSpacing="true"
+    >
 ```
 
-![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/edittext.gif)
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/dense.png)
 
-#### 11. 暗主题
+#### 11. 不隐藏提示文本
+
+有些时候，你可能需要在顶部标签与提示 (Hint) 文本中显示不同的内容， 并且不希望提示文本在失去焦点时被标签盖住。
+
+你可以在 xml 中加入 `app:alwaysShowHint` 或在 Java 代码中使用 `setAlwaysShowHint(boolean alwaysShowHint)`，以设置当 EditText 中有提示文本时，是否将标签始终固定在顶部。
+
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:alwaysShowHint="true"
+    >
+```
+
+![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/alwaysHint.png)
+
+#### 12. 暗主题
 
 TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以适应暗主题而不需其他设置。
 
@@ -377,6 +395,8 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | `app:enabled` | 文本框是否启用 | `True` |
 | `app:hasClearButton` | 是否在文本域末端显示清除按钮 | `False` |
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
+| `app:alwaysShowHint` | 当 EditText 中有提示文本时，是否将标签始终固定在顶部 | `False` |
+| `app:useDenseSpacing` | 是否使用紧凑的布局 | `False` |
 
 ​
 ## 开源许可
