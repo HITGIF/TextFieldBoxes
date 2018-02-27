@@ -27,7 +27,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:27.0.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:27.0.1'
-//    compile 'com.github.HITGIF:TextFieldBoxes:1.4.0'
+//    compile 'com.github.HITGIF:TextFieldBoxes:1.4.1'
     compile project(':textfieldboxes')
     testCompile 'junit:junit:4.12'
 }

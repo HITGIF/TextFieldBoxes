@@ -20,13 +20,12 @@ A new Material Design text field that comes in a box, based on [Google Material 
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.4.1 Release
+- Ultimately fixed #49.
+
 #### 1.4.0 Release
 - Support Dense Layout (Dense Spacing) with `app:useDenseSpacing` attribute.
-- Label can be fixed at the top when hint is present, with `app:alwaysShowHint` attribute.
-
-#### 1.3.9 Release
-- Fix issue #49.
-- Fix the compiling issue in #50.
+- Label can be fixed at the top when hint is present, with `app:alwaysShowHint` attribute.\
 
 ​
 ## Requirements
@@ -48,7 +47,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.0'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.1'
 }
 ```
 
@@ -65,7 +64,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.0</version>
+    <version>1.4.1</version>
 </dependency>
 ```
 
@@ -74,7 +73,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.0"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.1"
 ```
 
 
@@ -83,7 +82,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.0"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.0"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.1"]]
 ```
 
 ​
