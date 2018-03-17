@@ -157,8 +157,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginEnd="@dimen/helper_marginEnd"
                 android:layout_marginRight="@dimen/helper_marginEnd"
-                android:layout_toLeftOf="@id/text_field_boxes_counter"
-                android:layout_toStartOf="@id/text_field_boxes_counter"
+                android:layout_toLeftOf="@+id/text_field_boxes_counter"
+                android:layout_toStartOf="@+id/text_field_boxes_counter"
                 android:textSize="@dimen/helper_text_size" />
 
             <android.support.v7.widget.AppCompatTextView
