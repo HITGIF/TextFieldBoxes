@@ -362,7 +362,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
         this.editText.setDropDownBackgroundDrawable(new ColorDrawable(DEFAULT_FG_COLOR));
-
+        this.editText.setMinimumWidth(10);
         this.inputLayout = this.findViewById(R.id.text_field_boxes_input_layout);
         this.floatingLabel = findViewById(R.id.text_field_boxes_label);
         this.panel = findViewById(R.id.text_field_boxes_panel);
