@@ -146,7 +146,6 @@ public class TextFieldBoxes extends FrameLayout {
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
-    protected boolean doNotRemoveError = false;
 
     protected View panel;
     protected View bottomLine;
@@ -445,10 +444,8 @@ public class TextFieldBoxes extends FrameLayout {
 
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
-                if (!doNotRemoveError) {
-                    removeError();
-                    updateCounterText();
-                }
+                removeError();
+                updateCounterText();
             }
         });
 
@@ -590,26 +587,9 @@ public class TextFieldBoxes extends FrameLayout {
 
     protected void makeCursorBlink() {
 
-        int cursorPos = this.editText.getSelectionStart();
-        if (cursorPos == 0)
-            if (this.editText.getText().toString().isEmpty()) {
-                if (this.onError) {
-                    this.doNotRemoveError = true;
-                    this.editText.setText(" ");
-                    this.editText.setText("");
-                    this.doNotRemoveError = false;
-                } else {
-                    this.editText.setText(" ");
-                    this.editText.setText("");
-                }
-            } else {
-                this.editText.setSelection(1);
-                this.editText.setSelection(0);
-            }
-        else {
-            this.editText.setSelection(0);
-            this.editText.setSelection(cursorPos);
-        }
+        CharSequence hintCache = this.editText.getHint();
+        this.editText.setHint(" ");
+        this.editText.setHint(hintCache);
     }
 
     /**
