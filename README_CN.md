@@ -18,12 +18,11 @@
 ​
 ## ***更新注意***
 
+#### 1.4.2 Release
+- 修复了 #59 #60 #61。
+
 #### 1.4.1 Release
 - 最终修复了 #49。
-
-#### 1.4.0 Release
-- 支持 Dense Layout (紧凑布局)，使用 `app:useDenseSpacing` 属性以设置。
-- 当设置了 hint 时，标签可以一直被挂在顶部以显示 hint，使用 `app:alwaysShowHint` 属性以设置。
 
 ​
 ## 要求
@@ -45,7 +44,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.1'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.2'
 }
 ```
 
@@ -62,7 +61,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -71,7 +70,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.1"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
 ```
 
 
@@ -80,7 +79,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.1"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.1"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.2"]]
 ```
 
 ​
