@@ -395,7 +395,8 @@ public class TextFieldBoxes extends FrameLayout {
         // Have to update useDenseSpacing then the dimensions before the first activation
         setUseDenseSpacing(this.useDenseSpacing);
         updateDimens(this.useDenseSpacing);
-        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
+        if (!this.editText.getText().toString().isEmpty() || this.hasFocus)
+            activate(false);
     }
 
     private void initOnClick() {
@@ -620,45 +621,40 @@ public class TextFieldBoxes extends FrameLayout {
     protected void updateDimens(boolean useDenseSpacing) {
 
         final Resources res = getContext().getResources();
-        if (useDenseSpacing) {
-            /* Floating Label */
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_label_idle_margin_top);
-            this.floatingLabel.setLayoutParams(lp);
 
-            /* EditText Layout */
-            this.editTextLayout.setPadding(
-                    0, res.getDimensionPixelOffset(R.dimen.dense_editTextLayout_padding_top),
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+        /* Floating Label */
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+        lp.topMargin = res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                        R.dimen.dense_label_idle_margin_top :
+                        R.dimen.label_idle_margin_top
+        );
+        this.floatingLabel.setLayoutParams(lp);
 
-            /* Bottom View */
-            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_bottom_marginTop);
-            this.bottomPart.setLayoutParams(lp);
+        /* EditText Layout */
+        this.editTextLayout.setPadding(
+                0, res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.dense_editTextLayout_padding_top :
+                                R.dimen.editTextLayout_padding_top
+                ),
+                0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
 
-            /* EditText */
-            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.dense_edittext_text_size));
+        /* Bottom View */
+        lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
+        lp.topMargin = res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                        R.dimen.dense_bottom_marginTop :
+                        R.dimen.bottom_marginTop
+        );
+        this.bottomPart.setLayoutParams(lp);
 
-        } else {
-
-            /* Floating Label */
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.label_idle_margin_top);
-            this.floatingLabel.setLayoutParams(lp);
-
-            /* EditText Layout */
-            this.editTextLayout.setPadding(
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_top),
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
-
-            /* Bottom View */
-            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.bottom_marginTop);
-            this.bottomPart.setLayoutParams(lp);
-
-            /* EditText */
-            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.edittext_text_size));
-        }
+        /* EditText */
+        this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(
+                useDenseSpacing ?
+                        R.dimen.dense_edittext_text_size :
+                        R.dimen.edittext_text_size
+        ));
 
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
