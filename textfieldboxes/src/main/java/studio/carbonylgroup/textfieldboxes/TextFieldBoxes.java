@@ -165,6 +165,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatImageButton endIconImageButton;
     protected InputMethodManager inputMethodManager;
 
+    protected SimpleTextChangedWatcher textChangeListener;
+
     public TextFieldBoxes(Context context) {
 
         super(context);
@@ -434,19 +436,23 @@ public class TextFieldBoxes extends FrameLayout {
         this.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
                 removeError();
                 updateCounterText();
+                if (textChangeListener != null) {
+                    textChangeListener.onTextChanged(editable.toString(), onError);
+                }
             }
         });
 
@@ -507,6 +513,10 @@ public class TextFieldBoxes extends FrameLayout {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSimpleTextChangeWatcher(SimpleTextChangedWatcher textChangeListener) {
+        this.textChangeListener = textChangeListener;
     }
 
     /**
@@ -765,7 +775,6 @@ public class TextFieldBoxes extends FrameLayout {
      * @param giveFocus whether the field will gain focus when set error on
      */
     public void setError(String errorText, boolean giveFocus) {
-
         if (this.enabled) {
             this.onError = true;
             activate(true);
