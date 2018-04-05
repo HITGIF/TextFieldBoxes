@@ -27,4 +27,3 @@ dependencies {
     compile 'com.android.support:design:27.0.1'
     testCompile 'junit:junit:4.12'
 }
-
