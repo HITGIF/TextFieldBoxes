@@ -3,9 +3,8 @@ package studio.carbonylgroup.textfieldboxestest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,6 +45,15 @@ public class MainActivity extends AppCompatActivity {
                         .getLaunchIntentForPackage(getBaseContext().getPackageName());
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
+            }
+        });
+
+        final Button errorButton = findViewById(R.id.error_button);
+        final TextFieldBoxes errorField = findViewById(R.id.text_field_boxes5);
+        errorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                errorField.setError("Invalid coupon code.", false);
             }
         });
     }

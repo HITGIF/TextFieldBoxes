@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbarStyle="outsideOverlay"
-    tools:context=".MainActivity">
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbarStyle="outsideOverlay"
+            tools:context=".MainActivity">
 
     <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
@@ -65,7 +65,7 @@
                 android:imeOptions="actionNext"
                 android:inputType="text"
                 android:maxLines="1"
-                android:text="@string/title" />
+                android:text="@string/title"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -93,7 +93,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:text="@string/price"
-                    app:prefix="$ " />
+                    app:prefix="$ "/>
 
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -121,7 +121,7 @@
                     android:inputType="text"
                     android:maxLines="1"
                     android:popupElevation="5dp"
-                    android:text="" />
+                    android:text=""/>
 
             </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -140,7 +140,7 @@
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/description" />
+                android:text="@string/description"/>
 
         </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
@@ -149,7 +149,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/dark_side" />
+            android:text="@string/dark_side"/>
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/text_field_boxes5"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:labelText="Coupon Code">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:maxLines="1"
+                android:text="@string/coupon_code"/>
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+        <Button
+            android:id="@+id/error_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/test_error"/>
 
     </LinearLayout>
 

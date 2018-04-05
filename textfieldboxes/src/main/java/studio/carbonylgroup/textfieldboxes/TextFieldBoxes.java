@@ -781,6 +781,7 @@ public class TextFieldBoxes extends FrameLayout {
             setHighlightColor(this.errorColor);
             this.helperLabel.setTextColor(this.errorColor);
             this.helperLabel.setText(errorText);
+            updateBottomViewVisibility();
             if (giveFocus) setHasFocus(true);
             makeCursorBlink();
         }
@@ -800,6 +801,7 @@ public class TextFieldBoxes extends FrameLayout {
         else setHighlightColor(this.secondaryColor);
         this.helperLabel.setTextColor(this.helperTextColor);
         this.helperLabel.setText(this.helperText);
+        updateBottomViewVisibility();
     }
 
     protected void showClearButton(boolean show) {
