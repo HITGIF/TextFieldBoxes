@@ -15,10 +15,12 @@ import studio.carbonylgroup.textfieldboxes.TextFieldBoxes;
 
 public class MainActivity extends AppCompatActivity {
 
+    private SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        final SharedPreferences sharedPreferences = this.getSharedPreferences("theme", Context.MODE_PRIVATE);
+        sharedPreferences = this.getSharedPreferences("theme", Context.MODE_PRIVATE);
         final boolean dark = sharedPreferences.getBoolean("dark", false);
         setTheme(dark ? R.style.AppThemeDark : R.style.AppTheme);
 
@@ -34,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
         t.setThreshold(1);
         t.setAdapter(adapter);
 
+        setupDarkThemeButton(dark);
+        setupErrorButton();
+    }
+
+    private void setupDarkThemeButton(final boolean dark) {
+
         final Button darkButton = findViewById(R.id.dark_button);
 
         darkButton.setText(dark ? "LIGHT SIDE" : "DARK SIDE");
@@ -47,7 +55,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
 
+    private void setupErrorButton(){
         final Button errorButton = findViewById(R.id.error_button);
         final TextFieldBoxes errorField = findViewById(R.id.text_field_boxes5);
         errorButton.setOnClickListener(new View.OnClickListener() {
@@ -57,4 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }
