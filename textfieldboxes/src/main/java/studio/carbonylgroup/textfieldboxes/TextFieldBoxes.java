@@ -728,16 +728,11 @@ public class TextFieldBoxes extends FrameLayout {
         int length = this.editText.getText().toString() .replaceAll(" ", "")
                                                         .replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
-
+        String counterLabelResourceStr = getResources().getString(R.string.counter_label_text_constructor);
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.minCharacters),
-                        "-",
-                        Integer.toString(this.maxCharacters)));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
                 if (performValidation) {
                     if (length < this.minCharacters || length > this.maxCharacters) {
                         setCounterError();
@@ -747,11 +742,7 @@ public class TextFieldBoxes extends FrameLayout {
                 }
             } else {
                 /* MAX ONLY */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.maxCharacters),
-                        "", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.maxCharacters), "", ""));
                 if (performValidation) {
                     if (length > this.maxCharacters) {
                         setCounterError();
@@ -763,11 +754,7 @@ public class TextFieldBoxes extends FrameLayout {
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.minCharacters),
-                        "+", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "+", ""));
                 if (performValidation) {
                     if (length < this.minCharacters) {
                         setCounterError();
