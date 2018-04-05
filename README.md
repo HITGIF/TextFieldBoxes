@@ -293,6 +293,22 @@ If `true`, a clear button will be shown at the end when there are characters (**
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
+*Ripple Color* will be used for the ripple effect when the view is clicked. You can customize it in your `styles.xml` by adding the following:
+
+```xml
+<style name="TextFieldBoxes">
+    <item name="android:colorControlHighlight" tools:targetApi="lollipop">YOUR_COLOR</item>
+</style>
+```
+
+then set this as the theme for your TextFieldBoxes:
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    android:theme="@style/TextFieldBoxes"
+    >
+```
+
 #### 10. Dense Spacing
 
 You can make the layout compact by using a dense verticle spacing to improve user experience in some cases.
