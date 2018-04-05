@@ -165,6 +165,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatImageButton endIconImageButton;
     protected InputMethodManager inputMethodManager;
 
+    protected SimpleTextChangedWatcher textChangeListener;
+
     public TextFieldBoxes(Context context) {
 
         super(context);
@@ -395,7 +397,8 @@ public class TextFieldBoxes extends FrameLayout {
         // Have to update useDenseSpacing then the dimensions before the first activation
         setUseDenseSpacing(this.useDenseSpacing);
         updateDimens(this.useDenseSpacing);
-        if (!this.editText.getText().toString().isEmpty() || this.hasFocus) activate(false);
+        if (!this.editText.getText().toString().isEmpty() || this.hasFocus)
+            activate(false);
     }
 
     private void initOnClick() {
@@ -433,19 +436,23 @@ public class TextFieldBoxes extends FrameLayout {
         this.editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //do nothing
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
                 removeError();
                 updateCounterText();
+                if (textChangeListener != null) {
+                    textChangeListener.onTextChanged(editable.toString(), onError);
+                }
             }
         });
 
@@ -506,6 +513,10 @@ public class TextFieldBoxes extends FrameLayout {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void setSimpleTextChangeWatcher(SimpleTextChangedWatcher textChangeListener) {
+        this.textChangeListener = textChangeListener;
     }
 
     /**
@@ -620,45 +631,40 @@ public class TextFieldBoxes extends FrameLayout {
     protected void updateDimens(boolean useDenseSpacing) {
 
         final Resources res = getContext().getResources();
-        if (useDenseSpacing) {
-            /* Floating Label */
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_label_idle_margin_top);
-            this.floatingLabel.setLayoutParams(lp);
 
-            /* EditText Layout */
-            this.editTextLayout.setPadding(
-                    0, res.getDimensionPixelOffset(R.dimen.dense_editTextLayout_padding_top),
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+        /* Floating Label */
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+        lp.topMargin = res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                        R.dimen.dense_label_idle_margin_top :
+                        R.dimen.label_idle_margin_top
+        );
+        this.floatingLabel.setLayoutParams(lp);
 
-            /* Bottom View */
-            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.dense_bottom_marginTop);
-            this.bottomPart.setLayoutParams(lp);
+        /* EditText Layout */
+        this.editTextLayout.setPadding(
+                0, res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.dense_editTextLayout_padding_top :
+                                R.dimen.editTextLayout_padding_top
+                ),
+                0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
 
-            /* EditText */
-            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.dense_edittext_text_size));
+        /* Bottom View */
+        lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
+        lp.topMargin = res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                        R.dimen.dense_bottom_marginTop :
+                        R.dimen.bottom_marginTop
+        );
+        this.bottomPart.setLayoutParams(lp);
 
-        } else {
-
-            /* Floating Label */
-            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.label_idle_margin_top);
-            this.floatingLabel.setLayoutParams(lp);
-
-            /* EditText Layout */
-            this.editTextLayout.setPadding(
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_top),
-                    0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
-
-            /* Bottom View */
-            lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
-            lp.topMargin = res.getDimensionPixelOffset(R.dimen.bottom_marginTop);
-            this.bottomPart.setLayoutParams(lp);
-
-            /* EditText */
-            this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(R.dimen.edittext_text_size));
-        }
+        /* EditText */
+        this.editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, res.getDimension(
+                useDenseSpacing ?
+                        R.dimen.dense_edittext_text_size :
+                        R.dimen.edittext_text_size
+        ));
 
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
@@ -769,7 +775,6 @@ public class TextFieldBoxes extends FrameLayout {
      * @param giveFocus whether the field will gain focus when set error on
      */
     public void setError(String errorText, boolean giveFocus) {
-
         if (this.enabled) {
             this.onError = true;
             activate(true);
