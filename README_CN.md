@@ -292,6 +292,23 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor1.png) ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/customColor2.png)
 
+*Ripple Color* 是当 View 被点击时波纹效果的颜色。 在 `styles.xml` 中加入以下代码：
+
+```xml
+<style name="TextFieldBoxes">
+    <item name="android:colorControlHighlight" tools:targetApi="lollipop">YOUR_COLOR</item>
+</style>
+```
+
+然后将此设为你 TextFieldBoxes 的 Theme：
+
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    android:theme="@style/TextFieldBoxes"
+    >
+```
+
 #### 10. 紧凑布局
 
 你可以使用更小的元素纵向间距，让文本框的布局更加紧凑，以在某些情况下改善用户体验。
