@@ -18,11 +18,13 @@
 ​
 ## ***更新注意***
 
+#### 1.4.3 Release
+- 增加 [`setSimpleTextChangeWatcher()`](#watcher) 以便更好地监听文字输入 (#69)。
+- 增加 [`app:manualValidateError`](#validate) 属性以手动刷新错误状态 (#70)。
+- Bug 修复 (#71)。
+
 #### 1.4.2 Release
 - 修复了 #59 #60 #61。
-
-#### 1.4.1 Release
-- 最终修复了 #49。
 
 ​
 ## 要求
@@ -44,7 +46,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.2'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.3'
 }
 ```
 
@@ -61,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
 </dependency>
 ```
 
@@ -70,7 +72,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
 ```
 
 
@@ -79,12 +81,29 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.2"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.3"]]
 ```
 
 ​
 ## 使用
 
+#### 目录
+1. [基础](#basic)
+2. [启用 / 禁用](#enable)
+3. [帮助和错误信息](#helper)
+4. [前缀 & 后缀](#prefix)
+5. [最大和最小字符数](#max)
+6. [首图标](#icon)
+7. [末图标](#end)
+8. [清除按钮](#clear)
+9. [自定义颜色](#color)
+10. [紧凑布局](#dense)
+11. [不隐藏提示文本](#hint)
+12. [监听文字输入](#watcher)
+13. [暗主题](#dark)
+14. [手动刷新错误状态](#validate)
+
+<a name="basic"/>
 #### 1. 基础
 
 将包含`studio.carbonylgroup.textfieldboxes.ExtendedEditText` 的 `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` 加入你的布局文件:
@@ -112,6 +131,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
+<a name="enable"/>
 #### 2. 启用 / 禁用
 
 在 xml 中加入 `app:enabled` 或在 Java 代码中使用 `setEnabled(boolean enabled)`。
@@ -125,6 +145,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
+<a name="helper"/>
 #### 3. 帮助和错误信息
 
 _**注意:** 将帮助或错误信息设置为任何**不为空**的字符将会使底部 View (包含了帮助标签) 可见并增加 TextFieldBoxes 的高度。所以如果你想让底部 View 始终可见 (保持增加后的高度)，则可在帮助标签应为空时将其设为 `" "` 。_
@@ -154,6 +175,7 @@ setError("Error message");
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
+<a name="prefix"/>
 #### 4. 前缀 & 后缀
 
 _**！注意:** 前缀与后缀应在 `ExtendedEditText` 中设置。_
@@ -181,6 +203,7 @@ _**！注意:** 前缀与后缀应在 `ExtendedEditText` 中设置。_
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
 
+<a name="max"/>
 #### 5. 最大和最小字符数
 
 _**注意:** 设置最大或最小字符数将会使底部 View (包含了计数标签) 可见并增加 TextFieldBoxes 的高度。_
@@ -212,6 +235,7 @@ _**注意:** 设置最大或最小字符数将会使底部 View (包含了计数
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
+<a name="icon"/>
 #### 6. 首图标
 
 在 xml 中加入 `app:iconSignifier` 或在 Java 代码中使用 `setIconSignifier(Int resourceID)` 以设置 TextFieldBoxes 前边的图标（如果你想要有）。
@@ -228,6 +252,7 @@ _**注意：如果值为 `true`，图标颜色将始终为 `HighlightColor` (与
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
+<a name="end"/>
 #### 7. 末图标
 
 在 xml 中使用 `app:endIcon` 或在 Java 代码中使用 `setEndIcon(Int resourceID)` 以设置文本域末端的 ImageButton 的图标（如果你想要有）。
@@ -253,6 +278,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 });
 ```
 
+<a name="clear"/>
 #### 8. 清除按钮
 
 在 xml 中使用 `app:hasClearButton` 或在 Java 代码中使用 `setHasClearButton(boolean hasClearButton)` 以设置是否显示清除按钮。
@@ -268,6 +294,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
 
+<a name="color"/>
 #### 9. 自定义颜色
 
 *Primary Color* 是底部的线、标签文字和首图标在**获得焦点**时的颜色。在 xml 中加入 `app:primaryColor` 或在 Java 代码中使用 `setPrimaryColor(int colorRes)` 以设置。默认值为目前主题的 `Primary Color`。
@@ -309,6 +336,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
     >
 ```
 
+<a name="dense"/>
 #### 10. 紧凑布局
 
 你可以使用更小的元素纵向间距，让文本框的布局更加紧凑，以在某些情况下改善用户体验。
@@ -326,6 +354,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/dense.png)
 
+<a name="hint"/>
 #### 11. 不隐藏提示文本
 
 有些时候，你可能需要在顶部标签与提示 (Hint) 文本中显示不同的内容， 并且不希望提示文本在失去焦点时被标签盖住。
@@ -341,7 +370,29 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/alwaysHint.png)
 
-#### 12. 暗主题
+<a name="watcher"/>
+#### 12. 监听文字输入
+
+强烈建议使用 `setSimpleTextChangeWatcher()` 来监听文字输入，而不是 `addTextChangedListener()`。
+
+这有以下好处：
+1. 不需要时，可以不用实现 `beforeTextChanged()` and `onTextChanged()` 方法。
+2. 保证你的代码在默认进程结束（去除错误状态，更新计数文本等）后执行，从而避免可能的无法预料的问题。
+3. 不需要在视图回收后手动调用移除函数。
+
+比如：
+```java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+textFieldBoxes.setSimpleTextChangeWatcher(new SimpleTextChangedWatcher() {
+    @Override
+    public void onTextChanged(String theNewText, boolean isError) {
+        // What you want to do when text changes
+    }
+});
+```
+
+<a name="dark"/>
+#### 13. 暗主题
 
 TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以适应暗主题而不需其他设置。
 
@@ -349,6 +400,25 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/darkTheme.gif)
 
+
+<a name="validate"/>
+#### 14. 手动刷新错误状态
+
+默认情况下，文本框的错误状态将在初始化和文本变化时更新。这将导致在设置了最小字符限制时，文本框将在初始化时处于错误状态。
+
+将 `app:manualValidateError` 设置为 `true`，将使错误状态只在调用 `validateError()` 时刷新。
+
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:manualValidateError="true"
+    >
+```
+```Java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+// 错误状态只在调用这个时刷新
+textFieldBoxes.validateError()
+```
 ​
 ## 全部属性
 
@@ -412,6 +482,7 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
 | `app:alwaysShowHint` | 当 EditText 中有提示文本时，是否将标签始终固定在顶部 | `False` |
 | `app:useDenseSpacing` | 是否使用紧凑的布局 | `False` |
+| `app:manualValidateError` | 错误状态是否只在调用 `validateError()` 时刷新 | `False` |
 
 ​
 ## 开源许可

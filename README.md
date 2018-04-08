@@ -20,11 +20,13 @@ A new Material Design text field that comes in a box, based on [Google Material 
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.4.3 Release
+- Add [`setSimpleTextChangeWatcher()`](#watcher) as a better way to listen the input (#69).
+- Add [`app:manualValidateError`](#validate) attribute to manually control error state validation (#70).
+- Bug fix (#71).
+
 #### 1.4.2 Release
 - Fixed #59 #60 #61.
-
-#### 1.4.1 Release
-- Ultimately fixed #49.
 
 ​
 ## Requirements
@@ -46,7 +48,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.2'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.3'
 }
 ```
 
@@ -63,7 +65,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.2</version>
+    <version>1.4.3</version>
 </dependency>
 ```
 
@@ -72,7 +74,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
 ```
 
 
@@ -81,12 +83,29 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.2"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.2"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.3"]]
 ```
 
 ​
 ## Usage
 
+#### Table of Contents
+1. [Basic](#basic)
+2. [Enable / Disable](#enable)
+3. [Helper Text & Error Text](#helper)
+4. [Prefix & Suffix](#prefix)
+5. [Max & Min Characters](#max)
+6. [Icon Signifier](#icon)
+7. [End Icon](#end)
+8. [Clear Button](#clear)
+9. [Custom Colors](#color)
+10. [Dense Spacing](#dense)
+11. [Always Show Hint](#hint)
+12. [Text Change Watcher](#watcher)
+13. [Dark Theme](#dark)
+14. [Manual Validate Error](#validate)
+
+<a name="basic"/>
 #### 1. Basic
 
 Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio.carbonylgroup.textfieldboxes.ExtendedEditText` to your layout:
@@ -114,6 +133,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
+<a name="enable"/>
 #### 2. Enable / Disable
 
 `app:enabled` in xml or `setEnabled(boolean enabled)` in Java.
@@ -127,7 +147,8 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
-#### 3. Helper Text and Error Text
+<a name="helper"/>
+#### 3. Helper Text & Error Text
 
 _**NOTE:** setting helper or error text to anything **not empty** will make the bottom view (which contains the helper label) visible and increase the height of the TextFieldBoxes. So if you want to always keep the bottom view visible (height increased), set the helper text to `" "` when there should be nothing._
 
@@ -155,6 +176,7 @@ setError("Error message");
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
+<a name="prefix"/>
 #### 4. Prefix & Suffix
 
 _**! NOTE:** Prifix and Suffix attributes should be set to `ExtendedEditText`._
@@ -182,6 +204,7 @@ Use `app:suffix` in xml or `setSuffix(String suffix)` in Java to set the unselec
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
 
+<a name="max"/>
 #### 5. Max & Min Characters
 
 _**NOTE:** setting max or min character will make the bottom view (which contains the counter label) visible and increase the height of the TextFieldBoxes._
@@ -213,6 +236,7 @@ The color of the bottom line will turn to `errorColor` (red by default) when exc
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
+<a name="icon"/>
 #### 6. Icon Signifier
 
 Use `app:iconSignifier` in xml or `setIconSignifier(Int resourceID)` to set the icon that is shown in front of the TextFieldBoxes if you want there to be one.
@@ -229,6 +253,7 @@ _**NOTE that if `true`, the icon's color will always be `HighlightColor` (the sa
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
+<a name="end"/>
 #### 7. End Icon
 
 Use `app:endIcon` in xml or `setEndIcon(Int resourceID)` to set the icon of the ImageButton that is shown at the end of the field if you want there to be one.
@@ -254,6 +279,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 });
 ```
 
+<a name="clear"/>
 #### 8. Clear Button
 
 Use `app:hasClearButton` in xml or `setHasClearButton(boolean hasClearButton)` to set whether to show the clear button.
@@ -269,6 +295,7 @@ If `true`, a clear button will be shown at the end when there are characters (**
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
 
+<a name="color"/>
 #### 9. Custom Colors
 
 *Primary Color* will be used for the color of the underline, the floating label text and the icon signifier **when HAVING focus**. You can use `app:primaryColor` in xml or `setPrimaryColor(int colorRes)` in Java. Current theme `Primary Color` by default.
@@ -309,6 +336,7 @@ then set this as the theme for your TextFieldBoxes:
     >
 ```
 
+<a name="dense"/>
 #### 10. Dense Spacing
 
 You can make the layout compact by using a dense verticle spacing to improve user experience in some cases.
@@ -326,6 +354,7 @@ Use `app:useDenseSpacing` in xml or `setUseDenseSpacing(boolean useDenseSpacing)
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/dense.png)
 
+<a name="hint"/>
 #### 11. Always Show Hint
 
 Sometimes you may want the label and the hint to show different messages, but need the hint to always be shown (instead being blocked by the label when losing focus).
@@ -341,7 +370,29 @@ Use `app:alwaysShowHint` in xml or `setAlwaysShowHint(boolean alwaysShowHint)` t
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/alwaysHint.png)
 
-#### 12. Dark Theme
+<a name="watcher"/>
+#### 12. Text Change Watcher
+
+It is strongly recommanded to use `setSimpleTextChangeWatcher()` to listen the event of changing text instead of `addTextChangedListener()`.
+
+This has the following advantages:
+1. You don't need to implement `beforeTextChanged()` and `onTextChanged()` method when unnecessary.
+2. Avoids potential unexpected behavior, by guaranteeing your code to run after the default processes (remove error, update counter text, etc.) are finished.
+3. When the view is recycled, no manual remove call is needed.
+
+e.g.
+```java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+textFieldBoxes.setSimpleTextChangeWatcher(new SimpleTextChangedWatcher() {
+    @Override
+    public void onTextChanged(String theNewText, boolean isError) {
+        // What you want to do when text changes
+    }
+});
+```
+
+<a name="dark"/>
+#### 13. Dark Theme
 
 TextFieldBoxes use the color attributes within the current theme and will automatically change its color to fit the dark theme without additional settings.
 
@@ -349,6 +400,24 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/darkTheme.gif)
 
+<a name="validate"/>
+#### 14. Manual Validate Error
+
+By default, the error state of the field is validated each time the text changes and also at time of construction. This means a field with a minimum length requirement will start in the Error state.
+
+Setting `app:manualValidateError` to `true` will make the field validate error only when `validateError()` is called.
+
+```xml
+<studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+    ...
+    app:manualValidateError="true"
+    >
+```
+```Java
+final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
+// The error state will only be updated when this is called
+textFieldBoxes.validateError()
+```
 ​
 ## All Attributes
 
@@ -412,6 +481,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
 | `app:alwaysShowHint` | Whether the label is fixed at top when there's a hint in the EditText | `False` |
 | `app:useDenseSpacing` | Whether the field uses a dense spacing between its elements | `False` |
+| `app:manualValidateError` | Whether to validate error state only when `validateError()` is called | `False` |
 ​
 
 ## License
