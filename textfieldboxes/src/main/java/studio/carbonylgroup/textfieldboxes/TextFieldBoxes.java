@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.Space;
@@ -146,6 +147,10 @@ public class TextFieldBoxes extends FrameLayout {
     protected int ANIMATION_DURATION = 100;
     protected boolean onError = false;
     protected boolean activated = false;
+    /**
+     * See {@link #setManualValidateError(boolean)}
+     */
+    protected boolean isManualValidateError = false;
 
     protected View panel;
     protected View bottomLine;
@@ -181,14 +186,12 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     public TextFieldBoxes(Context context, AttributeSet attrs, int defStyleAttr) {
-
         super(context, attrs, defStyleAttr);
         init();
         handleAttributes(context, attrs);
     }
 
     protected void init() {
-
         initDefaultColor();
         inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
     }
@@ -448,8 +451,11 @@ public class TextFieldBoxes extends FrameLayout {
             public void afterTextChanged(Editable editable) {
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
-                removeError();
-                updateCounterText();
+                if (isManualValidateError) {
+                    updateCounterText(false);
+                } else {
+                    validateError(); //this will call updateCounterText(true);
+                }
                 if (textChangeListener != null) {
                     textChangeListener.onTextChanged(editable.toString(), onError);
                 }
@@ -495,6 +501,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
 
             /* Others */
+            this.isManualValidateError = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_manualValidateError, false);
             this.enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
@@ -625,6 +632,29 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     /**
+     * By default the field is validated each time a key is pressed and at construction,
+     * this means a field with a minimum length requirement will start in Error state.
+     * Set this value to true to validateError only when {@link #validateError()} is called.
+     * @param isManualValidateError the new value
+     */
+    protected void setManualValidateError(boolean isManualValidateError) {
+        this.isManualValidateError = isManualValidateError;
+    }
+
+    /**
+     * Update the onError state of this component
+     * @return true if valid (the inverse value of onError)
+     */
+    public boolean validateError() {
+        removeError();
+        updateCounterText(true);
+        if (onError) {
+            setError(null, false);
+        }
+        return !onError;
+    }
+
+    /**
      * check if the TextFieldBox should use a dense spacing,
      * then change the layout dimens accordingly
      */
@@ -674,59 +704,72 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * check if the character count meets the upper or lower limits,
      * <p>
-     * if exceeds limit, setCounterError()
+     * if performValidation and exceeds limit, setCounterError()
      * otherwise removeCounterError()
      * <p>
+     * <p>
+     * @param performValidation - true if error state should be applied or removed by this calls
+     * See {@link #setManualValidateError(boolean)}
+     * </p>
      * <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
      */
-    protected void updateCounterText() {
+    protected void updateCounterText(boolean performValidation) {
 
         /* Show clear button if there is anything */
-        if (hasClearButton)
-            if (this.editText.getText().toString().length() == 0) showClearButton(false);
-            else showClearButton(true);
+        if (hasClearButton) {
+            if (this.editText.getText().toString().length() == 0) {
+                showClearButton(false);
+            } else {
+                showClearButton(true);
+            }
+        }
 
         /* Don't Count Space & Line Feed */
-        int length = this.editText.getText().toString()
-                .replaceAll(" ", "").replaceAll("\n", "").length();
+        int length = this.editText.getText().toString() .replaceAll(" ", "")
+                                                        .replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
-
+        String counterLabelResourceStr = getResources().getString(R.string.counter_label_text_constructor);
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.minCharacters),
-                        "-",
-                        Integer.toString(this.maxCharacters)));
-                if (length < this.minCharacters || length > this.maxCharacters) setCounterError();
-                else removeCounterError();
-
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
+                if (performValidation) {
+                    if (length < this.minCharacters || length > this.maxCharacters) {
+                        setCounterError();
+                    } else {
+                        removeCounterError();
+                    }
+                }
             } else {
                 /* MAX ONLY */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.maxCharacters),
-                        "", ""));
-                if (length > this.maxCharacters) setCounterError();
-                else removeCounterError();
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.maxCharacters), "", ""));
+                if (performValidation) {
+                    if (length > this.maxCharacters) {
+                        setCounterError();
+                    } else {
+                        removeCounterError();
+                    }
+                }
             }
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                this.counterLabel.setText(String.format(
-                        getResources().getString(R.string.counter_label_text_constructor),
-                        lengthStr,
-                        Integer.toString(this.minCharacters),
-                        "+", ""));
-                if (length < this.minCharacters) setCounterError();
-                else removeCounterError();
-
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.minCharacters), "+", ""));
+                if (performValidation) {
+                    if (length < this.minCharacters) {
+                        setCounterError();
+                    } else {
+                        removeCounterError();
+                    }
+                }
             } else {
                 this.counterLabel.setText("");
-                removeCounterError();
+                if (performValidation) {
+                    removeCounterError();
+                }
             }
         }
     }
@@ -748,7 +791,6 @@ public class TextFieldBoxes extends FrameLayout {
      * set highlight color and counter Label text color to error color
      */
     protected void setCounterError() {
-
         this.onError = true;
         setHighlightColor(this.errorColor);
         this.counterLabel.setTextColor(this.errorColor);
@@ -760,7 +802,6 @@ public class TextFieldBoxes extends FrameLayout {
      * set counterLabel Label text color to DEFAULT_TEXT_COLOR
      */
     protected void removeCounterError() {
-
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.secondaryColor);
@@ -771,17 +812,19 @@ public class TextFieldBoxes extends FrameLayout {
      * set highlight color and helperLabel Label text color to errorColor
      * set helperLabel Label text to error message
      *
-     * @param errorText error message
+     * @param errorText optional error message
      * @param giveFocus whether the field will gain focus when set error on
      */
-    public void setError(String errorText, boolean giveFocus) {
+    public void setError(@Nullable String errorText, boolean giveFocus) {
         if (this.enabled) {
             this.onError = true;
             activate(true);
             setHighlightColor(this.errorColor);
             this.helperLabel.setTextColor(this.errorColor);
-            this.helperLabel.setText(errorText);
-            updateBottomViewVisibility();
+            if (errorText != null) {
+                this.helperLabel.setText(errorText);
+                updateBottomViewVisibility();
+            }
             if (giveFocus) setHasFocus(true);
             makeCursorBlink();
         }
@@ -792,10 +835,10 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise set to secondaryColor
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
-     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES</i>
+     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
+     * UNLESS YOU {@link #setManualValidateError(boolean)} TO TRUE</i>
      */
     public void removeError() {
-
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.secondaryColor);
@@ -836,7 +879,7 @@ public class TextFieldBoxes extends FrameLayout {
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         setAlwaysShowHint(this.alwaysShowHint);
-        updateCounterText();
+        updateCounterText(!isManualValidateError);
         updateBottomViewVisibility();
     }
 
@@ -904,33 +947,29 @@ public class TextFieldBoxes extends FrameLayout {
 
     /* Characters Counter Setters */
     public void setMaxCharacters(int maxCharacters) {
-
         this.maxCharacters = maxCharacters;
-        updateCounterText();
+        updateCounterText(!isManualValidateError);
     }
 
     /**
      * remove the max character count limit by setting it to 0
      */
     public void removeMaxCharacters() {
-
         this.maxCharacters = 0;
-        updateCounterText();
+        updateCounterText(!isManualValidateError);
     }
 
     public void setMinCharacters(int minCharacters) {
-
         this.minCharacters = minCharacters;
-        updateCounterText();
+        updateCounterText(!isManualValidateError);
     }
 
     /**
      * remove the min character count limit by setting it to 0
      */
     public void removeMinCharacters() {
-
         this.minCharacters = 0;
-        updateCounterText();
+        updateCounterText(!isManualValidateError);
     }
 
     /* Other Setters */
@@ -948,7 +987,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.iconImageButton.setEnabled(true);
             this.iconImageButton.setClickable(true);
             setHighlightColor(secondaryColor);
-            updateCounterText();
+            updateCounterText(!isManualValidateError);
 
         } else {
             removeError();
