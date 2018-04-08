@@ -732,7 +732,8 @@ public class TextFieldBoxes extends FrameLayout {
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
                 if (performValidation) {
                     if (length < this.minCharacters || length > this.maxCharacters) {
                         setCounterError();
@@ -742,7 +743,8 @@ public class TextFieldBoxes extends FrameLayout {
                 }
             } else {
                 /* MAX ONLY */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.maxCharacters), "", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.maxCharacters), "", ""));
                 if (performValidation) {
                     if (length > this.maxCharacters) {
                         setCounterError();
@@ -754,7 +756,8 @@ public class TextFieldBoxes extends FrameLayout {
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "+", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
+                        Integer.toString(this.minCharacters), "+", ""));
                 if (performValidation) {
                     if (length < this.minCharacters) {
                         setCounterError();
@@ -831,7 +834,8 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise set to secondaryColor
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
-     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES UNLESS YOU {@link #setManualValidate(boolean)} TO TRUE</i>
+     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
+     * UNLESS YOU {@link #setManualValidate(boolean)} TO TRUE</i>
      */
     public void removeError() {
         this.onError = false;
