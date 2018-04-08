@@ -148,9 +148,9 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean onError = false;
     protected boolean activated = false;
     /**
-     * See {@link #setManualValidate(boolean)}
+     * See {@link #setManualValidateError(boolean)}
      */
-    protected boolean isManualValidate = false;
+    protected boolean isManualValidateError = false;
 
     protected View panel;
     protected View bottomLine;
@@ -451,10 +451,10 @@ public class TextFieldBoxes extends FrameLayout {
             public void afterTextChanged(Editable editable) {
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
-                if (isManualValidate) {
+                if (isManualValidateError) {
                     updateCounterText(false);
                 } else {
-                    validate(); //this will call updateCounterText(true);
+                    validateError(); //this will call updateCounterText(true);
                 }
                 if (textChangeListener != null) {
                     textChangeListener.onTextChanged(editable.toString(), onError);
@@ -501,7 +501,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
 
             /* Others */
-            this.isManualValidate = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_manualValidate, false);
+            this.isManualValidateError = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_manualValidateError, false);
             this.enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
@@ -634,18 +634,18 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * By default the field is validated each time a key is pressed and at construction,
      * this means a field with a minimum length requirement will start in Error state.
-     * Set this value to true to validate only when {@link #validate()} is called.
-     * @param isManualValidate the new value
+     * Set this value to true to validateError only when {@link #validateError()} is called.
+     * @param isManualValidateError the new value
      */
-    protected void setManualValidate(boolean isManualValidate) {
-        this.isManualValidate = isManualValidate;
+    protected void setManualValidateError(boolean isManualValidateError) {
+        this.isManualValidateError = isManualValidateError;
     }
 
     /**
      * Update the onError state of this component
      * @return true if valid (the inverse value of onError)
      */
-    public boolean validate() {
+    public boolean validateError() {
         removeError();
         updateCounterText(true);
         if (onError) {
@@ -709,7 +709,7 @@ public class TextFieldBoxes extends FrameLayout {
      * <p>
      * <p>
      * @param performValidation - true if error state should be applied or removed by this calls
-     * See {@link #setManualValidate(boolean)}
+     * See {@link #setManualValidateError(boolean)}
      * </p>
      * <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
      */
@@ -835,7 +835,7 @@ public class TextFieldBoxes extends FrameLayout {
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
      * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
-     * UNLESS YOU {@link #setManualValidate(boolean)} TO TRUE</i>
+     * UNLESS YOU {@link #setManualValidateError(boolean)} TO TRUE</i>
      */
     public void removeError() {
         this.onError = false;
@@ -877,7 +877,7 @@ public class TextFieldBoxes extends FrameLayout {
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         setAlwaysShowHint(this.alwaysShowHint);
-        updateCounterText(!isManualValidate);
+        updateCounterText(!isManualValidateError);
         updateBottomViewVisibility();
     }
 
@@ -946,7 +946,7 @@ public class TextFieldBoxes extends FrameLayout {
     /* Characters Counter Setters */
     public void setMaxCharacters(int maxCharacters) {
         this.maxCharacters = maxCharacters;
-        updateCounterText(!isManualValidate);
+        updateCounterText(!isManualValidateError);
     }
 
     /**
@@ -954,12 +954,12 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeMaxCharacters() {
         this.maxCharacters = 0;
-        updateCounterText(!isManualValidate);
+        updateCounterText(!isManualValidateError);
     }
 
     public void setMinCharacters(int minCharacters) {
         this.minCharacters = minCharacters;
-        updateCounterText(!isManualValidate);
+        updateCounterText(!isManualValidateError);
     }
 
     /**
@@ -967,7 +967,7 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeMinCharacters() {
         this.minCharacters = 0;
-        updateCounterText(!isManualValidate);
+        updateCounterText(!isManualValidateError);
     }
 
     /* Other Setters */
@@ -985,7 +985,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.iconImageButton.setEnabled(true);
             this.iconImageButton.setClickable(true);
             setHighlightColor(secondaryColor);
-            updateCounterText(!isManualValidate);
+            updateCounterText(!isManualValidateError);
 
         } else {
             removeError();
