@@ -105,8 +105,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
 13. [Dark Theme](#dark)
 14. [Manual Validate Error](#validate)
 
-<a name="basic"/>
-#### 1. Basic
+#### <a id="basic"/>  1. Basic
 
 Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio.carbonylgroup.textfieldboxes.ExtendedEditText` to your layout:
 
@@ -133,8 +132,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/label.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/input.png)
 
-<a name="enable"/>
-#### 2. Enable / Disable
+#### <a id="enable"/>  2. Enable / Disable
 
 `app:enabled` in xml or `setEnabled(boolean enabled)` in Java.
 
@@ -147,8 +145,7 @@ Add `studio.carbonylgroup.textfieldboxes.TextFieldBoxes` that contains a `studio
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/basic_disabled.png)
 
-<a name="helper"/>
-#### 3. Helper Text & Error Text
+#### <a id="helper"/>  3. Helper Text & Error Text
 
 _**NOTE:** setting helper or error text to anything **not empty** will make the bottom view (which contains the helper label) visible and increase the height of the TextFieldBoxes. So if you want to always keep the bottom view visible (height increased), set the helper text to `" "` when there should be nothing._
 
@@ -176,8 +173,7 @@ setError("Error message");
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/error.png)
 
-<a name="prefix"/>
-#### 4. Prefix & Suffix
+#### <a id="prefix"/>  4. Prefix & Suffix
 
 _**! NOTE:** Prifix and Suffix attributes should be set to `ExtendedEditText`._
 
@@ -204,8 +200,7 @@ Use `app:suffix` in xml or `setSuffix(String suffix)` in Java to set the unselec
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/suffix.png)
 
-<a name="max"/>
-#### 5. Max & Min Characters
+#### <a id="max"/>  5. Max & Min Characters
 
 _**NOTE:** setting max or min character will make the bottom view (which contains the counter label) visible and increase the height of the TextFieldBoxes._
 
@@ -236,8 +231,7 @@ The color of the bottom line will turn to `errorColor` (red by default) when exc
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/maxChar.gif)
 
-<a name="icon"/>
-#### 6. Icon Signifier
+#### <a id="icon"/>  6. Icon Signifier
 
 Use `app:iconSignifier` in xml or `setIconSignifier(Int resourceID)` to set the icon that is shown in front of the TextFieldBoxes if you want there to be one.
 
@@ -253,8 +247,7 @@ _**NOTE that if `true`, the icon's color will always be `HighlightColor` (the sa
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon1.png)![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/icon2.png)
 
-<a name="end"/>
-#### 7. End Icon
+#### <a id="end"/>  7. End Icon
 
 Use `app:endIcon` in xml or `setEndIcon(Int resourceID)` to set the icon of the ImageButton that is shown at the end of the field if you want there to be one.
 
@@ -279,8 +272,7 @@ textFieldBoxes.getEndIconImageButton().setOnClickListener(new View.OnClickListen
 });
 ```
 
-<a name="clear"/>
-#### 8. Clear Button
+#### <a id="clear"/>  8. Clear Button
 
 Use `app:hasClearButton` in xml or `setHasClearButton(boolean hasClearButton)` to set whether to show the clear button.
 
@@ -295,8 +287,7 @@ If `true`, a clear button will be shown at the end when there are characters (**
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/clearButton.png)
 
-<a name="color"/>
-#### 9. Custom Colors
+#### <a id="color"/>  9. Custom Colors
 
 *Primary Color* will be used for the color of the underline, the floating label text and the icon signifier **when HAVING focus**. You can use `app:primaryColor` in xml or `setPrimaryColor(int colorRes)` in Java. Current theme `Primary Color` by default.
 
@@ -336,8 +327,7 @@ then set this as the theme for your TextFieldBoxes:
     >
 ```
 
-<a name="dense"/>
-#### 10. Dense Spacing
+#### <a id="dense"/>  10. Dense Spacing
 
 You can make the layout compact by using a dense verticle spacing to improve user experience in some cases.
 
@@ -354,8 +344,7 @@ Use `app:useDenseSpacing` in xml or `setUseDenseSpacing(boolean useDenseSpacing)
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/dense.png)
 
-<a name="hint"/>
-#### 11. Always Show Hint
+#### <a id="hint"/>  11. Always Show Hint
 
 Sometimes you may want the label and the hint to show different messages, but need the hint to always be shown (instead being blocked by the label when losing focus).
 
@@ -370,8 +359,7 @@ Use `app:alwaysShowHint` in xml or `setAlwaysShowHint(boolean alwaysShowHint)` t
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/alwaysHint.png)
 
-<a name="watcher"/>
-#### 12. Text Change Watcher
+#### <a id="watcher"/>  12. Text Change Watcher
 
 It is strongly recommanded to use `setSimpleTextChangeWatcher()` to listen the event of changing text instead of `addTextChangedListener()`.
 
@@ -391,8 +379,7 @@ textFieldBoxes.setSimpleTextChangeWatcher(new SimpleTextChangedWatcher() {
 });
 ```
 
-<a name="dark"/>
-#### 13. Dark Theme
+#### <a id="dark"/>  13. Dark Theme
 
 TextFieldBoxes use the color attributes within the current theme and will automatically change its color to fit the dark theme without additional settings.
 
@@ -400,8 +387,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 
 ![](https://raw.githubusercontent.com/HITGIF/TextFieldBoxes/master/images/darkTheme.gif)
 
-<a name="validate"/>
-#### 14. Manual Validate Error
+#### <a id="validate"/>  14. Manual Validate Error
 
 By default, the error state of the field is validated each time the text changes and also at time of construction. This means a field with a minimum length requirement will start in the Error state.
 
