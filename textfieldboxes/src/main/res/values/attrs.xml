@@ -29,6 +29,10 @@
         <attr name="alwaysShowHint" format="boolean" />
         <attr name="useDenseSpacing" format="boolean" />
 
+        <!-- Set whether to automatically validate, or only on demand
+               @see {@link TextFieldBoxes#setManualValidate(boolean) } -->
+        <attr name="manualValidate" format="boolean" />
+
     </declare-styleable>
 
     <declare-styleable name="ExtendedEditText">
