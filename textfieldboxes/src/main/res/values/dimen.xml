@@ -23,18 +23,13 @@
     <dimen name="editTextLayout_padding_bottom">8dp</dimen>
     <dimen name="helper_marginEnd">8dp</dimen>
     <dimen name="bottom_line_height">2dp</dimen>
-    <dimen name="label_space_height">10dp</dimen>
+    <dimen name="label_space_height">8dp</dimen>
     <dimen name="icon_signifier_width">24dp</dimen>
     <dimen name="icon_signifier_height">24dp</dimen>
     <dimen name="icon_signifier_marginEnd">16dp</dimen>
     <dimen name="icon_signifier_marginTop">20dp</dimen>
-    <dimen name="end_icon_width">24dp</dimen>
-    <dimen name="end_icon_height">24dp</dimen>
-    <dimen name="end_icon_marginStart">2dp</dimen>
-    <dimen name="end_icon_paddingTop">2dp</dimen>
-    <dimen name="clear_button_width">24dp</dimen>
-    <dimen name="clear_button_height">24dp</dimen>
-    <dimen name="clear_button_marginStart">2dp</dimen>
-    <dimen name="clear_button_paddingTop">2dp</dimen>
-
+    <dimen name="end_icon_min_width">48dp</dimen>
+    <dimen name="end_icon_min_height">48dp</dimen>
+    <dimen name="clear_button_min_width">48dp</dimen>
+    <dimen name="clear_button_min_height">48dp</dimen>
 </resources>

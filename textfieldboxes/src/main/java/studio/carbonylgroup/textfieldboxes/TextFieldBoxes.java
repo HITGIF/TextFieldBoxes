@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.Space;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -171,6 +172,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected InputMethodManager inputMethodManager;
 
     protected SimpleTextChangedWatcher textChangeListener;
+    private ColorDrawable mPasswordToggleDummyDrawable;
+    private Drawable mOriginalEditTextEndDrawable;
 
     public TextFieldBoxes(Context context) {
 
@@ -259,56 +262,6 @@ public class TextFieldBoxes extends FrameLayout {
             this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-            if (this.endIconImageButton.getVisibility() == View.VISIBLE) {
-
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.START_OF, R.id.text_field_boxes_end_icon_button);
-                }
-
-                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                            .addRule(RelativeLayout.ALIGN_PARENT_END);
-                }
-
-                if (this.hasClearButton)
-                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
-                else
-                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
-
-            } else {
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.ALIGN_PARENT_END);
-                }
-
-                ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
-            }
-
         } else if (widthMode == MeasureSpec.AT_MOST) {
 
             /* wrap_content */
@@ -354,7 +307,60 @@ public class TextFieldBoxes extends FrameLayout {
                     .addRule(RelativeLayout.ABOVE, 0);
         }
 
+        updateClearAndEndIconLayout();
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void updateClearAndEndIconLayout() {
+        if ((endIconImageButton!= null && endIconImageButton.getDrawable() != null) || hasClearButton) {
+
+            int paddingStart = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart);
+            upperPanel.setPadding(paddingStart, 0, 0, 0);
+
+            if (mPasswordToggleDummyDrawable == null) {
+                mPasswordToggleDummyDrawable = new ColorDrawable();
+            }
+
+            int clearButtonW = 0;
+            int endIconW = 0;
+
+            if (hasClearButton){
+                clearButtonW = clearButton.getMeasuredWidth();
+            }
+
+            if ((endIconImageButton!= null && endIconImageButton.getDrawable() != null)){
+                endIconW = endIconImageButton.getMeasuredWidth();
+            }
+
+            // We add a fake drawableRight to EditText so it will have padding on the right side and text will not go
+            // under the icons.
+            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 1);
+
+            final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
+            // Store the user defined end compound drawable so that we can restore it later
+            if (compounds[2] != mPasswordToggleDummyDrawable) {
+                mOriginalEditTextEndDrawable = compounds[2];
+            }
+            TextViewCompat.setCompoundDrawablesRelative(editText, compounds[0], compounds[1],
+                    mPasswordToggleDummyDrawable, compounds[3]);
+        } else {
+
+            int paddingEnd = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd);
+            int paddingStart = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart);
+            upperPanel.setPadding(paddingStart, 0, paddingEnd, 0);
+
+            if (mPasswordToggleDummyDrawable != null) {
+                // Make sure that we remove the dummy end compound drawable if it exists, and then
+                // clear it
+                final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
+                if (compounds[2] == mPasswordToggleDummyDrawable) {
+                    TextViewCompat.setCompoundDrawablesRelative(editText, compounds[0],
+                            compounds[1], mOriginalEditTextEndDrawable, compounds[3]);
+                    mPasswordToggleDummyDrawable = null;
+                }
+            }
+        }
     }
 
     private void initViews() {
@@ -635,6 +641,7 @@ public class TextFieldBoxes extends FrameLayout {
      * By default the field is validated each time a key is pressed and at construction,
      * this means a field with a minimum length requirement will start in Error state.
      * Set this value to true to validateError only when {@link #validateError()} is called.
+     *
      * @param isManualValidateError the new value
      */
     protected void setManualValidateError(boolean isManualValidateError) {
@@ -643,6 +650,7 @@ public class TextFieldBoxes extends FrameLayout {
 
     /**
      * Update the onError state of this component
+     *
      * @return true if valid (the inverse value of onError)
      */
     public boolean validateError() {
@@ -672,7 +680,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel.setLayoutParams(lp);
 
         /* EditText Layout */
-        this.editTextLayout.setPadding(
+        this.inputLayout.setPadding(
                 0, res.getDimensionPixelOffset(
                         useDenseSpacing ?
                                 R.dimen.dense_editTextLayout_padding_top :
@@ -708,10 +716,9 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise removeCounterError()
      * <p>
      * <p>
-     * @param performValidation - true if error state should be applied or removed by this calls
-     * See {@link #setManualValidateError(boolean)}
-     * </p>
-     * <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
+     *
+     * @param performValidation - true if error state should be applied or removed by this calls See {@link
+     *                          #setManualValidateError(boolean)} </p> <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
      */
     protected void updateCounterText(boolean performValidation) {
 
@@ -725,8 +732,8 @@ public class TextFieldBoxes extends FrameLayout {
         }
 
         /* Don't Count Space & Line Feed */
-        int length = this.editText.getText().toString() .replaceAll(" ", "")
-                                                        .replaceAll("\n", "").length();
+        int length = this.editText.getText().toString().replaceAll(" ", "")
+                .replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
         String counterLabelResourceStr = getResources().getString(R.string.counter_label_text_constructor);
         if (this.maxCharacters > 0) {
@@ -1038,6 +1045,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.endIconImageButton.setImageResource(this.endIconResourceId);
             this.endIconImageButton.setVisibility(View.VISIBLE);
         } else removeEndIcon();
+
+        updateClearAndEndIconLayout();
     }
 
     public void setEndIcon(Drawable drawable) {
@@ -1045,23 +1054,25 @@ public class TextFieldBoxes extends FrameLayout {
         removeEndIcon();
         this.endIconImageButton.setImageDrawable(drawable);
         this.endIconImageButton.setVisibility(View.VISIBLE);
+
+        updateClearAndEndIconLayout();
     }
 
     /**
      * remove the end icon by setting the visibility of the end image view to View.GONE
      */
     public void removeEndIcon() {
-
         this.endIconResourceId = 0;
+        this.endIconImageButton.setImageDrawable(null);
         this.endIconImageButton.setVisibility(View.GONE);
+        updateClearAndEndIconLayout();
     }
 
     /**
      * set whether the icon signifier will change its color when gaining or losing focus
      * as the label and the bottomLine do.
      *
-     * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor
-     *                              (the same as the bottomLine)
+     * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor (the same as the bottomLine)
      *                              if false, the icon will always be in primaryColor
      */
     public void setIsResponsiveIconColor(boolean isResponsiveIconColor) {
@@ -1083,6 +1094,8 @@ public class TextFieldBoxes extends FrameLayout {
 
     public void setHasClearButton(boolean hasClearButton) {
         this.hasClearButton = hasClearButton;
+        showClearButton(hasClearButton);
+        updateClearAndEndIconLayout();
     }
 
     /**
