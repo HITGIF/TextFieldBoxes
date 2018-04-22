@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.Space;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Editable;
@@ -148,9 +149,9 @@ public class TextFieldBoxes extends FrameLayout {
     protected boolean onError = false;
     protected boolean activated = false;
     /**
-     * See {@link #setValidateOnDemand(boolean)}
+     * See {@link #setManualValidateError(boolean)}
      */
-    protected boolean isValidateOnDemand = false;
+    protected boolean isManualValidateError = false;
 
     protected View panel;
     protected View bottomLine;
@@ -171,6 +172,8 @@ public class TextFieldBoxes extends FrameLayout {
     protected InputMethodManager inputMethodManager;
 
     protected SimpleTextChangedWatcher textChangeListener;
+    private ColorDrawable mPasswordToggleDummyDrawable;
+    private Drawable mOriginalEditTextEndDrawable;
 
     public TextFieldBoxes(Context context) {
 
@@ -259,56 +262,6 @@ public class TextFieldBoxes extends FrameLayout {
             this.upperPanel.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
             this.editTextLayout.getLayoutParams().width = ViewGroup.LayoutParams.MATCH_PARENT;
 
-            if (this.endIconImageButton.getVisibility() == View.VISIBLE) {
-
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.START_OF, R.id.text_field_boxes_end_icon_button);
-                }
-
-                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.endIconImageButton.getLayoutParams())
-                            .addRule(RelativeLayout.ALIGN_PARENT_END);
-                }
-
-                if (this.hasClearButton)
-                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
-                else
-                    ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                            .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_end_icon_button);
-
-            } else {
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.RIGHT_OF, 0);
-                ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                        .addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-
-                if (android.os.Build.VERSION.SDK_INT >= 17) {
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.END_OF, 0);
-                    ((RelativeLayout.LayoutParams) this.clearButton.getLayoutParams())
-                            .addRule(RelativeLayout.ALIGN_PARENT_END);
-                }
-
-                ((RelativeLayout.LayoutParams) this.inputLayout.getLayoutParams())
-                        .addRule(RelativeLayout.LEFT_OF, R.id.text_field_boxes_clear_button);
-            }
-
         } else if (widthMode == MeasureSpec.AT_MOST) {
 
             /* wrap_content */
@@ -354,7 +307,50 @@ public class TextFieldBoxes extends FrameLayout {
                     .addRule(RelativeLayout.ABOVE, 0);
         }
 
+        updateClearAndEndIconLayout();
+
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void updateClearAndEndIconLayout() {
+
+        if ((endIconImageButton != null && endIconImageButton.getDrawable() != null) || hasClearButton) {
+
+            int clearButtonW = hasClearButton ? clearButton.getMeasuredWidth() : 0;
+            int endIconW = (endIconImageButton != null && endIconImageButton.getDrawable() != null) ?
+                    endIconImageButton.getMeasuredWidth() : 0;
+            if (mPasswordToggleDummyDrawable == null)
+                mPasswordToggleDummyDrawable = new ColorDrawable();
+
+            upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd_small), 0);
+
+            // We add a fake drawableRight to EditText so it will have padding on the right side and text will not go
+            // under the icons.
+            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
+
+            final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
+            // Store the user defined end compound drawable so that we can restore it later
+            if (compounds[2] != mPasswordToggleDummyDrawable) {
+                mOriginalEditTextEndDrawable = compounds[2];
+            }
+            TextViewCompat.setCompoundDrawablesRelative(editText, compounds[0], compounds[1],
+                    mPasswordToggleDummyDrawable, compounds[3]);
+
+        } else {
+
+            upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd), 0);
+
+            if (mPasswordToggleDummyDrawable != null) {
+                // Make sure that we remove the dummy end compound drawable if it exists, and then
+                // clear it
+                final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
+                if (compounds[2] == mPasswordToggleDummyDrawable) {
+                    TextViewCompat.setCompoundDrawablesRelative(editText, compounds[0],
+                            compounds[1], mOriginalEditTextEndDrawable, compounds[3]);
+                    mPasswordToggleDummyDrawable = null;
+                }
+            }
+        }
     }
 
     private void initViews() {
@@ -451,10 +447,10 @@ public class TextFieldBoxes extends FrameLayout {
             public void afterTextChanged(Editable editable) {
                 if (!activated && !editable.toString().isEmpty()) activate(true);
                 if (activated && editable.toString().isEmpty() && !hasFocus) deactivate();
-                if (isValidateOnDemand) {
+                if (isManualValidateError) {
                     updateCounterText(false);
                 } else {
-                    validate(); //this will call updateCounterText(true);
+                    validateError(); //this will call updateCounterText(true);
                 }
                 if (textChangeListener != null) {
                     textChangeListener.onTextChanged(editable.toString(), onError);
@@ -501,7 +497,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.minCharacters = styledAttrs.getInt(R.styleable.TextFieldBoxes_minCharacters, 0);
 
             /* Others */
-            this.isValidateOnDemand = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_validateOnDemand, false);
+            this.isManualValidateError = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_manualValidateError, false);
             this.enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
@@ -634,18 +630,20 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * By default the field is validated each time a key is pressed and at construction,
      * this means a field with a minimum length requirement will start in Error state.
-     * Set this value to true to validate only when {@link #validate()} is called.
-     * @param isValidateOnDemand the new value
+     * Set this value to true to validateError only when {@link #validateError()} is called.
+     *
+     * @param isManualValidateError the new value
      */
-    protected void setValidateOnDemand(boolean isValidateOnDemand) {
-        this.isValidateOnDemand = isValidateOnDemand;
+    protected void setManualValidateError(boolean isManualValidateError) {
+        this.isManualValidateError = isManualValidateError;
     }
 
     /**
      * Update the onError state of this component
+     *
      * @return true if valid (the inverse value of onError)
      */
-    public boolean validate() {
+    public boolean validateError() {
         removeError();
         updateCounterText(true);
         if (onError) {
@@ -672,13 +670,45 @@ public class TextFieldBoxes extends FrameLayout {
         this.floatingLabel.setLayoutParams(lp);
 
         /* EditText Layout */
-        this.editTextLayout.setPadding(
+        this.inputLayout.setPadding(
                 0, res.getDimensionPixelOffset(
                         useDenseSpacing ?
                                 R.dimen.dense_editTextLayout_padding_top :
                                 R.dimen.editTextLayout_padding_top
                 ),
                 0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+
+        /* End Icon */
+        this.endIconImageButton.setMinimumHeight(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.end_icon_min_height :
+                                R.dimen.dense_end_icon_min_height
+                )
+        );
+        this.endIconImageButton.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.end_icon_min_width :
+                                R.dimen.dense_end_icon_min_width
+                )
+        );
+
+        /* Clear Icon */
+        this.clearButton.setMinimumHeight(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.clear_button_min_height :
+                                R.dimen.dense_clear_button_min_height
+                )
+        );
+        this.clearButton.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.clear_button_min_width :
+                                R.dimen.dense_clear_button_min_width
+                )
+        );
 
         /* Bottom View */
         lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
@@ -708,10 +738,9 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise removeCounterError()
      * <p>
      * <p>
-     * @param performValidation - true if error state should be applied or removed by this calls
-     * See {@link #setValidateOnDemand(boolean)}
-     * </p>
-     * <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
+     *
+     * @param performValidation - true if error state should be applied or removed by this calls See {@link
+     *                          #setManualValidateError(boolean)} </p> <i>NOTE: SPACE AND LINE FEED WILL NOT COUNT</i>
      */
     protected void updateCounterText(boolean performValidation) {
 
@@ -820,6 +849,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.helperLabel.setTextColor(this.errorColor);
             if (errorText != null) {
                 this.helperLabel.setText(errorText);
+                updateBottomViewVisibility();
             }
             if (giveFocus) setHasFocus(true);
             makeCursorBlink();
@@ -831,7 +861,8 @@ public class TextFieldBoxes extends FrameLayout {
      * otherwise set to secondaryColor
      * set helperLabel Label text color to DEFAULT_TEXT_COLOR
      * <p>
-     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES UNLESS YOU {@link #setValidateOnDemand(boolean)} TO TRUE</i>
+     * <i>NOTE: WILL BE CALLED WHEN THE EDITTEXT CHANGES
+     * UNLESS YOU {@link #setManualValidateError(boolean)} TO TRUE</i>
      */
     public void removeError() {
         this.onError = false;
@@ -839,6 +870,7 @@ public class TextFieldBoxes extends FrameLayout {
         else setHighlightColor(this.secondaryColor);
         this.helperLabel.setTextColor(this.helperTextColor);
         this.helperLabel.setText(this.helperText);
+        updateBottomViewVisibility();
     }
 
     protected void showClearButton(boolean show) {
@@ -873,7 +905,7 @@ public class TextFieldBoxes extends FrameLayout {
         setHasClearButton(this.hasClearButton);
         setHasFocus(this.hasFocus);
         setAlwaysShowHint(this.alwaysShowHint);
-        updateCounterText(!isValidateOnDemand);
+        updateCounterText(!isManualValidateError);
         updateBottomViewVisibility();
     }
 
@@ -942,7 +974,7 @@ public class TextFieldBoxes extends FrameLayout {
     /* Characters Counter Setters */
     public void setMaxCharacters(int maxCharacters) {
         this.maxCharacters = maxCharacters;
-        updateCounterText(!isValidateOnDemand);
+        updateCounterText(!isManualValidateError);
     }
 
     /**
@@ -950,12 +982,12 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeMaxCharacters() {
         this.maxCharacters = 0;
-        updateCounterText(!isValidateOnDemand);
+        updateCounterText(!isManualValidateError);
     }
 
     public void setMinCharacters(int minCharacters) {
         this.minCharacters = minCharacters;
-        updateCounterText(!isValidateOnDemand);
+        updateCounterText(!isManualValidateError);
     }
 
     /**
@@ -963,7 +995,7 @@ public class TextFieldBoxes extends FrameLayout {
      */
     public void removeMinCharacters() {
         this.minCharacters = 0;
-        updateCounterText(!isValidateOnDemand);
+        updateCounterText(!isManualValidateError);
     }
 
     /* Other Setters */
@@ -981,7 +1013,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.iconImageButton.setEnabled(true);
             this.iconImageButton.setClickable(true);
             setHighlightColor(secondaryColor);
-            updateCounterText(!isValidateOnDemand);
+            updateCounterText(!isManualValidateError);
 
         } else {
             removeError();
@@ -1032,6 +1064,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.endIconImageButton.setImageResource(this.endIconResourceId);
             this.endIconImageButton.setVisibility(View.VISIBLE);
         } else removeEndIcon();
+
+        updateClearAndEndIconLayout();
     }
 
     public void setEndIcon(Drawable drawable) {
@@ -1039,23 +1073,25 @@ public class TextFieldBoxes extends FrameLayout {
         removeEndIcon();
         this.endIconImageButton.setImageDrawable(drawable);
         this.endIconImageButton.setVisibility(View.VISIBLE);
+
+        updateClearAndEndIconLayout();
     }
 
     /**
      * remove the end icon by setting the visibility of the end image view to View.GONE
      */
     public void removeEndIcon() {
-
         this.endIconResourceId = 0;
+        this.endIconImageButton.setImageDrawable(null);
         this.endIconImageButton.setVisibility(View.GONE);
+        updateClearAndEndIconLayout();
     }
 
     /**
      * set whether the icon signifier will change its color when gaining or losing focus
      * as the label and the bottomLine do.
      *
-     * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor
-     *                              (the same as the bottomLine)
+     * @param isResponsiveIconColor if true, the icon's color will always be HighlightColor (the same as the bottomLine)
      *                              if false, the icon will always be in primaryColor
      */
     public void setIsResponsiveIconColor(boolean isResponsiveIconColor) {
@@ -1077,6 +1113,8 @@ public class TextFieldBoxes extends FrameLayout {
 
     public void setHasClearButton(boolean hasClearButton) {
         this.hasClearButton = hasClearButton;
+        showClearButton(hasClearButton);
+        updateClearAndEndIconLayout();
     }
 
     /**
