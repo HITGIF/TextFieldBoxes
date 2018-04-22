@@ -6,4 +6,6 @@
     <string name="dark_side">DARK SIDE</string>
     <string name="test_error">TEST ERROR</string>
     <string name="coupon_code">A2T3XZ9</string>
+    <string name="clear_icon_button">Show/Hide Clear Icon</string>
+    <string name="end_icon_button">Add/Remove End Icon</string>
 </resources>

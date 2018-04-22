@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,6 +39,31 @@ public class MainActivity extends AppCompatActivity {
 
         setupDarkThemeButton(dark);
         setupErrorButton();
+        setupPasswordField();
+    }
+
+    private void setupPasswordField() {
+        final Button addClearIconButton = findViewById(R.id.clear_icon_button);
+        final Button addEndIconButton = findViewById(R.id.end_icon_button);
+        final TextFieldBoxes passwordField = findViewById(R.id.text_field_boxes6);
+
+        addClearIconButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                passwordField.setHasClearButton(!passwordField.getHasClearButton());
+            }
+        });
+
+        addEndIconButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (passwordField.getEndIconImageButton().getDrawable() == null) {
+                    passwordField.setEndIcon(R.drawable.ic_visibility_black_24dp);
+                } else {
+                    passwordField.removeEndIcon();
+                }
+            }
+        });
     }
 
     private void setupDarkThemeButton(final boolean dark) {
@@ -57,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void setupErrorButton(){
+    private void setupErrorButton() {
         final Button errorButton = findViewById(R.id.error_button);
         final TextFieldBoxes errorField = findViewById(R.id.text_field_boxes5);
         errorButton.setOnClickListener(new View.OnClickListener() {
