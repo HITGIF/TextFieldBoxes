@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/icon_signifier_marginTop"
         android:background="?selectableItemBackgroundBorderless"
         android:contentDescription="@string/icon"
-        android:visibility="gone" />
+        android:visibility="gone"/>
 
     <RelativeLayout
         android:id="@+id/text_field_boxes_right_shell"
@@ -42,7 +42,7 @@
                 android:layout_alignLeft="@+id/text_field_boxes_upper_panel"
                 android:layout_alignRight="@+id/text_field_boxes_upper_panel"
                 android:layout_alignStart="@+id/text_field_boxes_upper_panel"
-                android:layout_below="@+id/text_field_boxes_upper_panel" />
+                android:layout_below="@+id/text_field_boxes_upper_panel"/>
 
             <RelativeLayout
                 android:id="@+id/text_field_boxes_upper_panel"
@@ -59,10 +59,12 @@
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/text_field_boxes_label"
                     android:layout_width="wrap_content"
+                    android:includeFontPadding="false"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/label_idle_margin_top"
                     android:textSize="@dimen/label_text_size"
-                    tools:text="Label" />
+                    tools:text="Label"/>
 
                 <android.support.v4.widget.Space
                     android:id="@+id/text_field_boxes_label_space"
@@ -72,51 +74,49 @@
                     android:layout_alignLeft="@+id/text_field_boxes_editTextLayout"
                     android:layout_alignParentTop="true"
                     android:layout_alignRight="@+id/text_field_boxes_editTextLayout"
-                    android:layout_alignStart="@+id/text_field_boxes_editTextLayout" />
+                    android:layout_alignStart="@+id/text_field_boxes_editTextLayout"/>
 
-                <RelativeLayout
+                <FrameLayout
                     android:id="@+id/text_field_boxes_editTextLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/text_field_boxes_label_space"
-                    android:layout_gravity="bottom"
-                    android:paddingBottom="@dimen/editTextLayout_padding_bottom"
-                    android:paddingTop="@dimen/editTextLayout_padding_top">
+                    android:layout_gravity="bottom">
 
                     <RelativeLayout
                         android:id="@+id/text_field_boxes_input_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="0dp" />
+                        android:paddingRight="20dp">
+                    </RelativeLayout>
 
-                    <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/text_field_boxes_clear_button"
-                        android:layout_width="@dimen/clear_button_width"
-                        android:layout_height="@dimen/clear_button_height"
-                        android:layout_alignBottom="@+id/text_field_boxes_input_layout"
-                        android:layout_marginLeft="@dimen/clear_button_marginStart"
-                        android:layout_marginStart="@dimen/clear_button_marginStart"
-                        android:layout_toEndOf="@+id/text_field_boxes_input_layout"
-                        android:layout_toRightOf="@+id/text_field_boxes_input_layout"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:paddingTop="@dimen/clear_button_paddingTop"
-                        android:src="@drawable/ic_clear_circle_black_24dp"
-                        android:visibility="gone" />
+                    <LinearLayout
+                        android:background="@android:color/transparent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:orientation="horizontal">
 
-                    <android.support.v7.widget.AppCompatImageButton
-                        android:id="@+id/text_field_boxes_end_icon_button"
-                        android:layout_width="@dimen/end_icon_width"
-                        android:layout_height="@dimen/end_icon_height"
-                        android:layout_alignBottom="@+id/text_field_boxes_input_layout"
-                        android:layout_marginLeft="@dimen/end_icon_marginStart"
-                        android:layout_marginStart="@dimen/end_icon_marginStart"
-                        android:layout_toEndOf="@+id/text_field_boxes_clear_button"
-                        android:layout_toRightOf="@+id/text_field_boxes_clear_button"
-                        android:background="?selectableItemBackgroundBorderless"
-                        android:paddingTop="@dimen/end_icon_paddingTop"
-                        android:visibility="gone" />
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/text_field_boxes_clear_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/clear_button_min_height"
+                            android:minWidth="@dimen/clear_button_min_width"
+                            android:src="@drawable/ic_clear_circle_black_24dp"
+                            android:visibility="gone"/>
 
-                </RelativeLayout>
+                        <android.support.v7.widget.AppCompatImageButton
+                            android:id="@+id/text_field_boxes_end_icon_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:minHeight="@dimen/end_icon_min_height"
+                            android:minWidth="@dimen/end_icon_min_width"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
+                </FrameLayout>
 
                 <android.support.v4.widget.Space
                     android:id="@+id/text_field_boxes_label_space_below"
@@ -128,7 +128,7 @@
                     android:layout_alignStart="@+id/text_field_boxes_editTextLayout"
                     android:layout_below="@+id/text_field_boxes_editTextLayout"
                     android:background="@color/A400red"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
@@ -159,7 +159,7 @@
                 android:layout_marginRight="@dimen/helper_marginEnd"
                 android:layout_toLeftOf="@+id/text_field_boxes_counter"
                 android:layout_toStartOf="@+id/text_field_boxes_counter"
-                android:textSize="@dimen/helper_text_size" />
+                android:textSize="@dimen/helper_text_size"/>
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/text_field_boxes_counter"
@@ -167,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
-                android:textSize="@dimen/counter_text_size" />
+                android:textSize="@dimen/counter_text_size"/>
 
         </RelativeLayout>
 
