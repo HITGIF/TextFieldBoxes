@@ -101,7 +101,6 @@
                             android:id="@+id/text_field_boxes_clear_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ripple_round"
                             android:minHeight="@dimen/clear_button_min_height"
                             android:minWidth="@dimen/clear_button_min_width"
                             android:src="@drawable/ic_clear_circle_black_24dp"
@@ -111,7 +110,6 @@
                             android:id="@+id/text_field_boxes_end_icon_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/ripple_round"
                             android:minHeight="@dimen/end_icon_min_height"
                             android:minWidth="@dimen/end_icon_min_width"
                             android:visibility="gone"/>
