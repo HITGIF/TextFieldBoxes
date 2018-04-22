@@ -313,29 +313,20 @@ public class TextFieldBoxes extends FrameLayout {
     }
 
     private void updateClearAndEndIconLayout() {
-        if ((endIconImageButton!= null && endIconImageButton.getDrawable() != null) || hasClearButton) {
 
-            int paddingStart = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart);
-            upperPanel.setPadding(paddingStart, 0, 0, 0);
+        if ((endIconImageButton != null && endIconImageButton.getDrawable() != null) || hasClearButton) {
 
-            if (mPasswordToggleDummyDrawable == null) {
+            int clearButtonW = hasClearButton ? clearButton.getMeasuredWidth() : 0;
+            int endIconW = (endIconImageButton != null && endIconImageButton.getDrawable() != null) ?
+                    endIconImageButton.getMeasuredWidth() : 0;
+            if (mPasswordToggleDummyDrawable == null)
                 mPasswordToggleDummyDrawable = new ColorDrawable();
-            }
 
-            int clearButtonW = 0;
-            int endIconW = 0;
-
-            if (hasClearButton){
-                clearButtonW = clearButton.getMeasuredWidth();
-            }
-
-            if ((endIconImageButton!= null && endIconImageButton.getDrawable() != null)){
-                endIconW = endIconImageButton.getMeasuredWidth();
-            }
+            upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd_small), 0);
 
             // We add a fake drawableRight to EditText so it will have padding on the right side and text will not go
             // under the icons.
-            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 1);
+            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
 
             final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
             // Store the user defined end compound drawable so that we can restore it later
@@ -344,11 +335,10 @@ public class TextFieldBoxes extends FrameLayout {
             }
             TextViewCompat.setCompoundDrawablesRelative(editText, compounds[0], compounds[1],
                     mPasswordToggleDummyDrawable, compounds[3]);
+
         } else {
 
-            int paddingEnd = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd);
-            int paddingStart = getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart);
-            upperPanel.setPadding(paddingStart, 0, paddingEnd, 0);
+            upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd), 0);
 
             if (mPasswordToggleDummyDrawable != null) {
                 // Make sure that we remove the dummy end compound drawable if it exists, and then
@@ -687,6 +677,38 @@ public class TextFieldBoxes extends FrameLayout {
                                 R.dimen.editTextLayout_padding_top
                 ),
                 0, res.getDimensionPixelOffset(R.dimen.editTextLayout_padding_bottom));
+
+        /* End Icon */
+        this.endIconImageButton.setMinimumHeight(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.end_icon_min_height :
+                                R.dimen.dense_end_icon_min_height
+                )
+        );
+        this.endIconImageButton.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.end_icon_min_width :
+                                R.dimen.dense_end_icon_min_width
+                )
+        );
+
+        /* Clear Icon */
+        this.clearButton.setMinimumHeight(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.clear_button_min_height :
+                                R.dimen.dense_clear_button_min_height
+                )
+        );
+        this.clearButton.setMinimumWidth(
+                res.getDimensionPixelOffset(
+                        useDenseSpacing ?
+                                R.dimen.clear_button_min_width :
+                                R.dimen.dense_clear_button_min_width
+                )
+        );
 
         /* Bottom View */
         lp = (RelativeLayout.LayoutParams) this.bottomPart.getLayoutParams();
