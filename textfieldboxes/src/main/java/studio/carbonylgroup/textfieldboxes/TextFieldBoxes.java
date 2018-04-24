@@ -450,7 +450,7 @@ public class TextFieldBoxes extends FrameLayout {
                 if (isManualValidateError) {
                     updateCounterText(false);
                 } else {
-                    validateError(); //this will call updateCounterText(true);
+                    validate(); //this will call updateCounterText(true);
                 }
                 if (textChangeListener != null) {
                     textChangeListener.onTextChanged(editable.toString(), onError);
@@ -630,7 +630,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * By default the field is validated each time a key is pressed and at construction,
      * this means a field with a minimum length requirement will start in Error state.
-     * Set this value to true to validateError only when {@link #validateError()} is called.
+     * Set this value to true to validate only when {@link #validate()} is called.
      *
      * @param isManualValidateError the new value
      */
@@ -643,13 +643,24 @@ public class TextFieldBoxes extends FrameLayout {
      *
      * @return true if valid (the inverse value of onError)
      */
-    public boolean validateError() {
+    public boolean validate() { //Reverted: "validateError" has the opposite meaning and is incorrect and does not follow conventions
         removeError();
         updateCounterText(true);
         if (onError) {
             setError(null, false);
         }
         return !onError;
+    }
+
+    /**
+     * @deprecated Pseudonym for {@link #validate()} to provide legacy support for
+     * a bad PR.
+     *
+     * Note: This does NOT validate that there is an error, it does the opposite
+     */
+    @Deprecated
+    public boolean validateError() {
+        return validate();
     }
 
     /**
@@ -754,15 +765,14 @@ public class TextFieldBoxes extends FrameLayout {
         }
 
         /* Don't Count Space & Line Feed */
-        int length = this.editText.getText().toString().replaceAll(" ", "")
-                .replaceAll("\n", "").length();
+        int length = this.editText.getText().toString() .replaceAll(" ", "")
+                                                        .replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
         String counterLabelResourceStr = getResources().getString(R.string.counter_label_text_constructor);
         if (this.maxCharacters > 0) {
             if (this.minCharacters > 0) {
                 /* MAX & MIN */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
-                        Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "-", Integer.toString(this.maxCharacters)));
                 if (performValidation) {
                     if (length < this.minCharacters || length > this.maxCharacters) {
                         setCounterError();
@@ -772,8 +782,7 @@ public class TextFieldBoxes extends FrameLayout {
                 }
             } else {
                 /* MAX ONLY */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
-                        Integer.toString(this.maxCharacters), "", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.maxCharacters), "", ""));
                 if (performValidation) {
                     if (length > this.maxCharacters) {
                         setCounterError();
@@ -785,8 +794,7 @@ public class TextFieldBoxes extends FrameLayout {
         } else {
             if (this.minCharacters > 0) {
                 /* MIN ONLY */
-                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr,
-                        Integer.toString(this.minCharacters), "+", ""));
+                this.counterLabel.setText(String.format(counterLabelResourceStr, lengthStr, Integer.toString(this.minCharacters), "+", ""));
                 if (performValidation) {
                     if (length < this.minCharacters) {
                         setCounterError();
