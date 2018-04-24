@@ -393,7 +393,7 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 
 默认情况下，文本框的错误状态将在初始化和文本变化时更新。这将导致在设置了最小字符限制时，文本框将在初始化时处于错误状态。
 
-将 `app:manualValidateError` 设置为 `true`，将使错误状态只在调用 `validateError()` 时刷新。
+将 `app:manualValidateError` 设置为 `true`，将使错误状态只在调用 `validate()` 时刷新。
 
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -404,7 +404,7 @@ TextFieldBoxes 用目前主题中的颜色属性因此将自动改变颜色以�
 ```Java
 final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
 // 错误状态只在调用这个时刷新
-textFieldBoxes.validateError()
+textFieldBoxes.validate()
 ```
 ​
 ## 全部属性
@@ -469,7 +469,7 @@ textFieldBoxes.validateError()
 | `app:hasFocus` | 文本框是否获得焦点 | `False` |
 | `app:alwaysShowHint` | 当 EditText 中有提示文本时，是否将标签始终固定在顶部 | `False` |
 | `app:useDenseSpacing` | 是否使用紧凑的布局 | `False` |
-| `app:manualValidateError` | 错误状态是否只在调用 `validateError()` 时刷新 | `False` |
+| `app:manualValidateError` | 错误状态是否只在调用 `validate()` 时刷新 | `False` |
 
 ​
 ## 开源许可
