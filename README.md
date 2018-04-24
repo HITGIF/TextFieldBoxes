@@ -391,7 +391,7 @@ TextFieldBoxes use the color attributes within the current theme and will automa
 
 By default, the error state of the field is validated each time the text changes and also at time of construction. This means a field with a minimum length requirement will start in the Error state.
 
-Setting `app:manualValidateError` to `true` will make the field validate error only when `validateError()` is called.
+Setting `app:manualValidateError` to `true` will make the field validate error only when `validate()` is called.
 
 ```xml
 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -402,7 +402,7 @@ Setting `app:manualValidateError` to `true` will make the field validate error o
 ```Java
 final TextFieldBoxes textFieldBoxes = findViewById(R.id.text_field_boxes);
 // The error state will only be updated when this is called
-textFieldBoxes.validateError()
+textFieldBoxes.validate()
 ```
 ​
 ## All Attributes
@@ -467,7 +467,7 @@ textFieldBoxes.validateError()
 | `app:hasFocus` | Whether the EditText is having the focus | `False` |
 | `app:alwaysShowHint` | Whether the label is fixed at top when there's a hint in the EditText | `False` |
 | `app:useDenseSpacing` | Whether the field uses a dense spacing between its elements | `False` |
-| `app:manualValidateError` | Whether to validate error state only when `validateError()` is called | `False` |
+| `app:manualValidateError` | Whether to validate error state only when `validate()` is called | `False` |
 ​
 
 ## License
