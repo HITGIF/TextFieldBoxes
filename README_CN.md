@@ -18,13 +18,13 @@
 ​
 ## ***更新注意***
 
+#### 1.4.4 Release
+- 更新布局以支持更大的清除按钮与末图标 (#72)。
+
 #### 1.4.3 Release
 - 增加 [`setSimpleTextChangeWatcher()`](#watcher) 以便更好地监听文字输入 (#69)。
 - 增加 [`app:manualValidateError`](#validate) 属性以手动刷新错误状态 (#70)。
 - Bug 修复 (#71)。
-
-#### 1.4.2 Release
-- 修复了 #59 #60 #61。
 
 ​
 ## 要求
@@ -46,7 +46,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.3'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.4'
 }
 ```
 
@@ -63,7 +63,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 </dependency>
 ```
 
@@ -72,7 +72,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.4"
 ```
 
 
@@ -81,7 +81,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.3"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.4"]]
 ```
 
 ​

@@ -20,13 +20,13 @@ A new Material Design text field that comes in a box, based on [Google Material 
 ​
 ## ***UPDATE NOTICE***
 
+#### 1.4.4 Release
+- Layout updated to support bigger clear icon and end icons (#72).
+
 #### 1.4.3 Release
 - Add [`setSimpleTextChangeWatcher()`](#watcher) as a better way to listen the input (#69).
 - Add [`app:manualValidateError`](#validate) attribute to manually control error state validation (#70).
 - Bug fix (#71).
-
-#### 1.4.2 Release
-- Fixed #59 #60 #61.
 
 ​
 ## Requirements
@@ -48,7 +48,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.3'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.4'
 }
 ```
 
@@ -65,7 +65,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.3</version>
+    <version>1.4.4</version>
 </dependency>
 ```
 
@@ -74,7 +74,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.4"
 ```
 
 
@@ -83,7 +83,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.3"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.3"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.4"]]
 ```
 
 ​
