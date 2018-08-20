@@ -433,6 +433,9 @@ public class TextFieldBoxes extends FrameLayout {
         });
 
         this.editText.addTextChangedListener(new TextWatcher() {
+
+            private String lastValue = "";
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //do nothing
@@ -452,9 +455,16 @@ public class TextFieldBoxes extends FrameLayout {
                 } else {
                     validate(); //this will call updateCounterText(true);
                 }
-                if (textChangeListener != null) {
-                    textChangeListener.onTextChanged(editable.toString(), onError);
+
+                // Only trigger simple watcher when the String actually changed
+
+                if (!lastValue.equals(editable.toString())){
+                    lastValue = editable.toString();
+                    if (textChangeListener != null) {
+                        textChangeListener.onTextChanged(editable.toString(), onError);
+                    }
                 }
+
             }
         });
 
