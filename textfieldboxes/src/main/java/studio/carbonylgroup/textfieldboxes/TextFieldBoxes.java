@@ -427,7 +427,11 @@ public class TextFieldBoxes extends FrameLayout {
         this.editText.setDefaultOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                if (b) setHasFocus(true);
+                if (b){
+                    setHasFocus(true);
+                    inputMethodManager.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                    mainBody.performClick();
+                }
                 else setHasFocus(false);
             }
         });
