@@ -2,10 +2,12 @@
 <resources>
 
     <!-- Normal Spacing -->
-    <dimen name="label_idle_margin_top">20dp</dimen>
+    <dimen name="label_idle_margin_top">22dp</dimen>
     <dimen name="editTextLayout_padding_top">20dp</dimen>
     <dimen name="bottom_marginTop">8dp</dimen>
     <dimen name="edittext_text_size">18sp</dimen>
+    <dimen name="start_icon_min_width">40dp</dimen>
+    <dimen name="start_icon_min_height">40dp</dimen>
     <dimen name="end_icon_min_width">40dp</dimen>
     <dimen name="end_icon_min_height">40dp</dimen>
     <dimen name="clear_button_min_width">40dp</dimen>
@@ -16,6 +18,8 @@
     <dimen name="dense_editTextLayout_padding_top">16dp</dimen>
     <dimen name="dense_bottom_marginTop">4dp</dimen>
     <dimen name="dense_edittext_text_size">16sp</dimen>
+    <dimen name="dense_start_icon_min_width">38dp</dimen>
+    <dimen name="dense_start_icon_min_height">38dp</dimen>
     <dimen name="dense_end_icon_min_width">38dp</dimen>
     <dimen name="dense_end_icon_min_height">38dp</dimen>
     <dimen name="dense_clear_button_min_width">38dp</dimen>
@@ -27,6 +31,7 @@
     <dimen name="corner_radius">4dp</dimen>
     <dimen name="label_active_margin_top">8dp</dimen>
     <dimen name="upper_panel_paddingStart">16dp</dimen>
+    <dimen name="upper_panel_paddingStart_small">8dp</dimen>
     <dimen name="upper_panel_paddingEnd">16dp</dimen>
     <dimen name="upper_panel_paddingEnd_small">8dp</dimen>
     <dimen name="upper_panel_paddingBottom">5dp</dimen>

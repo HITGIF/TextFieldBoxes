@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -81,7 +82,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * the text color for the counterLabel text. DEFAULT_TEXT_COLOR by default.
      */
-    protected int counterTextColor;
+    protected int charCountTextColor;
 
     /**
      * the text color for when something is wrong (e.g. exceeding max characters, setError()).
@@ -110,6 +111,11 @@ public class TextFieldBoxes extends FrameLayout {
      * the resource ID of the icon signifier. 0 by default.
      */
     protected int iconSignifierResourceId;
+
+    /**
+     * the resource ID of the icon at the start. 0 by default.
+     */
+    protected int startIconResourceId;
 
     /**
      * the resource ID of the icon at the end. 0 by default.
@@ -169,11 +175,16 @@ public class TextFieldBoxes extends FrameLayout {
     protected AppCompatImageButton clearButton;
     protected AppCompatImageButton iconImageButton;
     protected AppCompatImageButton endIconImageButton;
+    protected AppCompatImageButton startIconImageButton;
     protected InputMethodManager inputMethodManager;
 
     protected SimpleTextChangedWatcher textChangeListener;
     private ColorDrawable mPasswordToggleDummyDrawable;
+    private ColorDrawable mStartIconDummyDrawable;
     private Drawable mOriginalEditTextEndDrawable;
+    private Drawable mOriginalEditTextStartDrawable;
+
+    protected LinearLayout endIconsLayout;
 
     public TextFieldBoxes(Context context) {
 
@@ -308,6 +319,7 @@ public class TextFieldBoxes extends FrameLayout {
         }
 
         updateClearAndEndIconLayout();
+        updateStartIconLayout();
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -353,6 +365,41 @@ public class TextFieldBoxes extends FrameLayout {
         }
     }
 
+    private int getStartIconWidth(){
+        int startIconW = 0;
+        if (startIconImageButton != null && startIconImageButton.getDrawable() != null) {
+            startIconW = (startIconImageButton != null && startIconImageButton.getDrawable() != null) ? startIconImageButton.getMeasuredWidth() : 0;
+        }
+        return startIconW;
+    }
+
+    private void updateStartIconLayout(){
+        if (startIconImageButton != null && startIconImageButton.getDrawable() != null){
+            int startIconW = getStartIconWidth();
+
+            if ((endIconImageButton != null && endIconImageButton.getDrawable() != null) || hasClearButton)
+                upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart_small), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd_small), 0);
+            else
+                upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart_small), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd), 0);
+
+            if (mStartIconDummyDrawable == null)
+                mStartIconDummyDrawable = new ColorDrawable();
+
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+            lp.leftMargin = startIconW;
+            this.floatingLabel.setLayoutParams(lp);
+        }else{
+            if ((endIconImageButton != null && endIconImageButton.getDrawable() != null) || hasClearButton)
+                upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd_small), 0);
+            else
+                upperPanel.setPadding(getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingStart), 0, getResources().getDimensionPixelOffset(R.dimen.upper_panel_paddingEnd), 0);
+
+            RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+            lp.leftMargin = 0;
+            this.floatingLabel.setLayoutParams(lp);
+        }
+    }
+
     private void initViews() {
 
         this.editText = findEditTextChild();
@@ -374,10 +421,12 @@ public class TextFieldBoxes extends FrameLayout {
         this.bottomPart = findViewById(R.id.text_field_boxes_bottom);
         this.clearButton = findViewById(R.id.text_field_boxes_clear_button);
         this.endIconImageButton = findViewById(R.id.text_field_boxes_end_icon_button);
+        this.startIconImageButton = findViewById(R.id.text_field_boxes_start_icon_button);
         this.helperLabel = findViewById(R.id.text_field_boxes_helper);
         this.counterLabel = findViewById(R.id.text_field_boxes_counter);
         this.iconImageButton = findViewById(R.id.text_field_boxes_imageView);
         this.editTextLayout = findViewById(R.id.text_field_boxes_editTextLayout);
+        this.endIconsLayout = findViewById(R.id.text_field_boxs_end_icons_layout);
 
         this.inputLayout.addView(this.editText);
         this.editTextLayout.setAlpha(0f);
@@ -388,6 +437,8 @@ public class TextFieldBoxes extends FrameLayout {
         this.clearButton.setAlpha(0.35f);
         this.endIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
         this.endIconImageButton.setAlpha(0.54f);
+        this.startIconImageButton.setColorFilter(DEFAULT_TEXT_COLOR);
+        this.startIconImageButton.setAlpha(0.54f);
         this.labelTopMargin = RelativeLayout.LayoutParams.class
                 .cast(this.floatingLabel.getLayoutParams()).topMargin;
 
@@ -495,8 +546,8 @@ public class TextFieldBoxes extends FrameLayout {
             /* Colors */
             this.helperTextColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_helperTextColor, DEFAULT_TEXT_COLOR);
-            this.counterTextColor = styledAttrs
-                    .getInt(R.styleable.TextFieldBoxes_counterTextColor, DEFAULT_TEXT_COLOR);
+            this.charCountTextColor = styledAttrs
+                    .getInt(R.styleable.TextFieldBoxes_charCountTextColor, DEFAULT_TEXT_COLOR);
             this.errorColor = styledAttrs
                     .getInt(R.styleable.TextFieldBoxes_errorColor, DEFAULT_ERROR_COLOR);
             this.primaryColor = styledAttrs
@@ -515,6 +566,8 @@ public class TextFieldBoxes extends FrameLayout {
             this.enabled = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_enabled, true);
             this.iconSignifierResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_iconSignifier, 0);
+            this.startIconResourceId = styledAttrs.
+                getResourceId(R.styleable.TextFieldBoxes_startIcon, 0);
             this.endIconResourceId = styledAttrs.
                     getResourceId(R.styleable.TextFieldBoxes_endIcon, 0);
             this.isResponsiveIconColor = styledAttrs
@@ -540,6 +593,9 @@ public class TextFieldBoxes extends FrameLayout {
      * lower the labelText labelText Label when there is no text at losing focus
      */
     protected void deactivate() {
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+        lp.leftMargin = 0;
+        this.floatingLabel.setLayoutParams(lp);
 
         if (this.editText.getText().toString().isEmpty()) {
 
@@ -577,6 +633,11 @@ public class TextFieldBoxes extends FrameLayout {
      * raise the labelText labelText Label when gaining focus
      */
     protected void activate(boolean animated) {
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) this.floatingLabel.getLayoutParams();
+        lp.leftMargin = getStartIconWidth();
+        this.floatingLabel.setLayoutParams(lp);
+
 
         this.editText.setAlpha(1);
 
@@ -718,6 +779,21 @@ public class TextFieldBoxes extends FrameLayout {
                                 R.dimen.dense_end_icon_min_width
                 )
         );
+        /*Start Icon*/
+        this.startIconImageButton.setMinimumHeight(
+            res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                    R.dimen.start_icon_min_height :
+                    R.dimen.dense_start_icon_min_height
+            )
+        );
+        this.startIconImageButton.setMinimumWidth(
+            res.getDimensionPixelOffset(
+                useDenseSpacing ?
+                    R.dimen.start_icon_min_width :
+                    R.dimen.dense_start_icon_min_width
+            )
+        );
 
         /* Clear Icon */
         this.clearButton.setMinimumHeight(
@@ -856,7 +932,7 @@ public class TextFieldBoxes extends FrameLayout {
         this.onError = false;
         if (this.hasFocus) setHighlightColor(this.primaryColor);
         else setHighlightColor(this.secondaryColor);
-        this.counterLabel.setTextColor(this.counterTextColor);
+        this.counterLabel.setTextColor(this.charCountTextColor);
     }
 
     /**
@@ -912,7 +988,7 @@ public class TextFieldBoxes extends FrameLayout {
 
         /* Colors */
         setHelperTextColor(this.helperTextColor);
-        setCounterTextColor(this.counterTextColor);
+        setCharCountTextColor(this.charCountTextColor);
         setErrorColor(this.errorColor);
         setPrimaryColor(this.primaryColor);
         setSecondaryColor(this.secondaryColor);
@@ -925,6 +1001,7 @@ public class TextFieldBoxes extends FrameLayout {
         /* Others */
         setEnabled(this.enabled);
         setIconSignifier(this.iconSignifierResourceId);
+        setStartIcon(this.startIconResourceId);
         setEndIcon(this.endIconResourceId);
         setIsResponsiveIconColor(this.isResponsiveIconColor);
         setHasClearButton(this.hasClearButton);
@@ -964,10 +1041,10 @@ public class TextFieldBoxes extends FrameLayout {
         this.helperLabel.setTextColor(this.helperTextColor);
     }
 
-    public void setCounterTextColor(int colorRes) {
+    public void setCharCountTextColor(int colorRes) {
 
-        this.counterTextColor = colorRes;
-        this.counterLabel.setTextColor(this.counterTextColor);
+        this.charCountTextColor = colorRes;
+        this.counterLabel.setTextColor(this.charCountTextColor);
     }
 
     public void setErrorColor(int colorRes) {
@@ -1112,6 +1189,36 @@ public class TextFieldBoxes extends FrameLayout {
         updateClearAndEndIconLayout();
     }
 
+    public void setStartIcon(int resourceID) {
+
+        this.startIconResourceId = resourceID;
+        if (this.startIconResourceId != 0) {
+            this.startIconImageButton.setImageResource(this.startIconResourceId);
+            this.startIconImageButton.setVisibility(View.VISIBLE);
+        } else removeStartIcon();
+
+        updateStartIconLayout();
+    }
+
+    public void setStartIcon(Drawable drawable) {
+
+        removeEndIcon();
+        this.startIconImageButton.setImageDrawable(drawable);
+        this.startIconImageButton.setVisibility(View.VISIBLE);
+
+        updateStartIconLayout();
+    }
+
+    /**
+     * remove the start icon by setting the visibility of the start image view to View.GONE
+     */
+    public void removeStartIcon() {
+        this.startIconResourceId = 0;
+        this.startIconImageButton.setImageDrawable(null);
+        this.startIconImageButton.setVisibility(View.GONE);
+        updateStartIconLayout();
+    }
+
     /**
      * set whether the icon signifier will change its color when gaining or losing focus
      * as the label and the bottomLine do.
@@ -1192,8 +1299,8 @@ public class TextFieldBoxes extends FrameLayout {
         return this.helperTextColor;
     }
 
-    public int getCounterTextColor() {
-        return this.counterTextColor;
+    public int getCharCountTextColor() {
+        return this.charCountTextColor;
     }
 
     public int getErrorColor() {
@@ -1246,6 +1353,10 @@ public class TextFieldBoxes extends FrameLayout {
         return this.iconImageButton;
     }
 
+    public AppCompatImageButton getStartIconImageButton() {
+        return this.startIconImageButton;
+    }
+
     public AppCompatImageButton getEndIconImageButton() {
         return this.endIconImageButton;
     }
@@ -1265,6 +1376,10 @@ public class TextFieldBoxes extends FrameLayout {
 
     public int getIconSignifierResourceId() {
         return this.iconSignifierResourceId;
+    }
+
+    public int getStartIconResourceId() {
+        return this.startIconResourceId;
     }
 
     public int getEndIconResourceId() {
