@@ -9,7 +9,7 @@
 
         <!--Colors-->
         <attr name="helperTextColor" format="color" />
-        <attr name="counterTextColor" format="color" />
+        <attr name="charCountTextColor" format="color" />
         <attr name="errorColor" format="color" />
         <attr name="primaryColor" format="color" />
         <attr name="secondaryColor" format="color" />
@@ -23,6 +23,7 @@
         <attr name="enabled" format="boolean" />
         <attr name="iconSignifier" format="reference" />
         <attr name="endIcon" format="reference" />
+        <attr name="startIcon" format="reference" />
         <attr name="isResponsiveIconColor" format="boolean" />
         <attr name="hasClearButton" format="boolean" />
         <attr name="hasFocus" format="boolean" />

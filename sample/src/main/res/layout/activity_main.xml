@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:labelText="Title"
+            app:startIcon="@drawable/ic_mic_black_24dp"
             app:maxCharacters="20">
 
             <studio.carbonylgroup.textfieldboxes.ExtendedEditText
@@ -65,9 +66,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_weight="2"
-                app:alwaysShowHint="true"
+                app:alwaysShowHint="false"
                 app:endIcon="@drawable/ic_mic_black_24dp"
-                app:hasFocus="true"
+                app:startIcon="@drawable/ic_location_on_black_24dp"
+                app:hasFocus="false"
                 app:helperText=" "
                 app:iconSignifier="@drawable/ic_location_on_black_24dp"
                 app:isResponsiveIconColor="true"
