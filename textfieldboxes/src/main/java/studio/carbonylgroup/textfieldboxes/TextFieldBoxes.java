@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.Space;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.AppCompatTextView;
@@ -26,6 +25,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.Space;
 import android.widget.TextView;
 
 import java.lang.reflect.Field;
@@ -443,6 +443,9 @@ public class TextFieldBoxes extends FrameLayout {
         });
 
         this.editText.addTextChangedListener(new TextWatcher() {
+
+            private String lastValue = "";
+
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 //do nothing
@@ -462,9 +465,16 @@ public class TextFieldBoxes extends FrameLayout {
                 } else {
                     validate(); //this will call updateCounterText(true);
                 }
-                if (textChangeListener != null) {
-                    textChangeListener.onTextChanged(editable.toString(), onError);
+
+                // Only trigger simple watcher when the String actually changed
+
+                if (!lastValue.equals(editable.toString())){
+                    lastValue = editable.toString();
+                    if (textChangeListener != null) {
+                        textChangeListener.onTextChanged(editable.toString(), onError);
+                    }
                 }
+
             }
         });
 
