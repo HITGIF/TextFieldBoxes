@@ -143,6 +143,12 @@ public class TextFieldBoxes extends FrameLayout {
      */
     protected boolean useDenseSpacing;
 
+    /**
+     * whether the field uses a rtl direction for 'Persian (Farsi)' and 'Arabic' languages
+     * False by default.
+     */
+    protected boolean rtl;
+
     protected int labelColor = -1;
     protected int labelTopMargin = -1;
     protected int ANIMATION_DURATION = 100;
@@ -326,7 +332,8 @@ public class TextFieldBoxes extends FrameLayout {
 
             // We add a fake drawableRight to EditText so it will have padding on the right side and text will not go
             // under the icons.
-            mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
+            if (!rtl)
+                mPasswordToggleDummyDrawable.setBounds(0, 0, endIconW + clearButtonW, 0);
 
             final Drawable[] compounds = TextViewCompat.getCompoundDrawablesRelative(editText);
             // Store the user defined end compound drawable so that we can restore it later
@@ -357,7 +364,10 @@ public class TextFieldBoxes extends FrameLayout {
 
         this.editText = findEditTextChild();
         if (editText == null) return;
-        this.addView(LayoutInflater.from(getContext()).inflate(R.layout.text_field_boxes_layout, this, false));
+        this.addView(LayoutInflater.from(getContext()).inflate(rtl ?
+                        R.layout.text_field_boxes_layout_rtl :
+                        R.layout.text_field_boxes_layout,
+                this, false));
         removeView(this.editText);
 
         this.editText.setBackgroundColor(Color.TRANSPARENT);
@@ -510,6 +520,7 @@ public class TextFieldBoxes extends FrameLayout {
             this.hasFocus = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_hasFocus, false);
             this.alwaysShowHint = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_alwaysShowHint, false);
             this.useDenseSpacing = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_useDenseSpacing, false);
+            this.rtl = styledAttrs.getBoolean(R.styleable.TextFieldBoxes_rtl, false);
 
             styledAttrs.recycle();
 
@@ -655,7 +666,7 @@ public class TextFieldBoxes extends FrameLayout {
     /**
      * @deprecated Pseudonym for {@link #validate()} to provide legacy support for
      * a bad PR.
-     *
+     * <p>
      * Note: This does NOT validate that there is an error, it does the opposite
      */
     @Deprecated
@@ -765,8 +776,8 @@ public class TextFieldBoxes extends FrameLayout {
         }
 
         /* Don't Count Space & Line Feed */
-        int length = this.editText.getText().toString() .replaceAll(" ", "")
-                                                        .replaceAll("\n", "").length();
+        int length = this.editText.getText().toString().replaceAll(" ", "")
+                .replaceAll("\n", "").length();
         String lengthStr = Integer.toString(length) + " / ";
         String counterLabelResourceStr = getResources().getString(R.string.counter_label_text_constructor);
         if (this.maxCharacters > 0) {
