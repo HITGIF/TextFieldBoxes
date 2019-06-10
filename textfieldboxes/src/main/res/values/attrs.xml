@@ -9,7 +9,7 @@
 
         <!--Colors-->
         <attr name="helperTextColor" format="color" />
-        <attr name="counterTextColor" format="color" />
+        <attr name="mCounterTextColor" format="color" />
         <attr name="errorColor" format="color" />
         <attr name="primaryColor" format="color" />
         <attr name="secondaryColor" format="color" />

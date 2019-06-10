@@ -3,10 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/TextFieldBoxes.iml" filepath="$PROJECT_DIR$/TextFieldBoxes.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TextFieldBoxes.iml" filepath="$PROJECT_DIR$/TextFieldBoxes.iml" />
       <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/textfieldboxes/textfieldboxes.iml" filepath="$PROJECT_DIR$/textfieldboxes/textfieldboxes.iml" />
       <module fileurl="file://$PROJECT_DIR$/textfieldboxes/textfieldboxes.iml" filepath="$PROJECT_DIR$/textfieldboxes/textfieldboxes.iml" />
     </modules>
   </component>

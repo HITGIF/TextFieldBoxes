@@ -437,7 +437,7 @@ textFieldBoxes.validate()
 | Attribute | Description | Default |
 | --- | --- | --- |
 | `app:helperTextColor` | Helper text color | Current theme `textColorTertiary` |
-| `app:counterTextColor` | Counter text color | Current theme `textColorTertiary` |
+| `app:mCounterTextColor` | Counter text color | Current theme `textColorTertiary` |
 | `app:errorColor` | The color that is used to indicate error (e.g. exceeding max characters, `setError()`) | `A400 red` |
 | `app:primaryColor` | The color for the underline, the floating label text and the icon signifier **when HAVING FOCUS** | Current theme `colorPrimary` |
 | `app:secondaryColor` | The color for the underline, the floating label text and the icon signifier **when NOT HAVING FOCUS** | Current theme `textColorTertiary` |

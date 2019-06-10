@@ -70,7 +70,7 @@
                     android:textSize="@dimen/label_text_size"
                     tools:text="Label" />
 
-                <android.support.v4.widget.Space
+                <android.widget.Space
                     android:id="@+id/text_field_boxes_label_space"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/label_space_height"
@@ -123,7 +123,7 @@
 
                 </LinearLayout>
 
-                <android.support.v4.widget.Space
+                <android.widget.Space
                     android:id="@+id/text_field_boxes_label_space_below"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/label_space_height"

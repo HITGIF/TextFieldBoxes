@@ -439,7 +439,7 @@ textFieldBoxes.validate()
 | 属性 | 描述 | 默认值 |
 | --- | --- | --- |
 | `app:helperTextColor` | 帮助文本颜色 | 目前主题 `textColorTertiary` |
-| `app:counterTextColor` | 计数文本颜色 | 目前主题 `textColorTertiary` |
+| `app:mCounterTextColor` | 计数文本颜色 | 目前主题 `textColorTertiary` |
 | `app:errorColor` | 错误时的显示颜色 (e.g. 超出字符限制, `setError()`) | `A400 red` |
 | `app:primaryColor` | 底部的线、标签文字和首图标在**获得焦点时**的颜色 | 目前主题 `colorPrimary` |
 | `app:secondaryColor` | 底部的线、标签文字和首图标在**失去焦点时**的颜色 | 目前主题 `textColorTertiary` |
