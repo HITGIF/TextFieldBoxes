@@ -21,7 +21,7 @@ A new Material Design text field that comes in a box, based on [Google Material 
 ## ***UPDATE NOTICE***
 
 #### 1.4.5 Release
-- Fix 'attr/counterTextColor' name conflict (#97 #99 #105). The 'counterTextColor' property is now renamed to 'mCounterTextColor'.
+- Fix 'attr/counterTextColor' name conflict (#97 #99 #105). The `counterTextColor` property is now renamed to `mCounterTextColor`.
 
 #### 1.4.4 Release
 - Layout updated to support bigger clear icon and end icons (#72).
