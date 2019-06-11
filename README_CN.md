@@ -18,6 +18,9 @@
 ​
 ## ***更新注意***
 
+#### 1.4.5 Release
+- 修复 'attr/counterTextColor' 命名冲突 (#97 #99 #105)。 `counterTextColor` 属性已更名为 `mCounterTextColor`。
+
 #### 1.4.4 Release
 - 更新布局以支持更大的清除按钮与末图标 (#72)。
 
