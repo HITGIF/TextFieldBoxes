@@ -477,7 +477,7 @@ textFieldBoxes.validate()
 ​
 ## 开源许可
 
-    Copyright 2017 Carbonylgroup Studio
+    Copyright 2020 Mark Wang
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
