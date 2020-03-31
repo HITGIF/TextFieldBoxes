@@ -49,7 +49,7 @@ allprojects {
 ```
 ```groovy
 dependencies {
-    compile 'com.github.HITGIF:TextFieldBoxes:1.4.4'
+    compile 'com.github.HITGIF:TextFieldBoxes:1.4.5'
 }
 ```
 
@@ -66,7 +66,7 @@ dependencies {
 <dependency>
     <groupId>com.github.HITGIF</groupId>
     <artifactId>TextFieldBoxes</artifactId>
-    <version>1.4.4</version>
+    <version>1.4.5</version>
 </dependency>
 ```
 
@@ -75,7 +75,7 @@ dependencies {
 resolvers += "jitpack" at "https://jitpack.io"
 ```
 ```scala
-libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.4"
+libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.5"
 ```
 
 
@@ -84,7 +84,7 @@ libraryDependencies += "com.github.HITGIF" % "TextFieldBoxes" % "1.4.4"
 :repositories [["jitpack" "https://jitpack.io"]]
 ```
 ```scala
-:dependencies [[com.github.hitgif/textfieldboxes "1.4.4"]]
+:dependencies [[com.github.hitgif/textfieldboxes "1.4.5"]]
 ```
 
 ​
